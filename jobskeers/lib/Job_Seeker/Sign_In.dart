@@ -90,7 +90,7 @@ class _JobSeekerSigninScreenState extends State<JobSeekerSigninScreen> {
                                         style: BorderStyle.none,
                                       ),
                                     ),
-                                    prefixIcon: Icon(Icons.email, color: Colors.teal.shade400)
+                                    prefixIcon: Icon(Icons.email, color:  Color(0xff03438C))
                                 ),
                                 autovalidateMode: AutovalidateMode.onUserInteraction,
                                 validator: (text){
@@ -135,11 +135,11 @@ class _JobSeekerSigninScreenState extends State<JobSeekerSigninScreen> {
                                         style: BorderStyle.none,
                                       ),
                                     ),
-                                    prefixIcon: Icon(Icons.password, color:  Colors.teal.shade400),
+                                    prefixIcon: Icon(Icons.password, color:   Color(0xff03438C)),
                                     suffixIcon:IconButton (
                                       icon: Icon(
                                         _passwordVisible? Icons.visibility : Icons.visibility_off,
-                                        color:  Colors.teal.shade400,
+                                        color:   Color(0xff03438C),
                                       ), onPressed: () {
 
                                       // update the state i.e. toggle the state of passwordVisible variable
@@ -172,7 +172,7 @@ class _JobSeekerSigninScreenState extends State<JobSeekerSigninScreen> {
 
                             ElevatedButton(
                               style: ElevatedButton.styleFrom(
-                                  primary: Colors.teal.shade400,
+                                  primary:  Color(0xff03438C),
                                   onPrimary: Colors.grey.shade200,
                                   elevation: 0,
                                   shape: RoundedRectangleBorder(
@@ -205,7 +205,7 @@ class _JobSeekerSigninScreenState extends State<JobSeekerSigninScreen> {
                               child: Text (
                                 "Forgot Password?",
                                 style: TextStyle(
-                                  color:  Colors.teal.shade400,
+                                  color:   Color(0xff03438C),
                                   fontSize: 17,
                                   fontWeight: FontWeight.bold,
 
@@ -220,17 +220,15 @@ class _JobSeekerSigninScreenState extends State<JobSeekerSigninScreen> {
                                 //Navigator.push(context, MaterialPageRoute(builder: (context)=> RegisterScreen()));
                               },
                               child: Text (
-                                "Don't an account? Sing up ",
+                                "Don't an account? Register ",
                                 style: TextStyle(
-                                  color: Colors.teal.shade400,
+                                  color:  Color(0xff03438C),
                                   fontSize: 17,
                                   fontWeight: FontWeight.bold,
 
                                 ),
                               ),
                             ),
-
-
 
                           ],
                         ),
