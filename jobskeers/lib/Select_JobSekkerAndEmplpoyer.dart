@@ -11,7 +11,22 @@ class _SelectJobSekkerAndEmplpoyerState extends State<SelectJobSekkerAndEmplpoye
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      body: Column(
+        children: [
 
+          // Banner Photo
+          Container(
+            width: double.maxFinite,
+            height: 400,
+            color: Colors.redAccent.shade100,
+          ),
+
+          // Select Job Seeker
+          Container(),
+          // Select Employer
+          Container(),
+        ],
+      ),
     );
   }
 }
