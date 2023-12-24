@@ -1,22 +1,20 @@
 import 'package:email_validator/email_validator.dart';
-import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+//import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
-import 'package:user_mode/globel/global.dart';
-import 'package:user_mode/screens/main_screen.dart';
 
 
-class RegisterScreen extends StatefulWidget {
-  const RegisterScreen({super.key});
+
+class JobSeekerRegisterScreen extends StatefulWidget {
+  const JobSeekerRegisterScreen({super.key});
 
   @override
-  State<RegisterScreen> createState() => _RegisterScreenState();
+  State<JobSeekerRegisterScreen> createState() => _JobSeekerRegisterScreenState();
 }
 
-class _RegisterScreenState extends State<RegisterScreen> {
+class _JobSeekerRegisterScreenState extends State<JobSeekerRegisterScreen> {
 
   final UserNameTextEditingController = TextEditingController();
   final UserEmailTextEditingController = TextEditingController();
