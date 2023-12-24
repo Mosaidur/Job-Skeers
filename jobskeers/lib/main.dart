@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 
+import 'Job_Seeker/Sign_In.dart';
 import 'Select_JobSekkerAndEmplpoyer.dart';
 import 'SplashScreen.dart';
 
@@ -21,7 +22,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: SelectJobSekkerAndEmplpoyer(),
+      home: JobSeekerSigninScreen(),
     );
   }
 }
