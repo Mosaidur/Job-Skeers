@@ -46,14 +46,14 @@ class _JobSeekerSigninScreenState extends State<JobSeekerSigninScreen> {
           children: [
             Column(
               children: [
-                Image.asset( "image/log-in.png"),
+                Image.asset( "assets/images/Login as A Job Seeker.jpg"),
 
                 SizedBox(height: 20,),
 
                 Text(
-                  "Login",
+                  "Login as A Job Seeker",
                   style:  TextStyle(
-                    color:  Colors.teal.shade400,
+                    color:  Color(0xff03438C),
                     fontSize: 25,
                     fontWeight: FontWeight.bold,
                   ),
