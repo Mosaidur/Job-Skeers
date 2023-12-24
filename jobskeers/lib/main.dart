@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 
 
-import 'Job_Seeker/Sign_In.dart';
-import 'Job_Seeker/Sign_Up.dart';
+import 'Job_Seeker/JobSeekerForgetPass.dart';
+import 'Job_Seeker/JobSeekerSign_In.dart';
+import 'Job_Seeker/JobSeekerRegister.dart';
 import 'Select_JobSekkerAndEmplpoyer.dart';
 import 'SplashScreen.dart';
 
@@ -23,7 +24,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: JobSeekerRegisterScreen(),
+      home: JobSeekerForgetPassScreen(),
     );
   }
 }

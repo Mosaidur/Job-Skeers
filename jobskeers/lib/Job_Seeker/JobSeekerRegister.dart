@@ -60,14 +60,14 @@ class _JobSeekerRegisterScreenState extends State<JobSeekerRegisterScreen> {
           children: [
             Column(
               children: [
-                Image.asset("image/multitasking.png"),
+                Image.asset("assets/images/Register as Job Seeker.jpg"),
 
                 SizedBox(height: 20,),
 
                 Text(
-                  "Register",
+                  "Register as Job Seeker",
                   style:  TextStyle(
-                    color: Colors.teal.shade400,
+                    color: Color(0xff03438C),
                     fontSize: 25,
                     fontWeight: FontWeight.bold,
                   ),
@@ -104,7 +104,7 @@ class _JobSeekerRegisterScreenState extends State<JobSeekerRegisterScreen> {
                                         style: BorderStyle.none,
                                       ),
                                     ),
-                                    prefixIcon: Icon(Icons.person, color: Colors.teal.shade400)
+                                    prefixIcon: Icon(Icons.person, color: Color(0xff03438C))
                                 ),
                                 autovalidateMode: AutovalidateMode.onUserInteraction,
                                 validator: (text){
@@ -145,7 +145,7 @@ class _JobSeekerRegisterScreenState extends State<JobSeekerRegisterScreen> {
                                         style: BorderStyle.none,
                                       ),
                                     ),
-                                    prefixIcon: Icon(Icons.email, color: Colors.teal.shade400)
+                                    prefixIcon: Icon(Icons.email, color: Color(0xff03438C))
                                 ),
                                 autovalidateMode: AutovalidateMode.onUserInteraction,
                                 validator: (text){
@@ -175,7 +175,7 @@ class _JobSeekerRegisterScreenState extends State<JobSeekerRegisterScreen> {
                               showCountryFlag: true,
                               dropdownIcon: Icon(
                                 Icons.arrow_drop_down,
-                                color: Colors.teal.shade400,
+                                color: Color(0xff03438C),
                               ),
                               decoration: InputDecoration (
                                 hintText: "Phone Number",
@@ -219,7 +219,7 @@ class _JobSeekerRegisterScreenState extends State<JobSeekerRegisterScreen> {
                                         style: BorderStyle.none,
                                       ),
                                     ),
-                                    prefixIcon: Icon(Icons.house, color: Colors.teal.shade400)
+                                    prefixIcon: Icon(Icons.house, color: Color(0xff03438C))
                                 ),
                                 autovalidateMode: AutovalidateMode.onUserInteraction,
                                 validator: (text){
@@ -261,11 +261,11 @@ class _JobSeekerRegisterScreenState extends State<JobSeekerRegisterScreen> {
                                         style: BorderStyle.none,
                                       ),
                                     ),
-                                    prefixIcon: Icon(Icons.password, color: Colors.teal.shade400),
+                                    prefixIcon: Icon(Icons.password, color: Color(0xff03438C)),
                                     suffixIcon:IconButton (
                                       icon: Icon(
                                         _passwordVisible? Icons.visibility : Icons.visibility_off,
-                                        color: Colors.teal.shade400,
+                                        color: Color(0xff03438C),
                                       ), onPressed: () {
 
                                       // update the state i.e. toggle the state of passwordVisible variable
@@ -316,11 +316,11 @@ class _JobSeekerRegisterScreenState extends State<JobSeekerRegisterScreen> {
                                         style: BorderStyle.none,
                                       ),
                                     ),
-                                    prefixIcon: Icon(Icons.password_sharp, color: Colors.teal.shade400),
+                                    prefixIcon: Icon(Icons.password_sharp, color: Color(0xff03438C)),
                                     suffixIcon:IconButton (
                                       icon: Icon(
                                         _ConfirmpasswordVisible? Icons.visibility : Icons.visibility_off,
-                                        color: Colors.teal.shade400,
+                                        color: Color(0xff03438C),
                                       ), onPressed: () {
 
                                       // update the state i.e. toggle the state of passwordVisible variable
@@ -356,7 +356,7 @@ class _JobSeekerRegisterScreenState extends State<JobSeekerRegisterScreen> {
 
                             ElevatedButton(
                               style: ElevatedButton.styleFrom(
-                                  primary: Colors.teal.shade400,
+                                  primary: Color(0xff03438C),
                                   onPrimary: Colors.grey.shade200,
                                   elevation: 0,
                                   shape: RoundedRectangleBorder(
@@ -386,7 +386,7 @@ class _JobSeekerRegisterScreenState extends State<JobSeekerRegisterScreen> {
                               child: Text (
                                 "Forgot Password?",
                                 style: TextStyle(
-                                  color: Colors.teal.shade400,
+                                  color: Color(0xff03438C),
                                   fontSize: 17,
                                   fontWeight: FontWeight.bold,
 
@@ -404,7 +404,7 @@ class _JobSeekerRegisterScreenState extends State<JobSeekerRegisterScreen> {
                               child: Text (
                                 "Have an account? Sing in ",
                                 style: TextStyle(
-                                  color: Colors.teal.shade400,
+                                  color: Color(0xff03438C),
                                   fontSize: 17,
                                   fontWeight: FontWeight.bold,
 
