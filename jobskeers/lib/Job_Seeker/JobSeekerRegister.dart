@@ -5,6 +5,8 @@ import 'package:flutter/services.dart';
 //import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 
+import 'JobSeekerForgetPass.dart';
+import 'JobSeekerSign_In.dart';
 import 'Widgets/Verification_Redio_button.dart';
 
 
@@ -384,6 +386,7 @@ class _JobSeekerRegisterScreenState extends State<JobSeekerRegisterScreen> {
                               ],
                             ),
 
+                            SizedBox(height: 10,),
 
                             ElevatedButton(
                               style: ElevatedButton.styleFrom(
@@ -398,6 +401,7 @@ class _JobSeekerRegisterScreenState extends State<JobSeekerRegisterScreen> {
 
                               onPressed: (){
                                 //_submit();
+                                //Navigator.push(context, MaterialPageRoute(builder: (context)=> JobSeekerSigninScreen()));
                               },
 
                               child: Text(
@@ -413,7 +417,9 @@ class _JobSeekerRegisterScreenState extends State<JobSeekerRegisterScreen> {
                             SizedBox(height: 10,),
 
                             GestureDetector(
-                              onTap: (){},
+                              onTap: (){
+                                Navigator.push(context, MaterialPageRoute(builder: (context)=> JobSeekerForgetPassScreen()));
+                              },
                               child: Text (
                                 "Forgot Password?",
                                 style: TextStyle(
@@ -429,7 +435,7 @@ class _JobSeekerRegisterScreenState extends State<JobSeekerRegisterScreen> {
 
                             GestureDetector(
                               onTap: (){
-                                //Navigator.push(context, MaterialPageRoute(builder: (context)=> LoginScreen()));
+                                Navigator.push(context, MaterialPageRoute(builder: (context)=> JobSeekerSigninScreen()));
 
                               },
                               child: Text (
