@@ -3,6 +3,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import 'JobSeekerForgetPass.dart';
+import 'JobSeekerRegister.dart';
+
 
 
 class JobSeekerSigninScreen extends StatefulWidget {
@@ -199,7 +202,7 @@ class _JobSeekerSigninScreenState extends State<JobSeekerSigninScreen> {
 
                             GestureDetector(
                               onTap: (){
-                               // Navigator.push(context, MaterialPageRoute(builder: (context) =>  ForgotPasswordScreen()));
+                                Navigator.push(context, MaterialPageRoute(builder: (context) =>  JobSeekerForgetPassScreen()));
 
                               },
                               child: Text (
@@ -217,7 +220,7 @@ class _JobSeekerSigninScreenState extends State<JobSeekerSigninScreen> {
 
                             GestureDetector(
                               onTap: (){
-                                //Navigator.push(context, MaterialPageRoute(builder: (context)=> RegisterScreen()));
+                                Navigator.push(context, MaterialPageRoute(builder: (context)=> JobSeekerRegisterScreen()));
                               },
                               child: Text (
                                 "Don't an account? Register ",

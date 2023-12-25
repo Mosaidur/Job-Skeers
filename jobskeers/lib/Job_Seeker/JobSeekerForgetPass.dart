@@ -2,11 +2,16 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+
+import 'JobSeekerRegister.dart';
+import 'JobSeekerSign_In.dart';
 //import 'package:fluttertoast/fluttertoast.dart';
 
 
 class JobSeekerForgetPassScreen extends StatefulWidget {
-  const JobSeekerForgetPassScreen({super.key});
+  JobSeekerForgetPassScreen({super.key});
+  late String select = "Phone Number";
+
 
   @override
   State<JobSeekerForgetPassScreen> createState() => _JobSeekerForgetPassScreenState();
@@ -18,6 +23,8 @@ class _JobSeekerForgetPassScreenState extends State<JobSeekerForgetPassScreen> {
   final UserPasswordTextEditingController = TextEditingController();
 
   final _formkey = GlobalKey<FormState>();
+
+  List<String> method = ["Phone Number", "Email"];
 
   // void _submit (){
   //   showDialog(
@@ -77,13 +84,38 @@ class _JobSeekerForgetPassScreenState extends State<JobSeekerForgetPassScreen> {
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
 
+                              // Select Account Finding mathod
+
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.all(10.0),
+                                    child: Text(
+                                        "Select the Account Finding Methods",
+                                      style: TextStyle(
+                                        color: Color(0xff03438C),
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 17
+                                      ),
+                                    ),
+                                  ),
+                                  Row(
+                                    children: <Widget>[
+                                      addRadioButton(0, 'Phone Number'),
+                                      addRadioButton(1, 'Email'),
+                                    ],
+                                  ),
+                                ],
+                              ),
+
                               //Email form field
                               TextFormField(
                                   inputFormatters: [
                                     LengthLimitingTextInputFormatter(100),
                                   ],
                                   decoration: InputDecoration(
-                                      hintText: "Email or Phone Number",
+                                      hintText: widget.select == "Phone Number" ? "Phone Number" : "Email",
                                       hintStyle: TextStyle(
                                         color: Colors.grey,
                                       ),
@@ -122,6 +154,7 @@ class _JobSeekerForgetPassScreenState extends State<JobSeekerForgetPassScreen> {
 
                               SizedBox(height: 20,),
 
+
                               ElevatedButton(
                                 style: ElevatedButton.styleFrom(
                                     primary: Color(0xff03438C),
@@ -138,7 +171,7 @@ class _JobSeekerForgetPassScreenState extends State<JobSeekerForgetPassScreen> {
                                 },
 
                                 child: Text(
-                                  "Send Reset Password Link",
+                                  "Find Your Account",
                                   style:TextStyle(
                                     fontWeight: FontWeight.bold,
                                     fontSize: 20,
@@ -151,7 +184,7 @@ class _JobSeekerForgetPassScreenState extends State<JobSeekerForgetPassScreen> {
 
                               GestureDetector(
                                 onTap: (){
-                                  //Navigator.push(context, MaterialPageRoute(builder: (context) =>  LoginScreen()));
+                                  Navigator.push(context, MaterialPageRoute(builder: (context) =>  JobSeekerSigninScreen()));
                                 },
                                 child: Text (
                                   "Have an account? Sing in ",
@@ -164,22 +197,29 @@ class _JobSeekerForgetPassScreenState extends State<JobSeekerForgetPassScreen> {
                                 ),
                               ),
 
-                              // SizedBox(height: 15,),
-                              //
-                              // GestureDetector(
-                              //   onTap: (){
-                              //     Navigator.push(context, MaterialPageRoute(builder: (context)=> RegisterScreen()));
-                              //   },
-                              //   child: Text (
-                              //     "Don't an account? Sing up ",
-                              //     style: TextStyle(
-                              //       color: darktheme? Colors.white: Colors.teal.shade400,
-                              //       fontSize: 17,
-                              //       fontWeight: FontWeight.bold,
-                              //
-                              //     ),
-                              //   ),
-                              // ),
+                              SizedBox(height: 5,),
+
+                              Text("Or,",style: TextStyle(
+                                color: Color(0xff03438C),
+                                fontSize: 17,
+                                fontWeight: FontWeight.bold,
+                              ),),
+
+
+                              GestureDetector(
+                                onTap: (){
+                                  Navigator.push(context, MaterialPageRoute(builder: (context)=> JobSeekerRegisterScreen()));
+                                },
+                                child: Text (
+                                  "Don't an account? Sing up ",
+                                  style: TextStyle(
+                                    color: Color(0xff03438C),
+                                    fontSize: 17,
+                                    fontWeight: FontWeight.bold,
+
+                                  ),
+                                ),
+                              ),
 
 
 
@@ -197,4 +237,28 @@ class _JobSeekerForgetPassScreenState extends State<JobSeekerForgetPassScreen> {
       ),
     );
   }
+
+  Row addRadioButton(int btnValue, String title) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: <Widget>[
+        Radio(
+          activeColor: Color(0xff03438C),
+          value: method[btnValue],
+          groupValue: widget.select,
+          onChanged: (value) {
+            setState(() {
+              print(value);
+              widget.select = value.toString();
+            });
+          },
+        ),
+        Text(title),
+      ],
+    );
+  }
+
+
+
+
 }

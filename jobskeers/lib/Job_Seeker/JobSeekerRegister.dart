@@ -373,7 +373,9 @@ class _JobSeekerRegisterScreenState extends State<JobSeekerRegisterScreen> {
                                   child: Text(
                                     "Select Verification Method.",
                                   style: TextStyle(
-                                    color: Color(0xff03438C)
+                                    color: Color(0xff03438C),
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 17
                                   ),
                                   ),
                                 ),
