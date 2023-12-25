@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class Radio_Button extends StatefulWidget {
-  String select;
+  String select = "Phone Number";
 
   Radio_Button({required this.select});
 

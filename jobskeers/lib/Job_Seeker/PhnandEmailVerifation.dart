@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class Registration_OTPVerfication extends StatefulWidget {
-  const Registration_OTPVerfication({Key? key});
+  Registration_OTPVerfication({Key? key, required this.value, required this.phone_number});
+  late final String value;
+  final String phone_number;
 
   @override
   State<Registration_OTPVerfication> createState() =>
@@ -53,7 +55,7 @@ class _Registration_OTPVerficationState
             ),
 
             Text(
-              "We have send the verification code to \n +88017*****519",
+              "We have send the verification code to \n ${widget.phone_number!= null ? "number is missing" : widget.phone_number }",
               style: TextStyle(
                 color: Color(0xff03438C),
                 fontWeight: FontWeight.bold,
@@ -66,7 +68,7 @@ class _Registration_OTPVerficationState
 
               },
               child: Text(
-              "Change Phone number or Email?",
+              "Change ${widget.value != null ? "Phone Number or Email" : widget.value }?",
               style: TextStyle(
                 color: Color(0xff03438C),
                 fontWeight: FontWeight.bold,

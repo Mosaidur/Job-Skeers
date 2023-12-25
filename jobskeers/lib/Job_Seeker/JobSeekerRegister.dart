@@ -402,7 +402,9 @@ class _JobSeekerRegisterScreenState extends State<JobSeekerRegisterScreen> {
 
                               onPressed: (){
                                 //_submit();
-                                Navigator.push(context, MaterialPageRoute(builder: (context)=> Registration_OTPVerfication()));
+                                Navigator.push(context, MaterialPageRoute(builder: (context)=> Registration_OTPVerfication(
+                                  value: select,
+                                  phone_number: UserPhoneNumberTextEditingController.text ,)));
                               },
 
                               child: Text(
