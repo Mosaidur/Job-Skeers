@@ -21,7 +21,8 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(seedColor: Color(0xff03438C),
+      ),
         useMaterial3: true,
       ),
       home: JobSeekerForgetPassScreen(),

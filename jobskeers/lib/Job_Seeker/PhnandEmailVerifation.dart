@@ -1,38 +1,75 @@
-// import 'package:flutter/material.dart';
-//
-// class OTPScreen extends StatelessWidget {
-//   const OTPScreen({Key? key}) : super(key: key);
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       body: Container(
-//         padding: const EdgeInsets.all(tDefaultSize),
-//         child: Column(
-//           mainAxisAlignment: MainAxisAlignment.center,
-//           children: [
-//             Text(
-//               tOtpTitle,
-//               style: GoogleFonts.montserrat(fontWeight: FontWeight.bold, fontSize: 80.0),
-//             ),
-//             Text(tOtpSubTitle.toUpperCase(), style: Theme.of(context).textTheme.headline6),
-//             const SizedBox(height: 40.0),
-//             const Text("$tOtpMessage support@codingwitht.com", textAlign: TextAlign.center),
-//             const SizedBox(height: 20.0),
-//             OtpTextField(
-//                 mainAxisAlignment: MainAxisAlignment.center,
-//                 numberOfFields: 6,
-//                 fillColor: Colors.black.withOpacity(0.1),
-//                 filled: true,
-//                 onSubmit: (code) => print("OTP is => $code")),
-//             const SizedBox(height: 20.0),
-//             SizedBox(
-//               width: double.infinity,
-//               child: ElevatedButton(onPressed: () {}, child: const Text(tNext)),
-//             ),
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-// }
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+
+class Registration_OTPVerfication extends StatefulWidget {
+  const Registration_OTPVerfication({Key? key});
+
+  @override
+  State<Registration_OTPVerfication> createState() =>
+      _Registration_OTPVerficationState();
+}
+
+class _Registration_OTPVerficationState
+    extends State<Registration_OTPVerfication> {
+  late TextEditingController _textController;
+
+  @override
+  void initState() {
+    super.initState();
+    _textController = TextEditingController();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Color(0xffcae6f1),
+      body: Center(
+        child: Padding(
+          padding: const EdgeInsets.all(12.0),
+          child: Form(
+            child: Row(
+              children: [
+                SizedBox(
+                  height: 68,
+                  width: 64,
+                  child: TextFormField(
+                    controller: _textController,
+                    onChanged: (value) {
+                      if (value.length == 1) {
+                        FocusScope.of(context).nextFocus();
+                      }
+                    },
+                    style: Theme.of(context).textTheme.bodyLarge,
+                    decoration: InputDecoration(
+                      counterStyle: TextStyle(color: Color(0xff03438C)),
+                      hintText: "0",
+                      hintStyle: TextStyle(
+                        color: Colors.grey,
+                        fontSize: 17,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      contentPadding: EdgeInsets.symmetric(horizontal: 22),
+                    ),
+                    keyboardType: TextInputType.number,
+                    textAlign: TextAlign.center,
+                    inputFormatters: [
+                      LengthLimitingTextInputFormatter(1),
+                      FilteringTextInputFormatter.digitsOnly,
+                    ],
+                  ),
+                )
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  @override
+  void dispose() {
+    _textController.dispose();
+    super.dispose();
+  }
+}

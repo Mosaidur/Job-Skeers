@@ -7,6 +7,7 @@ import 'package:intl_phone_field/intl_phone_field.dart';
 
 import 'JobSeekerForgetPass.dart';
 import 'JobSeekerSign_In.dart';
+import 'PhnandEmailVerifation.dart';
 import 'Widgets/Verification_Redio_button.dart';
 
 
@@ -401,7 +402,7 @@ class _JobSeekerRegisterScreenState extends State<JobSeekerRegisterScreen> {
 
                               onPressed: (){
                                 //_submit();
-                                //Navigator.push(context, MaterialPageRoute(builder: (context)=> JobSeekerSigninScreen()));
+                                Navigator.push(context, MaterialPageRoute(builder: (context)=> Registration_OTPVerfication()));
                               },
 
                               child: Text(
