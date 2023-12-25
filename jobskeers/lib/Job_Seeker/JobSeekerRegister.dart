@@ -5,10 +5,14 @@ import 'package:flutter/services.dart';
 //import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 
+import 'Widgets/Verification_Redio_button.dart';
+
 
 
 class JobSeekerRegisterScreen extends StatefulWidget {
-  const JobSeekerRegisterScreen({super.key});
+   JobSeekerRegisterScreen({super.key});
+
+   //String select;
 
   @override
   State<JobSeekerRegisterScreen> createState() => _JobSeekerRegisterScreenState();
@@ -26,6 +30,8 @@ class _JobSeekerRegisterScreenState extends State<JobSeekerRegisterScreen> {
   bool _passwordVisible = false;
   bool _ConfirmpasswordVisible = false;
 
+  late String select;
+
 
   // declare a GlobalKey
   final _formkey = GlobalKey<FormState>();
@@ -42,6 +48,8 @@ class _JobSeekerRegisterScreenState extends State<JobSeekerRegisterScreen> {
   //   );
   //
   // }
+
+
 
 
 
@@ -81,8 +89,8 @@ class _JobSeekerRegisterScreenState extends State<JobSeekerRegisterScreen> {
                       Form(
                         key: _formkey,
                         child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
+                          //mainAxisAlignment: MainAxisAlignment.center,
+                          //crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
 
                             //Name form field
@@ -152,9 +160,9 @@ class _JobSeekerRegisterScreenState extends State<JobSeekerRegisterScreen> {
                                   if (text == null || text.isEmpty){
                                     return "Email can't be empty";
                                   }
-                                  // if(EmailValidator.validate(text)==true){
-                                  //   return null;
-                                  // }
+                                  if(EmailValidator.validate(text)==true){
+                                    return null;
+                                  }
                                   if (text.length<2){
                                     return "Please enter a valid email";
                                   }
@@ -354,6 +362,27 @@ class _JobSeekerRegisterScreenState extends State<JobSeekerRegisterScreen> {
 
                             SizedBox(height: 10,),
 
+
+                            // Verification method select
+
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(10.0),
+                                  child: Text(
+                                    "Select Verification Method.",
+                                  style: TextStyle(
+                                    color: Color(0xff03438C)
+                                  ),
+                                  ),
+                                ),
+
+                                Radio_Button(select: 'Phone Number'),
+                              ],
+                            ),
+
+
                             ElevatedButton(
                               style: ElevatedButton.styleFrom(
                                   primary: Color(0xff03438C),
@@ -427,5 +456,27 @@ class _JobSeekerRegisterScreenState extends State<JobSeekerRegisterScreen> {
       ),
     );
   }
+
+  // Row addRadioButton(int btnValue, String title) {
+  //   return Row(
+  //     mainAxisAlignment: MainAxisAlignment.start,
+  //     children: <Widget>[
+  //       Radio(
+  //         activeColor: Theme.of(context).primaryColor,
+  //         value: Select_veri_Method [btnValue],
+  //         groupValue: widget.select,
+  //         onChanged: (value) {
+  //           setState(() {
+  //             print(value);
+  //             widget.select = value.toString();
+  //           });
+  //         },
+  //       ),
+  //       Text(title),
+  //     ],
+  //   );
+  // }
+
+
 }
 
