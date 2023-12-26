@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 
 
-import 'Job_Seeker/JobSeekerForgetPass.dart';
-import 'Job_Seeker/JobSeekerSign_In.dart';
-import 'Job_Seeker/JobSeekerRegister.dart';
-import 'Select_JobSekkerAndEmplpoyer.dart';
+import 'Job_Seeker/JobSeekerHomePage.dart';
 import 'SplashScreen.dart';
 
 void main() {
@@ -25,8 +22,8 @@ class MyApp extends StatelessWidget {
       ),
         useMaterial3: true,
       ),
-      home: JobSeekerForgetPassScreen(),
-      //home : JobSeekerRegisterScreen(),
+      //home: JobSeekerHompage(),
+      home : SplashScreen(),
     );
   }
 }

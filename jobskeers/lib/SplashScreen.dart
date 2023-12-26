@@ -14,20 +14,20 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
 
-  // startTimer (){
-  //   Timer (Duration(seconds: 3),
-  //           () => Navigator.push(context,
-  //           MaterialPageRoute(builder: (context) => SelectJobSekkerAndEmplpoyer () ),
-  //           )
-  //   );
-  // }
+  startTimer (){
+    Timer (Duration(seconds: 3),
+            () => Navigator.push(context,
+            MaterialPageRoute(builder: (context) => SelectJobSekkerAndEmplpoyer () ),
+            )
+    );
+  }
 
   @override
 
-  // void initState (){
-  //   super.initState();
-  //   startTimer();
-  // }
+  void initState (){
+    super.initState();
+    startTimer();
+  }
 
   Widget build(BuildContext context) {
     return Scaffold(

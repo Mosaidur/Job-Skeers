@@ -8,7 +8,7 @@ import 'package:intl_phone_field/intl_phone_field.dart';
 import 'JobSeekerForgetPass.dart';
 import 'JobSeekerSign_In.dart';
 import 'PhnandEmailVerifation.dart';
-import 'Widgets/Verification_Redio_button.dart';
+import '../Widgets/Verification_Redio_button.dart';
 
 
 
