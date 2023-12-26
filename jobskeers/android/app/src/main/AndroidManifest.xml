@@ -27,7 +27,12 @@
         <!-- If your app checks for email support -->
         <intent>
             <action android:name="android.intent.action.VIEW" />
-            <data android:scheme="tel" />
+            <data android:scheme="mailto" />
+        </intent>
+        <!-- If your app checks for Ftp support -->
+        <intent>
+            <action android:name="android.intent.action.VIEW" />
+            <data android:scheme="ftp" />
         </intent>
 
 
@@ -43,7 +48,8 @@
     <application
         android:label="jobskeers"
         android:name="${applicationName}"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/ic_launcher"
+        android:usesCleartextTraffic="true">
 
         <activity
             android:name=".MainActivity"

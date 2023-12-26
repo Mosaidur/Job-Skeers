@@ -52,6 +52,8 @@
       <string>tel</string>
       <string>http</string>
       <string>https</string>
+      <string>mailto</string> <!-- Add support for email -->
+      <string>ftp</string>    <!-- Add support for FTP -->
     </array>
 
 
