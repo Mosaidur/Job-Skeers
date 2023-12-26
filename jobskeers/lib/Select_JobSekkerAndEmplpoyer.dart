@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:jobskeers/Job_Seeker/Authentiction%20Pages/JobSeekerRegister.dart';
+
+import 'Job_Seeker/Authentiction Pages/JobSeekerSign_In.dart';
 
 class SelectJobSekkerAndEmplpoyer extends StatefulWidget {
   const SelectJobSekkerAndEmplpoyer({super.key});
@@ -61,7 +64,7 @@ class _SelectJobSekkerAndEmplpoyerState extends State<SelectJobSekkerAndEmplpoye
                   InkWell(
                     onTap: () {
                       // Add your code or function call here
-                      print('InkWell tapped!');
+                      Navigator.push(context, MaterialPageRoute(builder: (context)=> JobSeekerSigninScreen()));
                       // You can perform any action or navigate to a new screen, for example.
                     },
                     child: Container(
@@ -102,7 +105,7 @@ class _SelectJobSekkerAndEmplpoyerState extends State<SelectJobSekkerAndEmplpoye
                   InkWell(
                     onTap: () {
                       // Add your code or function call here
-                      print('InkWell tapped!');
+                      Navigator.push(context, MaterialPageRoute(builder: (context)=> JobSeekerRegisterScreen()));
                       // You can perform any action or navigate to a new screen, for example.
                     },
                     child: Text(
