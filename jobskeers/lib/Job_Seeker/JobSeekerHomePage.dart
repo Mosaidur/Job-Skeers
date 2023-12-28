@@ -24,67 +24,6 @@ class _JobSeekerHompageState extends State<JobSeekerHompage> {
               children: [
 
 
-
-                InkWell(
-                  onTap: () async {
-                    final url = Uri.parse("http://172.16.50.7/");
-
-                    launchUrl(
-                      url,
-                      mode: LaunchMode.inAppWebView
-                    );
-                    //openBrowserURL (url:url, )
-                  },
-                  child: Container(
-                    width: 100,
-                    height: 100,
-                    color: Colors.redAccent,
-                    child: Center(
-                      child: Text(
-                        "Pub.Dev",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 22,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-
-                // InkWell(
-                //   onTap: () async {
-                //     final url = "https://pub.dev/documentation/url_launcher/6.2.2/url_launcher/url_launcher-library.html";
-                //
-                //     // Parse the string URL into a Uri
-                //     final uri = Uri.parse(url);
-                //
-                //     // Call launchUrl with the Uri
-                //     launchUrl(
-                //       uri,
-                //       mode: LaunchMode.inAppBrowserView,
-                //     );
-                //   },
-                //   child: Container(
-                //     width: 100,
-                //     height: 100,
-                //     color: Colors.blue,
-                //     child: Center(
-                //       child: Text(
-                //         "Pub.Dev",
-                //         style: TextStyle(
-                //           color: Colors.white,
-                //           fontWeight: FontWeight.bold,
-                //           fontSize: 22,
-                //         ),
-                //       ),
-                //     ),
-                //   ),
-                // )
-
-
-
-
               ],
             )
           ],
