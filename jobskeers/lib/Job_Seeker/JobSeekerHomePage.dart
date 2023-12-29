@@ -13,6 +13,9 @@ class JobSeekerHompage extends StatefulWidget {
 class _JobSeekerHompageState extends State<JobSeekerHompage> {
 
   String number= "99";
+  String new_jobs ="100";
+  String Live_jobs ="200";
+  String Deadline_tomorrow = "150";
 
   @override
   Widget build(BuildContext context) {
@@ -104,8 +107,7 @@ class _JobSeekerHompageState extends State<JobSeekerHompage> {
                         ),
                       ),
 
-
-
+                      //Menu bar
                       Builder(
                           builder: (context) {
                             return IconButton(
@@ -120,18 +122,93 @@ class _JobSeekerHompageState extends State<JobSeekerHompage> {
                           }
                       )
 
-                      // Padding(
-                      //   padding: const EdgeInsets.all(15.0),
-                      //   child: Icon(
-                      //     Icons.menu,
-                      //     color: Color(0xff03438C),
-                      //   ),
-                      // )
+                    ],
+                  ),
+                ),
+
+                Padding(
+                  padding: const EdgeInsets.only(left: 20.0,top: 15),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+
+                      // New Jobs
+                      Column(
+                        children: [
+                          Text(
+                            new_jobs,
+                            style: TextStyle(
+                              color: Color(0xff03438C),
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18,
+                            ),
+                          ),
+                          Text(
+                              "New Jobs",
+                            style: TextStyle(
+                              color: Color(0xff03438C),
+                              fontWeight: FontWeight.bold,
+                              fontSize: 15,
+                              decoration: TextDecoration.overline,
+                              decorationColor: Color(0xff03438C),
+                            ),
+                          ),
+                        ],
+                      ),
+
+                      // Live Jobs
+                      Column(
+                        children: [
+                          Text(
+                            Live_jobs,
+                            style: TextStyle(
+                              color: Color(0xff03438C),
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18,
+                            ),
+                          ),
+                          Text(
+                            "Live Jobs",
+                            style: TextStyle(
+                              color: Color(0xff03438C),
+                              fontWeight: FontWeight.bold,
+                              fontSize: 15,
+                              decoration: TextDecoration.overline,
+                              decorationColor: Color(0xff03438C),
+
+                            ),
+                          ),
+                        ],
+                      ),
+
+                      // Deadline Tomorrow
+                      Column(
+                        children: [
+                          Text(
+                            Deadline_tomorrow,
+                            style: TextStyle(
+                              color: Color(0xff03438C),
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18,
+                            ),
+                          ),
+                          Text(
+                            "Deadline Tomorrow",
+                            style: TextStyle(
+                              color: Color(0xff03438C),
+                              fontWeight: FontWeight.bold,
+                              fontSize: 15,
+                              decoration: TextDecoration.overline,
+                              decorationColor: Color(0xff03438C),
+                            ),
+                          ),
+                        ],
+                      ),
 
 
                     ],
                   ),
-                ),
+                )
               ],
             ),
           ),
