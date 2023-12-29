@@ -16,14 +16,134 @@ class Mian_Feature extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                    Padding(
+
+                  //Skill test logo and text
+                  Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: Container(
-                        height: 50,
-                        width: 50,
-                        child: Image.asset(""),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Container(
+                            height: 40,
+                            width: 40,
+                            child: Image.asset("assets/icons/Skill Test.png"),
+                          ),
+                          SizedBox(
+                            height: 5,
+                          ),
+                          Text(
+                            "Skill Test",
+                            style: TextStyle(
+                              color: Color(0xff03438C),
+                              fontSize: 15,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
                       ),
                     ),
+
+                  //Learning & Training logo and text
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Container(
+                          height: 40,
+                          width: 40,
+                          child: Image.asset("assets/icons/Learning & trainning.png"),
+                        ),
+                        SizedBox(
+                          height: 5,
+                        ),
+                        Text(
+                          "Learning &",
+                          style: TextStyle(
+                            color: Color(0xff03438C),
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Text(
+                          "Training",
+                          style: TextStyle(
+                            color: Color(0xff03438C),
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+
+                  //Career Toolkit logo and text
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Container(
+                          height: 40,
+                          width: 40,
+                          child: Image.asset("assets/icons/Career Toolkit.png"),
+                        ),
+                        SizedBox(
+                          height: 5,
+                        ),
+                        Text(
+                          "Career",
+                          style: TextStyle(
+                            color: Color(0xff03438C),
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Text(
+                          "Toolkit",
+                          style: TextStyle(
+                            color: Color(0xff03438C),
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+
+                  //Career Counseling logo and text
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Container(
+                          height: 40,
+                          width: 40,
+                          child: Image.asset("assets/icons/Careeer Counseling.png"),
+                        ),
+                        SizedBox(
+                          height: 5,
+                        ),
+                        Text(
+                          "Career",
+                          style: TextStyle(
+                            color: Color(0xff03438C),
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Text(
+                          "Counseling",
+                          style: TextStyle(
+                            color: Color(0xff03438C),
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
 
 
                 ],
