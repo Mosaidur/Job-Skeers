@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import 'Widgets/Hiring_category.dart';
+import 'Widgets/Job_list.dart';
 import 'Widgets/Main_feature.dart';
 
 
@@ -259,21 +260,51 @@ class _JobSeekerHompageState extends State<JobSeekerHompage> {
 
 
             //Recent Job Container
-            Container(
-              alignment: Alignment.centerLeft,
-              margin: EdgeInsets.symmetric(
-                //vertical: 15,
-                horizontal: 20,
-              ),
-              child: Text(
-                "Recent Job",
-                style: TextStyle(
-                  color: Color(0xff03438C),
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20,
-                ),
+            Padding(
+              padding: const EdgeInsets.only(left: 10.0, right: 10.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+
+                  Container(
+                    alignment: Alignment.centerLeft,
+                    margin: EdgeInsets.symmetric(
+                      vertical: 15,
+                      horizontal: 20,
+                    ),
+                    child: Text(
+                      "Recent Job",
+                      style: TextStyle(
+                        color: Color(0xff03438C),
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20,
+                      ),
+                    ),
+                  ),
+
+
+                  Container(
+                    alignment: Alignment.centerLeft,
+                    margin: EdgeInsets.symmetric(
+                      vertical: 15,
+                      horizontal: 20,
+                    ),
+                    child: Text(
+                      "See All",
+                      style: TextStyle(
+                        color: Color(0xff03438C),
+                        //fontWeight: FontWeight.bold,
+                        fontSize: 13,
+                      ),
+                    ),
+                  ),
+
+
+                ],
               ),
             ),
+
+            HomePageJobList(),
 
 
 
