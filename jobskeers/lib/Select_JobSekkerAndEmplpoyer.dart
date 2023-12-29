@@ -126,6 +126,12 @@ class _SelectJobSekkerAndEmplpoyerState extends State<SelectJobSekkerAndEmplpoye
                 ],
               ),
             ),
+
+
+
+
+
+
             // Select Employer
             Container(
               width: double.maxFinite,
@@ -134,7 +140,6 @@ class _SelectJobSekkerAndEmplpoyerState extends State<SelectJobSekkerAndEmplpoye
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-
 
                   Text(
                     "Employer",
