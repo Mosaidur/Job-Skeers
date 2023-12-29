@@ -7,7 +7,7 @@ class Mian_Feature extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       // height: MediaQuery.of(context).size.height ,
-      height: 370 ,
+      height: 240 ,
       child: Column(
         //mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -305,51 +305,51 @@ class Mian_Feature extends StatelessWidget {
             ),
           ),
 
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-
-                //NewsFeed logo and text
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Container(
-                        height: 40,
-                        width: 40,
-                        child: Image.asset("assets/icons/News Feed.png"),
-                      ),
-                      SizedBox(
-                        height: 5,
-                      ),
-                      Text(
-                        "NewsFeed",
-                        style: TextStyle(
-                          color: Color(0xff03438C),
-                          fontSize: 15,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      Text(
-                        "  ",
-                        style: TextStyle(
-                          color: Color(0xff03438C),
-                          fontSize: 15,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-
-
-
-              ],
-            ),
-          ),
+          // Padding(
+          //   padding: const EdgeInsets.all(8.0),
+          //   child: Row(
+          //     mainAxisAlignment: MainAxisAlignment.spaceAround,
+          //     children: [
+          //
+          //       //NewsFeed logo and text
+          //       Padding(
+          //         padding: const EdgeInsets.all(8.0),
+          //         child: Column(
+          //           mainAxisAlignment: MainAxisAlignment.center,
+          //           children: [
+          //             Container(
+          //               height: 40,
+          //               width: 40,
+          //               child: Image.asset("assets/icons/News Feed.png"),
+          //             ),
+          //             SizedBox(
+          //               height: 5,
+          //             ),
+          //             Text(
+          //               "NewsFeed",
+          //               style: TextStyle(
+          //                 color: Color(0xff03438C),
+          //                 fontSize: 15,
+          //                 fontWeight: FontWeight.bold,
+          //               ),
+          //             ),
+          //             Text(
+          //               "  ",
+          //               style: TextStyle(
+          //                 color: Color(0xff03438C),
+          //                 fontSize: 15,
+          //                 fontWeight: FontWeight.bold,
+          //               ),
+          //             ),
+          //           ],
+          //         ),
+          //       ),
+          //
+          //
+          //
+          //     ],
+          //   ),
+          // ),
 
         ],
       ),

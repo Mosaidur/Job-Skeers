@@ -222,8 +222,8 @@ class _JobSeekerHompageState extends State<JobSeekerHompage> {
             Container(
               alignment: Alignment.centerLeft,
               margin: EdgeInsets.symmetric(
-                vertical: 20,
-                horizontal: 10,
+                vertical: 15,
+                horizontal: 20,
               ),
               child: Text(
                 "Main Featuers",
@@ -242,8 +242,8 @@ class _JobSeekerHompageState extends State<JobSeekerHompage> {
             Container(
               alignment: Alignment.centerLeft,
               margin: EdgeInsets.symmetric(
-                vertical: 20,
-                horizontal: 10,
+                //vertical: 15,
+                horizontal: 20,
               ),
               child: Text(
                 "Hiring Category",
@@ -257,6 +257,23 @@ class _JobSeekerHompageState extends State<JobSeekerHompage> {
 
             HiringCategory(),
 
+
+            //Recent Job Container
+            Container(
+              alignment: Alignment.centerLeft,
+              margin: EdgeInsets.symmetric(
+                //vertical: 15,
+                horizontal: 20,
+              ),
+              child: Text(
+                "Recent Job",
+                style: TextStyle(
+                  color: Color(0xff03438C),
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20,
+                ),
+              ),
+            ),
 
 
 
