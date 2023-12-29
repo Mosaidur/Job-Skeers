@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import 'Widgets/Main_feature.dart';
+
 
 class JobSeekerHompage extends StatefulWidget {
   const JobSeekerHompage({super.key});
@@ -20,205 +22,229 @@ class _JobSeekerHompageState extends State<JobSeekerHompage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [
+      body: SingleChildScrollView(
+        scrollDirection: Axis.vertical,
+        child: Column(
+          children: [
 
 
-          // Hadder of the HomePage
-          Container(
-            width: double.maxFinite,
-            height: 200,
-            color: Color(0xffcae6f1),
-            child: Column(
-              children: [
+            // Hadder of the HomePage
+            Container(
+              width: double.maxFinite,
+              height: 200,
+              color: Color(0xffcae6f1),
+              child: Column(
+                children: [
 
 
-                Padding(
-                  padding: const EdgeInsets.only(top: 30.0),
-                  child: Row(
-                    children: [
+                  Padding(
+                    padding: const EdgeInsets.only(top: 30.0),
+                    child: Row(
+                      children: [
 
 
-                      // Image Icon
-                      Padding(
-                        padding: const EdgeInsets.only(left: 20.0,top: 20.0),
-                        child: Container(
-                          height: 70,
-                          // width: 100,
-                          decoration: BoxDecoration(
-                              shape: BoxShape.circle
+                        // Image Icon
+                        Padding(
+                          padding: const EdgeInsets.only(left: 20.0,top: 20.0),
+                          child: Container(
+                            height: 70,
+                            // width: 100,
+                            decoration: BoxDecoration(
+                                shape: BoxShape.circle
+                            ),
+                            child: Image.asset("assets/icons/man_logo.png"),
                           ),
-                          child: Image.asset("assets/icons/man_logo.png"),
                         ),
-                      ),
 
-                      // Search bar
-                      Padding(
-                        padding: const EdgeInsets.only(left: 30.0,right: 8.0),
-                        child: Container(
-                          height: 20,
-                          width: 170,
-                          decoration: BoxDecoration(
-                              color: Colors.white60,
-                              borderRadius: BorderRadius.circular(5)
+                        // Search bar
+                        Padding(
+                          padding: const EdgeInsets.only(left: 30.0,right: 8.0),
+                          child: Container(
+                            height: 20,
+                            width: 170,
+                            decoration: BoxDecoration(
+                                color: Colors.white60,
+                                borderRadius: BorderRadius.circular(5)
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.only(left: 8.0,right: 8.0),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text("Search"),
+                                  Icon(
+                                    Icons.search,
+                                    color: Color(0xff03438C),
+                                  )
+                                ],
+                              ),
+                            ),
                           ),
-                          child: Padding(
-                            padding: const EdgeInsets.only(left: 8.0,right: 8.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text("Search"),
-                                Icon(
-                                  Icons.search,
+                        ),
+
+                        // Notification Icon
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Stack(
+                            alignment: AlignmentDirectional.topEnd ,
+                            children: [
+
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Icon(
+                                  Icons.notifications,
                                   color: Color(0xff03438C),
-                                )
-                              ],
-                            ),
+                                ),
+                              ),
+
+                              Text(
+                                "${number}",
+                                style: TextStyle(
+                                    color: Colors.red,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 15
+                                ),
+                                //textAlign: TextAlign.right,
+                              )
+
+                            ],
                           ),
                         ),
-                      ),
 
-                      // Notification Icon
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Stack(
-                          alignment: AlignmentDirectional.topEnd ,
+                        //Menu bar
+                        Builder(
+                            builder: (context) {
+                              return IconButton(
+                                icon: Icon(
+                                  Icons.menu,
+                                  color: Color(0xff03438C),
+                                ),
+                                onPressed: () {
+                                  Scaffold.of(context).openEndDrawer();
+                                },
+                              );
+                            }
+                        )
+
+                      ],
+                    ),
+                  ),
+
+                  Padding(
+                    padding: const EdgeInsets.only(left: 20.0,top: 15),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+
+                        // New Jobs
+                        Column(
                           children: [
-
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Icon(
-                                Icons.notifications,
+                            Text(
+                              new_jobs,
+                              style: TextStyle(
                                 color: Color(0xff03438C),
+                                fontWeight: FontWeight.bold,
+                                fontSize: 18,
                               ),
                             ),
-
                             Text(
-                              "${number}",
+                                "New Jobs",
                               style: TextStyle(
-                                  color: Colors.red,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 15
+                                color: Color(0xff03438C),
+                                fontWeight: FontWeight.bold,
+                                fontSize: 15,
+                                decoration: TextDecoration.overline,
+                                decorationColor: Color(0xff03438C),
                               ),
-                              //textAlign: TextAlign.right,
-                            )
-
+                            ),
                           ],
                         ),
-                      ),
 
-                      //Menu bar
-                      Builder(
-                          builder: (context) {
-                            return IconButton(
-                              icon: Icon(
-                                Icons.menu,
+                        // Live Jobs
+                        Column(
+                          children: [
+                            Text(
+                              Live_jobs,
+                              style: TextStyle(
                                 color: Color(0xff03438C),
+                                fontWeight: FontWeight.bold,
+                                fontSize: 18,
                               ),
-                              onPressed: () {
-                                Scaffold.of(context).openEndDrawer();
-                              },
-                            );
-                          }
-                      )
-
-                    ],
-                  ),
-                ),
-
-                Padding(
-                  padding: const EdgeInsets.only(left: 20.0,top: 15),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-
-                      // New Jobs
-                      Column(
-                        children: [
-                          Text(
-                            new_jobs,
-                            style: TextStyle(
-                              color: Color(0xff03438C),
-                              fontWeight: FontWeight.bold,
-                              fontSize: 18,
                             ),
-                          ),
-                          Text(
-                              "New Jobs",
-                            style: TextStyle(
-                              color: Color(0xff03438C),
-                              fontWeight: FontWeight.bold,
-                              fontSize: 15,
-                              decoration: TextDecoration.overline,
-                              decorationColor: Color(0xff03438C),
-                            ),
-                          ),
-                        ],
-                      ),
+                            Text(
+                              "Live Jobs",
+                              style: TextStyle(
+                                color: Color(0xff03438C),
+                                fontWeight: FontWeight.bold,
+                                fontSize: 15,
+                                decoration: TextDecoration.overline,
+                                decorationColor: Color(0xff03438C),
 
-                      // Live Jobs
-                      Column(
-                        children: [
-                          Text(
-                            Live_jobs,
-                            style: TextStyle(
-                              color: Color(0xff03438C),
-                              fontWeight: FontWeight.bold,
-                              fontSize: 18,
+                              ),
                             ),
-                          ),
-                          Text(
-                            "Live Jobs",
-                            style: TextStyle(
-                              color: Color(0xff03438C),
-                              fontWeight: FontWeight.bold,
-                              fontSize: 15,
-                              decoration: TextDecoration.overline,
-                              decorationColor: Color(0xff03438C),
+                          ],
+                        ),
 
+                        // Deadline Tomorrow
+                        Column(
+                          children: [
+                            Text(
+                              Deadline_tomorrow,
+                              style: TextStyle(
+                                color: Color(0xff03438C),
+                                fontWeight: FontWeight.bold,
+                                fontSize: 18,
+                              ),
                             ),
-                          ),
-                        ],
-                      ),
-
-                      // Deadline Tomorrow
-                      Column(
-                        children: [
-                          Text(
-                            Deadline_tomorrow,
-                            style: TextStyle(
-                              color: Color(0xff03438C),
-                              fontWeight: FontWeight.bold,
-                              fontSize: 18,
+                            Text(
+                              "Deadline Tomorrow",
+                              style: TextStyle(
+                                color: Color(0xff03438C),
+                                fontWeight: FontWeight.bold,
+                                fontSize: 15,
+                                decoration: TextDecoration.overline,
+                                decorationColor: Color(0xff03438C),
+                              ),
                             ),
-                          ),
-                          Text(
-                            "Deadline Tomorrow",
-                            style: TextStyle(
-                              color: Color(0xff03438C),
-                              fontWeight: FontWeight.bold,
-                              fontSize: 15,
-                              decoration: TextDecoration.overline,
-                              decorationColor: Color(0xff03438C),
-                            ),
-                          ),
-                        ],
-                      ),
+                          ],
+                        ),
 
 
-                    ],
-                  ),
-                )
-              ],
+                      ],
+                    ),
+                  )
+                ],
+              ),
             ),
-          ),
+
+            //Main feature Container
+            Container(
+              alignment: Alignment.centerLeft,
+              margin: EdgeInsets.symmetric(
+                vertical: 20,
+                horizontal: 10,
+              ),
+              child: Text(
+                "Main Featuers",
+                style: TextStyle(
+                  color: Color(0xff03438C),
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20,
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 20,
+            ),
+
+
+            Mian_Feature(),
 
 
 
 
-
-
-        ],
+          ],
+        ),
       ),
       endDrawer: Drawer(
         child: SingleChildScrollView(
