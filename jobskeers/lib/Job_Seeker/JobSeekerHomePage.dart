@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import 'Pages/AllJobsListPage.dart';
 import 'Widgets/Hiring_category.dart';
 import 'Widgets/Job_list.dart';
 import 'Widgets/Main_feature.dart';
@@ -262,17 +263,17 @@ class _JobSeekerHompageState extends State<JobSeekerHompage> {
             //Recent Job Container
             Padding(
               padding: const EdgeInsets.only(left: 10.0, right: 10.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
+              child: Container(
+                alignment: Alignment.centerLeft,
+                margin: EdgeInsets.symmetric(
+                  vertical: 15,
+                  horizontal: 20,
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
 
-                  Container(
-                    alignment: Alignment.centerLeft,
-                    margin: EdgeInsets.symmetric(
-                      vertical: 15,
-                      horizontal: 20,
-                    ),
-                    child: Text(
+                    Text(
                       "Recent Job",
                       style: TextStyle(
                         color: Color(0xff03438C),
@@ -280,30 +281,28 @@ class _JobSeekerHompageState extends State<JobSeekerHompage> {
                         fontSize: 20,
                       ),
                     ),
-                  ),
 
-
-                  Container(
-                    alignment: Alignment.centerLeft,
-                    margin: EdgeInsets.symmetric(
-                      vertical: 15,
-                      horizontal: 20,
-                    ),
-                    child: Text(
-                      "See All",
-                      style: TextStyle(
-                        color: Color(0xff03438C),
-                        //fontWeight: FontWeight.bold,
-                        fontSize: 13,
+                    InkWell(
+                      onTap: (){
+                        Navigator.push(context, MaterialPageRoute(builder: (context)=> AllJobslistPage()));
+                      },
+                      child: Text(
+                        "See All",
+                        style: TextStyle(
+                          color: Color(0xff03438C),
+                          //fontWeight: FontWeight.bold,
+                          fontSize: 13,
+                        ),
                       ),
                     ),
-                  ),
 
-
-                ],
+                  ],
+                ),
               ),
             ),
 
+
+            for (int i=0 ; i<10; i++)
             HomePageJobList(),
 
 

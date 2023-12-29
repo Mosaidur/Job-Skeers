@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import 'RemainingDayCount.dart';
+
 class HomePageJobList extends StatefulWidget {
   const HomePageJobList({super.key});
 
@@ -23,6 +25,7 @@ class _HomePageJobListState extends State<HomePageJobList> {
         child: Column(
           children: [
 
+            //Job title , Company name & Company logo
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -67,6 +70,7 @@ class _HomePageJobListState extends State<HomePageJobList> {
               ],
             ),
 
+            //Salary & Deadline Remaining date
             Container(
               alignment: Alignment.centerLeft,
               margin: EdgeInsets.symmetric(
@@ -74,6 +78,7 @@ class _HomePageJobListState extends State<HomePageJobList> {
                 horizontal: 20,
               ),
               child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
 
                   Text(
@@ -85,14 +90,61 @@ class _HomePageJobListState extends State<HomePageJobList> {
                     ),
                   ),
 
+                  RemainingDate(),
+
+                ],
+              ),
+            ),
+
+            SizedBox(
+              height: 5,
+            ),
+
+            //address & Vacancy
+            Container(
+              alignment: Alignment.centerLeft,
+              margin: EdgeInsets.symmetric(
+                //vertical: 15,
+                horizontal: 20,
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+
+
+                  //Address Office
+                  Row(
+                    children: [
+                      Icon(
+                        Icons.location_on,
+                        color: Color(0xff03438C),
+                      ),
+                      SizedBox(
+                        height: 5,
+                      ),
+                      Text(
+                        "Dhaka,Bangladesh",
+                        style: TextStyle(
+                          color: Color(0xff03438C),
+                          //fontWeight: FontWeight.bold,
+                          fontSize: 15,
+                        ),
+                      ),
+                    ],
+                  ),
+
+
+                  //Total Vaccancy
                   Text(
-                    DateTime.now() as String,
+                    "Vacancy: 3",
                     style: TextStyle(
                       color: Color(0xff03438C),
-                      fontWeight: FontWeight.bold,
+                      //fontWeight: FontWeight.bold,
                       fontSize: 15,
                     ),
                   ),
+
+
                 ],
               ),
             ),
