@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import 'Widgets/Hiring_category.dart';
 import 'Widgets/Main_feature.dart';
 
 
@@ -234,8 +235,27 @@ class _JobSeekerHompageState extends State<JobSeekerHompage> {
               ),
             ),
 
-
             Mian_Feature(),
+
+
+            //Hiring Category Container
+            Container(
+              alignment: Alignment.centerLeft,
+              margin: EdgeInsets.symmetric(
+                vertical: 20,
+                horizontal: 10,
+              ),
+              child: Text(
+                "Hiring Category",
+                style: TextStyle(
+                  color: Color(0xff03438C),
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20,
+                ),
+              ),
+            ),
+
+            HiringCategory(),
 
 
 
