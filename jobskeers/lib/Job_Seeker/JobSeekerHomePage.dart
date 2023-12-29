@@ -233,9 +233,6 @@ class _JobSeekerHompageState extends State<JobSeekerHompage> {
                 ),
               ),
             ),
-            SizedBox(
-              height: 20,
-            ),
 
 
             Mian_Feature(),
