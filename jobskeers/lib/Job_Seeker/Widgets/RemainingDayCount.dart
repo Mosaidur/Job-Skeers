@@ -11,7 +11,8 @@ class RemainingDate extends StatelessWidget {
     return Text(
       "${remainingDays.toString()} days left",
       style: TextStyle(
-        color: Color(0xff03438C),
+        color: Colors.black,
+        // color: Color(0xff03438C),
         fontWeight: FontWeight.bold,
         fontSize: 15,
       ),
