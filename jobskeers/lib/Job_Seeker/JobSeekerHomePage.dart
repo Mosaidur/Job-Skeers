@@ -4,7 +4,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 import 'Pages/AllJobsListPage.dart';
 import 'Widgets/Hiring_category.dart';
-import 'Widgets/Job_list.dart';
+import 'Widgets/HomePageJobList.dart';
 import 'Widgets/Main_feature.dart';
 
 

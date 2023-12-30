@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:jobskeers/Job_Seeker/Widgets/Job_list.dart';
+import 'package:jobskeers/Job_Seeker/Widgets/HomePageJobList.dart';
 
 import '../JobSeekerHomePage.dart';
 import 'AllJobsListPage.dart';
