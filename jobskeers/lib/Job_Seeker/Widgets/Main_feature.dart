@@ -1,4 +1,8 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
+
+import '../Pages/ComingSoon.dart';
 
 class Mian_Feature extends StatelessWidget {
   const Mian_Feature({super.key});
@@ -25,10 +29,24 @@ class Mian_Feature extends StatelessWidget {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Container(
-                            height: 40,
-                            width: 40,
-                            child: Image.asset("assets/icons/Skill Test.png"),
+                          InkWell(
+                            onTap: () async {
+
+                              final url = Uri.parse("https://skill.jobs/skill-assessment");
+
+                              if (!await launchUrl(
+                                url,
+                                mode: LaunchMode.inAppWebView,
+                              )) {
+                                throw Exception('Could not launch $url');
+                              }
+
+                            },
+                            child: Container(
+                              height: 40,
+                              width: 40,
+                              child: Image.asset("assets/icons/Skill Test.png"),
+                            ),
                           ),
                           SizedBox(
                             height: 5,
@@ -59,10 +77,24 @@ class Mian_Feature extends StatelessWidget {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Container(
-                          height: 40,
-                          width: 40,
-                          child: Image.asset("assets/icons/Learning & trainning.png"),
+                        InkWell(
+                          onTap: () async {
+
+                            final url = Uri.parse("https://training.skill.jobs/");
+
+                            if (!await launchUrl(
+                              url,
+                              mode: LaunchMode.inAppWebView,
+                            )) {
+                              throw Exception('Could not launch $url');
+                            }
+
+                          },
+                          child: Container(
+                            height: 40,
+                            width: 40,
+                            child: Image.asset("assets/icons/Learning & trainning.png"),
+                          ),
                         ),
                         SizedBox(
                           height: 5,
@@ -93,10 +125,24 @@ class Mian_Feature extends StatelessWidget {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Container(
-                          height: 40,
-                          width: 40,
-                          child: Image.asset("assets/icons/Career Toolkit.png"),
+                        InkWell(
+                          onTap: () async {
+
+                            final url = Uri.parse("https://skill.jobs/career-toolkit");
+
+                            if (!await launchUrl(
+                              url,
+                              mode: LaunchMode.inAppWebView,
+                            )) {
+                              throw Exception('Could not launch $url');
+                            }
+
+                          },
+                          child: Container(
+                            height: 40,
+                            width: 40,
+                            child: Image.asset("assets/icons/Career Toolkit.png"),
+                          ),
                         ),
                         SizedBox(
                           height: 5,
@@ -124,34 +170,50 @@ class Mian_Feature extends StatelessWidget {
                   //Career Counseling logo and text
                   Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Container(
-                          height: 40,
-                          width: 40,
-                          child: Image.asset("assets/icons/Careeer Counseling.png"),
-                        ),
-                        SizedBox(
-                          height: 5,
-                        ),
-                        Text(
-                          "Career",
-                          style: TextStyle(
-                            color: Color(0xff03438C),
-                            fontSize: 15,
-                            fontWeight: FontWeight.bold,
+                    child: InkWell(
+                      onTap: () async {
+
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => ComingSoon() ));
+
+                        // final url = Uri.parse("https://skill.jobs/career-toolkit");
+                        //
+                        // if (!await launchUrl(
+                        //   url,
+                        //   mode: LaunchMode.inAppWebView,
+                        // )) {
+                        //   throw Exception('Could not launch $url');
+                        // }
+
+                      },
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Container(
+                            height: 40,
+                            width: 40,
+                            child: Image.asset("assets/icons/Careeer Counseling.png"),
                           ),
-                        ),
-                        Text(
-                          "Counseling",
-                          style: TextStyle(
-                            color: Color(0xff03438C),
-                            fontSize: 15,
-                            fontWeight: FontWeight.bold,
+                          SizedBox(
+                            height: 5,
                           ),
-                        ),
-                      ],
+                          Text(
+                            "Career",
+                            style: TextStyle(
+                              color: Color(0xff03438C),
+                              fontSize: 15,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          Text(
+                            "Counseling",
+                            style: TextStyle(
+                              color: Color(0xff03438C),
+                              fontSize: 15,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
 
@@ -168,136 +230,198 @@ class Mian_Feature extends StatelessWidget {
                 //HR Guid logo and text
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Container(
-                        height: 40,
-                        width: 40,
-                        child: Image.asset("assets/icons/HR Guid.png"),
-                      ),
-                      SizedBox(
-                        height: 5,
-                      ),
-                      Text(
-                        "HR Guid",
-                        style: TextStyle(
-                          color: Color(0xff03438C),
-                          fontSize: 15,
-                          fontWeight: FontWeight.bold,
+                  child: InkWell(
+                    onTap: () async {
+
+                      final url = Uri.parse("https://skill.jobs/hr-guide");
+
+                      if (!await launchUrl(
+                        url,
+                        mode: LaunchMode.inAppWebView,
+                      )) {
+                        throw Exception('Could not launch $url');
+                      }
+
+                    },
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Container(
+                          height: 40,
+                          width: 40,
+                          child: Image.asset("assets/icons/HR Guid.png"),
                         ),
-                      ),
-                      Text(
-                        "  ",
-                        style: TextStyle(
-                          color: Color(0xff03438C),
-                          fontSize: 15,
-                          fontWeight: FontWeight.bold,
+                        SizedBox(
+                          height: 5,
                         ),
-                      ),
-                    ],
+                        Text(
+                          "HR Guid",
+                          style: TextStyle(
+                            color: Color(0xff03438C),
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Text(
+                          "  ",
+                          style: TextStyle(
+                            color: Color(0xff03438C),
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
 
                 //Popular job logo and text
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Container(
-                        height: 40,
-                        width: 40,
-                        child: Image.asset("assets/icons/Popular Job.png"),
-                      ),
-                      SizedBox(
-                        height: 5,
-                      ),
-                      Text(
-                        "Popular",
-                        style: TextStyle(
-                          color: Color(0xff03438C),
-                          fontSize: 15,
-                          fontWeight: FontWeight.bold,
+                  child: InkWell(
+                    onTap: () async {
+
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => ComingSoon() ));
+
+                      // final url = Uri.parse("https://skill.jobs/career-toolkit");
+                      //
+                      // if (!await launchUrl(
+                      //   url,
+                      //   mode: LaunchMode.inAppWebView,
+                      // )) {
+                      //   throw Exception('Could not launch $url');
+                      // }
+
+                    },
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Container(
+                          height: 40,
+                          width: 40,
+                          child: Image.asset("assets/icons/Popular Job.png"),
                         ),
-                      ),
-                      Text(
-                        "job",
-                        style: TextStyle(
-                          color: Color(0xff03438C),
-                          fontSize: 15,
-                          fontWeight: FontWeight.bold,
+                        SizedBox(
+                          height: 5,
                         ),
-                      ),
-                    ],
+                        Text(
+                          "Popular",
+                          style: TextStyle(
+                            color: Color(0xff03438C),
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Text(
+                          "job",
+                          style: TextStyle(
+                            color: Color(0xff03438C),
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
 
                 //Polupar Company logo and text
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Container(
-                        height: 40,
-                        width: 40,
-                        child: Image.asset("assets/icons/Popular Company.png"),
-                      ),
-                      SizedBox(
-                        height: 5,
-                      ),
-                      Text(
-                        "Polupar",
-                        style: TextStyle(
-                          color: Color(0xff03438C),
-                          fontSize: 15,
-                          fontWeight: FontWeight.bold,
+                  child: InkWell(
+                    onTap: () async {
+
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => ComingSoon() ));
+
+                      // final url = Uri.parse("https://skill.jobs/career-toolkit");
+                      //
+                      // if (!await launchUrl(
+                      //   url,
+                      //   mode: LaunchMode.inAppWebView,
+                      // )) {
+                      //   throw Exception('Could not launch $url');
+                      // }
+
+                    },
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Container(
+                          height: 40,
+                          width: 40,
+                          child: Image.asset("assets/icons/Popular Company.png"),
                         ),
-                      ),
-                      Text(
-                        "Company",
-                        style: TextStyle(
-                          color: Color(0xff03438C),
-                          fontSize: 15,
-                          fontWeight: FontWeight.bold,
+                        SizedBox(
+                          height: 5,
                         ),
-                      ),
-                    ],
+                        Text(
+                          "Polupar",
+                          style: TextStyle(
+                            color: Color(0xff03438C),
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Text(
+                          "Company",
+                          style: TextStyle(
+                            color: Color(0xff03438C),
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
 
                 //Job Fair logo and text
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Container(
-                        height: 40,
-                        width: 40,
-                        child: Image.asset("assets/icons/job-fair.png"),
-                      ),
-                      SizedBox(
-                        height: 5,
-                      ),
-                      Text(
-                        "Job Fair",
-                        style: TextStyle(
-                          color: Color(0xff03438C),
-                          fontSize: 15,
-                          fontWeight: FontWeight.bold,
+                  child: InkWell(
+                    onTap: () async {
+
+                      //Navigator.push(context, MaterialPageRoute(builder: (context) => ComingSoon() ));
+
+                      final url = Uri.parse("https://jobutsob.daffodilvarsity.edu.bd/");
+
+                      if (!await launchUrl(
+                        url,
+                        mode: LaunchMode.inAppWebView,
+                      )) {
+                        throw Exception('Could not launch $url');
+                      }
+
+                    },
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Container(
+                          height: 40,
+                          width: 40,
+                          child: Image.asset("assets/icons/job-fair.png"),
                         ),
-                      ),
-                      Text(
-                        "  ",
-                        style: TextStyle(
-                          color: Color(0xff03438C),
-                          fontSize: 15,
-                          fontWeight: FontWeight.bold,
+                        SizedBox(
+                          height: 5,
                         ),
-                      ),
-                    ],
+                        Text(
+                          "Job Fair",
+                          style: TextStyle(
+                            color: Color(0xff03438C),
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Text(
+                          "  ",
+                          style: TextStyle(
+                            color: Color(0xff03438C),
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
 

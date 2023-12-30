@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import 'Pages/AllJobsListPage.dart';
+import 'Widgets/BottomAppBarWidget.dart';
+import 'Widgets/HiringCategoryInRow.dart';
 import 'Widgets/Hiring_category.dart';
 import 'Widgets/HomePageJobList.dart';
 import 'Widgets/Main_feature.dart';
@@ -257,7 +259,10 @@ class _JobSeekerHompageState extends State<JobSeekerHompage> {
               ),
             ),
 
-            HiringCategory(),
+            //HiringCategory(),
+
+            HiringCategoryInRow(),
+
 
 
             //Recent Job Container
@@ -310,6 +315,8 @@ class _JobSeekerHompageState extends State<JobSeekerHompage> {
           ],
         ),
       ),
+
+      bottomNavigationBar: BottomAppBarWidget(),
       endDrawer: Drawer(
         child: SingleChildScrollView(
           child: Column(
