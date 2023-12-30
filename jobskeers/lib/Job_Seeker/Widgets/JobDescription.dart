@@ -3,6 +3,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../Pages/ApplicationVerify.dart';
+
 class JobDescription extends StatefulWidget {
   JobDescription({
     super.key,
@@ -320,7 +322,7 @@ class _JobDescriptionState extends State<JobDescription> {
           padding: const EdgeInsets.only(top: 15.0, left: 20,right: 20,bottom: 20),
           child: InkWell(
             onTap: (){
-              //Navigator.push(context, MaterialPageRoute(builder: (context) => ))
+              Navigator.push(context, MaterialPageRoute(builder: (context) => CV_Verification ()));
             },
             child: Container(
               width: double.maxFinite,
