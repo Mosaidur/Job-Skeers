@@ -1,3 +1,4 @@
+import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:jobskeers/Job_Seeker/JobSeekerHomePage.dart';
 import 'package:jobskeers/Job_Seeker/Pages/ComingSoon.dart';
@@ -12,76 +13,59 @@ class BottomAppBarWidget extends StatefulWidget {
 class _BottomAppBarWidgetState extends State<BottomAppBarWidget> {
   int selectedIndex = 0;
 
+  final List<Widget> pages = [
+    JobSeekerHompage(),
+    ComingSoon(),
+    ComingSoon(),
+    ComingSoon(),
+    ComingSoon(),
+  ];
+
   @override
   Widget build(BuildContext context) {
+    return IndexedStack(
+      index: selectedIndex,
+      children: pages,
+    );
+  }
+
+  Widget buildNavigationBar() {
     return BottomNavigationBar(
-      showUnselectedLabels: true,
-      type: BottomNavigationBarType.shifting,
-      items: [
-        BottomNavigationBarItem(
-          icon: Icon(Icons.home),
-          label: 'Home',
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.school),
-          label: 'Learning',
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.apps),
-          label: 'More',
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.work),
-          label: 'My Job',
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.person),
-          label: 'Profile',
-        ),
-      ],
       currentIndex: selectedIndex,
-      selectedItemColor: Color(0xff03438C),
-      unselectedItemColor: Colors.grey,
       onTap: (index) {
         setState(() {
           selectedIndex = index;
         });
-
-        // // Handle navigation here based on the tapped index
-        // switch (index) {
-        //   case 0:
-        //     Navigator.push(
-        //       context,
-        //       MaterialPageRoute(builder: (context) => JobSeekerHompage()),
-        //     );
-        //     break;
-        //   case 1:
-        //     Navigator.push(
-        //       context,
-        //       MaterialPageRoute(builder: (context) => ComingSoon()),
-        //     );
-        //     break;
-        //   case 2:
-        //     Navigator.push(
-        //       context,
-        //       MaterialPageRoute(builder: (context) => ComingSoon()),
-        //     );
-        //     break;
-        //   case 3:
-        //     Navigator.push(
-        //       context,
-        //       MaterialPageRoute(builder: (context) => ComingSoon()),
-        //     );
-        //     break;
-        //   case 4:
-        //     Navigator.push(
-        //       context,
-        //       MaterialPageRoute(builder: (context) => ComingSoon()),
-        //     );
-        //     break;
-        // // Handle other cases as needed
-        // }
       },
+      items: [
+        BottomNavigationBarItem(
+          icon: Icon(Icons.home),
+          label: 'Home',
+          backgroundColor: Colors.transparent,
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.school),
+          label: 'Learning',
+          backgroundColor: Colors.transparent,
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.apps),
+          label: 'More',
+          backgroundColor: Colors.transparent,
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.work),
+          label: 'My Job',
+          backgroundColor: Colors.transparent,
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.person),
+          label: 'Profile',
+          backgroundColor: Colors.transparent,
+        ),
+      ],
+      selectedItemColor: Color(0xff03438C),
+      unselectedItemColor: Colors.grey,
     );
   }
 }

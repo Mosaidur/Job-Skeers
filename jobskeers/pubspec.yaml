@@ -39,6 +39,7 @@ dependencies:
   email_validator: ^2.1.17
   flutter_countdown_timer: ^4.1.0
   url_launcher: ^6.2.2
+  curved_navigation_bar: ^1.0.3
 
 dev_dependencies:
   flutter_test:

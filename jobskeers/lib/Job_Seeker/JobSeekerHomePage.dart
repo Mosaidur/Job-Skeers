@@ -315,8 +315,7 @@ class _JobSeekerHompageState extends State<JobSeekerHompage> {
           ],
         ),
       ),
-
-      bottomNavigationBar: BottomAppBarWidget(),
+      // bottomNavigationBar: BottomAppBarWidget(),
       endDrawer: Drawer(
         child: SingleChildScrollView(
           child: Column(

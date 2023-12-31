@@ -31,8 +31,8 @@ class _SplashScreenState extends State<SplashScreen> {
 
   Widget build(BuildContext context) {
     return Scaffold(
-     // backgroundColor: Color(0xffEFF6FE),
-        backgroundColor: Colors.white,
+     backgroundColor: Color(0xffEFF6FE),
+     //    backgroundColor: Colors.white,
       body: Center(
           child: Padding(
             padding: const EdgeInsets.fromLTRB(20,0,0,0),
@@ -45,8 +45,8 @@ class _SplashScreenState extends State<SplashScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Image.asset(
-                        "assets/images/job-seeking.gif",
-                           // "assets/images/job-search.png",
+                        // "assets/images/job-seeking.gif",
+                           "assets/images/job-search.png",
                       width: 100,
                       ),
                       SizedBox(height: 15,),

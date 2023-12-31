@@ -2,9 +2,14 @@ import 'package:flutter/material.dart';
 
 import '../Widgets/BottomAppBarWidget.dart';
 
-class ComingSoon extends StatelessWidget {
+class ComingSoon extends StatefulWidget {
   const ComingSoon({super.key});
 
+  @override
+  State<ComingSoon> createState() => _ComingSoonState();
+}
+
+class _ComingSoonState extends State<ComingSoon> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,7 +32,7 @@ class ComingSoon extends StatelessWidget {
           ),
         ),
       ),
-      bottomNavigationBar: BottomAppBarWidget(),
+      // bottomNavigationBar: BottomAppBarWidget(),
     );
   }
 }
