@@ -1,23 +1,19 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher.dart';
 
-import 'Pages/AllJobsListPage.dart';
-import 'Widgets/BottomAppBarWidget.dart';
 import 'Widgets/HiringCategoryInRow.dart';
-import 'Widgets/Hiring_category.dart';
 import 'Widgets/HomePageJobList.dart';
 import 'Widgets/Main_feature.dart';
+import '../AllJobsListPage.dart';
 
-
-class JobSeekerHompage extends StatefulWidget {
-  const JobSeekerHompage({super.key});
+class JobSeekerHomePage extends StatefulWidget {
+  const JobSeekerHomePage({Key? key}) : super(key: key);
 
   @override
-  State<JobSeekerHompage> createState() => _JobSeekerHompageState();
+  State<JobSeekerHomePage> createState() => _JobSeekerHomePageState();
 }
 
-class _JobSeekerHompageState extends State<JobSeekerHompage> {
+class _JobSeekerHomePageState extends State<JobSeekerHomePage> {
 
   String number= "99";
   String new_jobs ="100";
@@ -31,8 +27,8 @@ class _JobSeekerHompageState extends State<JobSeekerHompage> {
         scrollDirection: Axis.vertical,
         child: Column(
           children: [
-
-
+      
+      
             // Hadder of the HomePage
             Container(
               width: double.maxFinite,
@@ -40,14 +36,14 @@ class _JobSeekerHompageState extends State<JobSeekerHompage> {
               color: Color(0xffcae6f1),
               child: Column(
                 children: [
-
-
+      
+      
                   Padding(
                     padding: const EdgeInsets.only(top: 30.0),
                     child: Row(
                       children: [
-
-
+      
+      
                         // Image Icon
                         Padding(
                           padding: const EdgeInsets.only(left: 20.0,top: 20.0),
@@ -60,7 +56,7 @@ class _JobSeekerHompageState extends State<JobSeekerHompage> {
                             child: Image.asset("assets/icons/man_logo.png"),
                           ),
                         ),
-
+      
                         // Search bar
                         Padding(
                           padding: const EdgeInsets.only(left: 30.0,right: 8.0),
@@ -86,14 +82,14 @@ class _JobSeekerHompageState extends State<JobSeekerHompage> {
                             ),
                           ),
                         ),
-
+      
                         // Notification Icon
                         Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Stack(
                             alignment: AlignmentDirectional.topEnd ,
                             children: [
-
+      
                               Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Icon(
@@ -101,7 +97,7 @@ class _JobSeekerHompageState extends State<JobSeekerHompage> {
                                   color: Color(0xff03438C),
                                 ),
                               ),
-
+      
                               Text(
                                 "${number}",
                                 style: TextStyle(
@@ -111,11 +107,11 @@ class _JobSeekerHompageState extends State<JobSeekerHompage> {
                                 ),
                                 //textAlign: TextAlign.right,
                               )
-
+      
                             ],
                           ),
                         ),
-
+      
                         //Menu bar
                         Builder(
                             builder: (context) {
@@ -130,17 +126,17 @@ class _JobSeekerHompageState extends State<JobSeekerHompage> {
                               );
                             }
                         )
-
+      
                       ],
                     ),
                   ),
-
+      
                   Padding(
                     padding: const EdgeInsets.only(left: 20.0,top: 15),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-
+      
                         // New Jobs
                         Column(
                           children: [
@@ -153,7 +149,7 @@ class _JobSeekerHompageState extends State<JobSeekerHompage> {
                               ),
                             ),
                             Text(
-                                "New Jobs",
+                              "New Jobs",
                               style: TextStyle(
                                 color: Color(0xff03438C),
                                 fontWeight: FontWeight.bold,
@@ -164,7 +160,7 @@ class _JobSeekerHompageState extends State<JobSeekerHompage> {
                             ),
                           ],
                         ),
-
+      
                         // Live Jobs
                         Column(
                           children: [
@@ -184,12 +180,12 @@ class _JobSeekerHompageState extends State<JobSeekerHompage> {
                                 fontSize: 15,
                                 decoration: TextDecoration.overline,
                                 decorationColor: Color(0xff03438C),
-
+      
                               ),
                             ),
                           ],
                         ),
-
+      
                         // Deadline Tomorrow
                         Column(
                           children: [
@@ -213,15 +209,15 @@ class _JobSeekerHompageState extends State<JobSeekerHompage> {
                             ),
                           ],
                         ),
-
-
+      
+      
                       ],
                     ),
                   )
                 ],
               ),
             ),
-
+      
             //Main feature Container
             Container(
               alignment: Alignment.centerLeft,
@@ -238,10 +234,10 @@ class _JobSeekerHompageState extends State<JobSeekerHompage> {
                 ),
               ),
             ),
-
+      
             Mian_Feature(),
-
-
+      
+      
             //Hiring Category Container
             Container(
               alignment: Alignment.centerLeft,
@@ -258,13 +254,13 @@ class _JobSeekerHompageState extends State<JobSeekerHompage> {
                 ),
               ),
             ),
-
+      
             //HiringCategory(),
-
+      
             HiringCategoryInRow(),
-
-
-
+      
+      
+      
             //Recent Job Container
             Padding(
               padding: const EdgeInsets.only(left: 10.0, right: 10.0),
@@ -277,7 +273,7 @@ class _JobSeekerHompageState extends State<JobSeekerHompage> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-
+      
                     Text(
                       "Recent Job",
                       style: TextStyle(
@@ -286,7 +282,7 @@ class _JobSeekerHompageState extends State<JobSeekerHompage> {
                         fontSize: 20,
                       ),
                     ),
-
+      
                     InkWell(
                       onTap: (){
                         Navigator.push(context, MaterialPageRoute(builder: (context)=> AllJobslistPage()));
@@ -300,32 +296,30 @@ class _JobSeekerHompageState extends State<JobSeekerHompage> {
                         ),
                       ),
                     ),
-
+      
                   ],
                 ),
               ),
             ),
-
-
+      
+      
             for (int i=0 ; i<10; i++)
-            HomePageJobList(),
-
-
-
+              HomePageJobList(),
+      
+      
+            // endDrawer: Drawer(
+            //   child: Column(
+            //     children: [
+            //       Container(
+            //         height: 500,
+            //         color: Colors.redAccent,
+            //       )
+            //     ],
+            //   ),
+            // ),
+      
+      
           ],
-        ),
-      ),
-      // bottomNavigationBar: BottomAppBarWidget(),
-      endDrawer: Drawer(
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              Container(
-                height: 500,
-                color: Colors.redAccent,
-              )
-            ],
-          ),
         ),
       ),
     );

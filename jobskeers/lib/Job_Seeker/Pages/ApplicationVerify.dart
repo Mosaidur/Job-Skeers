@@ -1,21 +1,27 @@
 import 'package:flutter/material.dart';
-import 'package:jobskeers/Job_Seeker/Widgets/HomePageJobList.dart';
+import 'package:jobskeers/Job_Seeker/Authentiction%20Pages/JobSeekerSign_In.dart';
 
-import '../JobSeekerHomePage.dart';
+import '../JobSeekerMainPage.dart';
 import 'AllJobsListPage.dart';
 
-class CV_Verification extends StatelessWidget {
+class CV_Verification extends StatefulWidget {
   CV_Verification({super.key});
 
+  @override
+  State<CV_Verification> createState() => _CV_VerificationState();
+}
 
-
-
+class _CV_VerificationState extends State<CV_Verification> {
   @override
 
   String gender= "Male";
+
   String experience = "Any";
+
   String education = "Bachelor";
+
   int cv_uploded = 1;
+
   String fileName = "asif.cv";
 
   Widget build(BuildContext context) {
@@ -356,7 +362,7 @@ class CV_Verification extends StatelessWidget {
           (education == "Bachelor" && experience == "Any" && gender == "Male")
               ? InkWell(
             onTap: (){
-              Navigator.push(context, MaterialPageRoute(builder: (context) => JobSeekerHompage() ));
+              Navigator.push(context, MaterialPageRoute(builder: (context) => JobSeekerSigninScreen() ));
             },
             child: Container(
               width: 200,

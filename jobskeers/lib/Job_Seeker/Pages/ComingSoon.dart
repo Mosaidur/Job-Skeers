@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../Widgets/BottomAppBarWidget.dart';
 
 class ComingSoon extends StatefulWidget {
   const ComingSoon({super.key});
@@ -32,7 +31,6 @@ class _ComingSoonState extends State<ComingSoon> {
           ),
         ),
       ),
-      // bottomNavigationBar: BottomAppBarWidget(),
     );
   }
 }

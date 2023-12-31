@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../Pages/JobDetails.dart';
-import 'RemainingDayCount.dart';
+import '../../JobDetails.dart';
+import '../../../Widgets/RemainingDayCount.dart';
 
 class HomePageJobList extends StatefulWidget {
   const HomePageJobList({super.key});

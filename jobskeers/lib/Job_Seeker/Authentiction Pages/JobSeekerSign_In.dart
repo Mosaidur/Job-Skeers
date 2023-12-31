@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import '../JobSeekerHomePage.dart';
+import '../JobSeekerMainPage.dart';
 import 'JobSeekerForgetPass.dart';
 import 'JobSeekerRegister.dart';
 
@@ -187,7 +187,7 @@ class _JobSeekerSigninScreenState extends State<JobSeekerSigninScreen> {
 
                               onPressed: (){
                                 //_submit();
-                                Navigator.push(context, MaterialPageRoute(builder: (context)=> JobSeekerHompage()));
+                                Navigator.push(context, MaterialPageRoute(builder: (context)=> JobSeekerMainpage()));
                               },
 
                               child: Text(

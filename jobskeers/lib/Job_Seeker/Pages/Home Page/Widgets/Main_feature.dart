@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../Pages/ComingSoon.dart';
+import '../../ComingSoon.dart';
 
 class Mian_Feature extends StatelessWidget {
   const Mian_Feature({super.key});

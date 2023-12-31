@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 
-import 'Job_Seeker/JobSeekerHomePage.dart';
+import 'Job_Seeker/JobSeekerMainPage.dart';
 import 'SplashScreen.dart';
 
 void main() {
@@ -20,10 +20,10 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Color(0xff03438C),
       ),
-        useMaterial3: true,
+        useMaterial3: false,
       ),
-      //home: JobSeekerHompage(),
-      home : SplashScreen(),
+      home: JobSeekerMainpage(),
+      // home : SplashScreen(),
     );
   }
 }
