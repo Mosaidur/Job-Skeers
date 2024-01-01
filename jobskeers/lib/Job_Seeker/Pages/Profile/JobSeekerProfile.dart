@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'InformationPart.dart';
+import 'widgets/InformationPart.dart';
 
 class JobSeekerProfilePage extends StatelessWidget {
   const JobSeekerProfilePage({super.key});
@@ -31,87 +31,93 @@ class JobSeekerProfilePage extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
 
-                    Container(
+                    InkWell(
+                      onTap: (){},
+                      child: Container(
                       alignment: Alignment.center,
                       width: 80,
                       height: 80,
                       child: Image.asset("assets/icons/man_logo.png"),
+                                              ),
                     ),
 
                     // SizedBox(width: 15,),
 
 
                     //Name, Email & phone Number
-                    Container(
-                      width: MediaQuery.of(context).size.width/1.5,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-
-                          //Name
-                          Text(
-                            name,
-                            softWrap: true,
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 20
+                    InkWell(
+                      onTap: (){},
+                      child: Container(
+                        width: MediaQuery.of(context).size.width/1.5,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                      
+                            //Name
+                            Text(
+                              name,
+                              softWrap: true,
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 20
+                              ),
                             ),
-                          ),
-
-                          SizedBox(height: 10,),
-
-                          //Email
-                          Row(
-                            children: [
-                              Icon(Icons.mail_rounded,color: Colors.white,size: 15,),
-                              SizedBox(width: 10,),
-                              Container(
-                                width: MediaQuery.of(context).size.width/1.8,
-                                child: Text(
-                                  email,
-                                  softWrap: true,
-                                  maxLines: 2,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: 15
+                      
+                            SizedBox(height: 10,),
+                      
+                            //Email
+                            Row(
+                              children: [
+                                Icon(Icons.mail_rounded,color: Colors.white,size: 15,),
+                                SizedBox(width: 10,),
+                                Container(
+                                  width: MediaQuery.of(context).size.width/1.8,
+                                  child: Text(
+                                    email,
+                                    softWrap: true,
+                                    maxLines: 2,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: 15
+                                    ),
                                   ),
                                 ),
-                              ),
-                            ],
-                          ),
-
-                          SizedBox(height: 10,),
-
-                          //Phone Number
-                          Row(
-                            children: [
-                              Icon(Icons.phone,color: Colors.white,size: 15,),
-                              SizedBox(width: 10,),
-                              Container(
-                                width: MediaQuery.of(context).size.width/1.8,
-                                child: Text(
-                                  Phone_No,
-                                  softWrap: true,
-                                  maxLines: 2,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: 15
+                              ],
+                            ),
+                      
+                            SizedBox(height: 10,),
+                      
+                            //Phone Number
+                            Row(
+                              children: [
+                                Icon(Icons.phone,color: Colors.white,size: 15,),
+                                SizedBox(width: 10,),
+                                Container(
+                                  width: MediaQuery.of(context).size.width/1.8,
+                                  child: Text(
+                                    Phone_No,
+                                    softWrap: true,
+                                    maxLines: 2,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: 15
+                                    ),
                                   ),
                                 ),
-                              ),
-                            ],
-                          ),
-
-                          SizedBox(height: 10,),
-
-                        ],
+                              ],
+                            ),
+                      
+                            SizedBox(height: 10,),
+                      
+                          ],
+                        ),
                       ),
                     )
 

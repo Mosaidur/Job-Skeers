@@ -9,6 +9,109 @@ class ProfileInformatioPage extends StatelessWidget {
     return Column(
       children: [
 
+        // View Profile
+        Padding(
+          padding: const EdgeInsets.only(top: 20, left: 20,right: 20,bottom: 10),
+          child: InkWell(
+            onTap: (){},
+            child: Container(
+              width: double.maxFinite,
+              // height: 700,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                color: Colors.green,
+              ),
+              child: Padding(
+                padding: const EdgeInsets.only(top: 10, left: 10,right: 10,bottom: 10),
+                child: Center(
+                  child: Text(
+                    "View Job Seeker Profile",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
+
+        // Account Settings
+        Padding(
+          padding: const EdgeInsets.only(top: 15.0, left: 20,right: 20,bottom: 20),
+          child: Container(
+            width: double.maxFinite,
+            // height: 700,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+              color: Colors.white,
+            ),
+            child: Padding(
+              padding: const EdgeInsets.only(top: 15.0, left: 20,right: 20,bottom: 20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+
+                  Text(
+                    "Account Settings",
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 15,
+                  ),
+
+                  //Upload Photo
+                  InkWell(
+                    onTap: (){},
+                    child: Row(
+                      children: [
+                        Icon(Icons.camera_alt,color: Colors.black,size: 15,),
+                        SizedBox(width: 15,),
+                        Text(
+                          "Upload Photo",
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 15,
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+
+                  SizedBox(height: 15,),
+
+                  //  Account Settings
+                  InkWell(
+                    onTap: (){},
+                    child: Row(
+                      children: [
+                        Icon(Icons.settings,color: Colors.black,size: 15,),
+                        SizedBox(width: 15,),
+                        Text(
+                          "Account Settings",
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 15,
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+
+                ],
+
+              ),
+            ),
+          ),
+        ),
 
         // Personal Information
         Padding(
@@ -579,7 +682,59 @@ class ProfileInformatioPage extends StatelessWidget {
           ),
         ),
 
+        // CV / Resume
+        Padding(
+          padding: const EdgeInsets.only(top: 15.0, left: 20,right: 20,bottom: 20),
+          child: Container(
+            width: double.maxFinite,
+            // height: 700,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+              color: Colors.green,
+            ),
+            child: Padding(
+              padding: const EdgeInsets.only(top: 15.0, left: 20,right: 20,bottom: 20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
 
+                  Text(
+                    "CV / Resume",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 15,
+                  ),
+
+                  //Employment History
+                  InkWell(
+                    onTap: (){},
+                    child: Row(
+                      children: [
+                        Icon(Icons.upload_file_sharp,color: Colors.white,size: 25,),
+                        SizedBox(width: 15,),
+                        Text(
+                          "Upload / Customized Resume",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 15,
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+
+                ],
+
+              ),
+            ),
+          ),
+        ),
 
       ],
     );
