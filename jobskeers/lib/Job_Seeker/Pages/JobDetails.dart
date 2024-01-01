@@ -11,12 +11,31 @@ class JobDetails extends StatefulWidget {
 }
 
 class _JobDetailsState extends State<JobDetails> {
+
+  bool isFavorite = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.blue.shade50,
       appBar: AppBar(
-        title: Text("Job Details"),
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+
+            Text("Job Details"),
+
+            IconButton(
+              icon: isFavorite ? Icon(Icons.favorite,color: Colors.red,) : Icon(Icons.favorite_border,),
+              onPressed: () {
+                setState(() {
+                  isFavorite = !isFavorite;
+                });
+              },
+            )
+
+          ],
+        ),
 
         leading: IconButton(
           icon: Icon(Icons.arrow_back_ios),

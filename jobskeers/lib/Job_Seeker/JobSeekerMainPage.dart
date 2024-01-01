@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:jobskeers/Job_Seeker/Pages/Home%20Page/JobSeekerHomePage.dart';
 
 import 'Pages/ComingSoon.dart';
+import 'Pages/Learning/LearningPage.dart';
 import 'Pages/Profile/JobSeekerProfile.dart';
 
 
@@ -19,7 +20,7 @@ class _JobSeekerMainpageState extends State<JobSeekerMainpage> {
   int selectedIndex = 0;
   final List pages = [
     JobSeekerHomePage(),
-    ComingSoon(),
+    LearningPage(),
     ComingSoon(),
     ComingSoon(),
     JobSeekerProfilePage(),
