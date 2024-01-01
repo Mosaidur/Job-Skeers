@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:jobskeers/Job_Seeker/Pages/Home%20Page/JobSeekerHomePage.dart';
 
 import 'Pages/ComingSoon.dart';
+import 'Pages/Profile/JobSeekerProfile.dart';
 
 
 
@@ -21,7 +22,7 @@ class _JobSeekerMainpageState extends State<JobSeekerMainpage> {
     ComingSoon(),
     ComingSoon(),
     ComingSoon(),
-    ComingSoon(),
+    JobSeekerProfilePage(),
   ];
 
   @override
