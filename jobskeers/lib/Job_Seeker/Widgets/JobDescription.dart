@@ -98,7 +98,7 @@ class _JobDescriptionState extends State<JobDescription> {
           ),
         ),
 
-        //ob_Responsibilities, Job_reuirements & Additional Reuirements;
+        //Job_Responsibilities, Job_reuirements & Additional Reuirements;
         Padding(
           padding: const EdgeInsets.only(top: 15.0, left: 20,right: 20,bottom: 20),
           child: Container(
