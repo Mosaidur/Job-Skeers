@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 
-import '../Widgets/CoustomAppBar.dart';
-import '../Widgets/Job_list_ForJOBS_page.dart';
+import '../../Widgets/CoustomAppBar.dart';
+import '../../Widgets/Job_list_ForJOBS_page.dart';
 
-class AllJobslistPage extends StatefulWidget {
-  const AllJobslistPage({super.key});
+class BrowseJobslistPage extends StatefulWidget {
+  const BrowseJobslistPage({super.key});
 
   @override
-  State<AllJobslistPage> createState() => _AllJobslistPageState();
+  State<BrowseJobslistPage> createState() => _BrowseJobslistPageState();
 }
 
-class _AllJobslistPageState extends State<AllJobslistPage> {
+class _BrowseJobslistPageState extends State<BrowseJobslistPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

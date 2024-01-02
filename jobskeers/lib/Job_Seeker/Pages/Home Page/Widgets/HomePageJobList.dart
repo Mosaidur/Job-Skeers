@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../../JobDetails.dart';
+import '../../Browse Jobs/JobDetails.dart';
 import '../../../Widgets/RemainingDayCount.dart';
 
 class HomePageJobList extends StatefulWidget {

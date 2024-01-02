@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:jobskeers/Job_Seeker/Authentiction%20Pages/JobSeekerSign_In.dart';
 
-import '../JobSeekerMainPage.dart';
-import 'AllJobsListPage.dart';
+import '../../JobSeekerMainPage.dart';
+import 'BrowseJobsListPage.dart';
 
 class CV_Verification extends StatefulWidget {
   CV_Verification({super.key});
@@ -390,7 +390,7 @@ class _CV_VerificationState extends State<CV_Verification> {
           )
               : InkWell(
             onTap: (){
-              Navigator.push(context, MaterialPageRoute(builder: (context) => AllJobslistPage() ));
+              Navigator.push(context, MaterialPageRoute(builder: (context) => BrowseJobslistPage() ));
             },
             child: Container(
               width: 200,

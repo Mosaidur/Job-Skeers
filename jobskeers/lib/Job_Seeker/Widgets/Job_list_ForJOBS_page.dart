@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../Pages/JobDetails.dart';
+import '../Pages/Browse Jobs/JobDetails.dart';
 import 'RemainingDayCount.dart';
 
 

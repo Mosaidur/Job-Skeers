@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'Widgets/HiringCategoryInRow.dart';
 import 'Widgets/HomePageJobList.dart';
 import 'Widgets/Main_feature.dart';
-import '../AllJobsListPage.dart';
+import '../Browse Jobs/BrowseJobsListPage.dart';
 
 class JobSeekerHomePage extends StatefulWidget {
   const JobSeekerHomePage({Key? key}) : super(key: key);
@@ -285,7 +285,7 @@ class _JobSeekerHomePageState extends State<JobSeekerHomePage> {
       
                     InkWell(
                       onTap: (){
-                        Navigator.push(context, MaterialPageRoute(builder: (context)=> AllJobslistPage()));
+                        Navigator.push(context, MaterialPageRoute(builder: (context)=> BrowseJobslistPage()));
                       },
                       child: Text(
                         "See All",
