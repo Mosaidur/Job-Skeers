@@ -26,33 +26,82 @@ class Mian_Feature extends StatelessWidget {
                   //Skill test logo and text
                   Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          InkWell(
-                            onTap: () async {
+                      child: InkWell(
+                        onTap: () async {
 
-                              final url = Uri.parse("https://skill.jobs/skill-assessment");
+                          final url = Uri.parse("https://skill.jobs/skill-assessment");
 
-                              if (!await launchUrl(
-                                url,
-                                mode: LaunchMode.inAppWebView,
-                              )) {
-                                throw Exception('Could not launch $url');
-                              }
+                          if (!await launchUrl(
+                            url,
+                            mode: LaunchMode.inAppBrowserView,
+                            webViewConfiguration: WebViewConfiguration()
+                          )) {
+                            throw Exception('Could not launch $url');
+                          }
 
-                            },
-                            child: Container(
+                        },
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Container(
                               height: 40,
                               width: 40,
                               child: Image.asset("assets/icons/Skill Test.png"),
                             ),
+                            SizedBox(
+                              height: 5,
+                            ),
+                            Text(
+                              "Skill Test",
+                              style: TextStyle(
+                                color: Color(0xff03438C),
+                                fontSize: 15,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            Text(
+                              "  ",
+                              style: TextStyle(
+                                color: Color(0xff03438C),
+                                fontSize: 15,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+
+                  //Learning & Training logo and text
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: InkWell(
+                      onTap: () async {
+
+                        final url = Uri.parse("https://training.skill.jobs/");
+
+                        if (!await launchUrl(
+                          url,
+                          mode: LaunchMode.inAppWebView,
+                        )) {
+                          throw Exception('Could not launch $url');
+                        }
+
+                      },
+
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Container(
+                            height: 40,
+                            width: 40,
+                            child: Image.asset("assets/icons/Learning & trainning.png"),
                           ),
                           SizedBox(
                             height: 5,
                           ),
                           Text(
-                            "Skill Test",
+                            "Learning &",
                             style: TextStyle(
                               color: Color(0xff03438C),
                               fontSize: 15,
@@ -60,7 +109,7 @@ class Mian_Feature extends StatelessWidget {
                             ),
                           ),
                           Text(
-                            "  ",
+                            "Training",
                             style: TextStyle(
                               color: Color(0xff03438C),
                               fontSize: 15,
@@ -70,100 +119,53 @@ class Mian_Feature extends StatelessWidget {
                         ],
                       ),
                     ),
-
-                  //Learning & Training logo and text
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        InkWell(
-                          onTap: () async {
-
-                            final url = Uri.parse("https://training.skill.jobs/");
-
-                            if (!await launchUrl(
-                              url,
-                              mode: LaunchMode.inAppWebView,
-                            )) {
-                              throw Exception('Could not launch $url');
-                            }
-
-                          },
-                          child: Container(
-                            height: 40,
-                            width: 40,
-                            child: Image.asset("assets/icons/Learning & trainning.png"),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 5,
-                        ),
-                        Text(
-                          "Learning &",
-                          style: TextStyle(
-                            color: Color(0xff03438C),
-                            fontSize: 15,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        Text(
-                          "Training",
-                          style: TextStyle(
-                            color: Color(0xff03438C),
-                            fontSize: 15,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ],
-                    ),
                   ),
 
                   //Career Toolkit logo and text
                   Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        InkWell(
-                          onTap: () async {
+                    child: InkWell(
+                      onTap: () async {
 
-                            final url = Uri.parse("https://skill.jobs/career-toolkit");
+                        final url = Uri.parse("https://skill.jobs/career-toolkit");
 
-                            if (!await launchUrl(
-                              url,
-                              mode: LaunchMode.inAppWebView,
-                            )) {
-                              throw Exception('Could not launch $url');
-                            }
+                        if (!await launchUrl(
+                          url,
+                          mode: LaunchMode.inAppWebView,
+                        )) {
+                          throw Exception('Could not launch $url');
+                        }
 
-                          },
-                          child: Container(
+                      },
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Container(
                             height: 40,
                             width: 40,
                             child: Image.asset("assets/icons/Career Toolkit.png"),
                           ),
-                        ),
-                        SizedBox(
-                          height: 5,
-                        ),
-                        Text(
-                          "Career",
-                          style: TextStyle(
-                            color: Color(0xff03438C),
-                            fontSize: 15,
-                            fontWeight: FontWeight.bold,
+                          SizedBox(
+                            height: 5,
                           ),
-                        ),
-                        Text(
-                          "Toolkit",
-                          style: TextStyle(
-                            color: Color(0xff03438C),
-                            fontSize: 15,
-                            fontWeight: FontWeight.bold,
+                          Text(
+                            "Career",
+                            style: TextStyle(
+                              color: Color(0xff03438C),
+                              fontSize: 15,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
-                        ),
-                      ],
+                          Text(
+                            "Toolkit",
+                            style: TextStyle(
+                              color: Color(0xff03438C),
+                              fontSize: 15,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
 
