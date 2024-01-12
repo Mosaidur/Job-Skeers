@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 
 import 'Job_Seeker/JobSeekerMainPage.dart';
+import 'Job_Seeker/loading_page.dart';
 import 'SplashScreen.dart';
 
 void main() {
@@ -23,6 +24,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: false,
       ),
       // home: JobSeekerMainpage(),
+      // home: LoadingPage(),
       home : SplashScreen(),
     );
   }
