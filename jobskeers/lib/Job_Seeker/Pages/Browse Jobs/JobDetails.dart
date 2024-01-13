@@ -1,7 +1,7 @@
 
 import 'package:flutter/material.dart';
 
-import '../../Widgets/JobDescription.dart';
+import 'Widgets/JobDescription.dart';
 
 class JobDetails extends StatefulWidget {
   const JobDetails({super.key});

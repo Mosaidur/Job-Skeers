@@ -23,7 +23,7 @@ class _MyJobPageState extends State<MyJobPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.blue.shade50,
-      appBar: AppBar(title: Center(child: Text("My JObs"))),
+      appBar: AppBar(leadingWidth: 0,automaticallyImplyLeading: false,title: Center(child: Text("My Jobs"))),
       body: Column(
         children: [
           Container(

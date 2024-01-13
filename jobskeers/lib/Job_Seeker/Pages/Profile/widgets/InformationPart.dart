@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../Personal Info/personal_details.dart';
+
 class ProfileInformatioPage extends StatelessWidget {
   const ProfileInformatioPage({super.key});
 
@@ -143,7 +145,9 @@ class ProfileInformatioPage extends StatelessWidget {
 
                   //Personal Details
                   InkWell(
-                    onTap: (){},
+                    onTap: (){
+                      Navigator.push(context, MaterialPageRoute(builder: (context)=> personal_details())  );
+                    },
                     child: Row(
                       children: [
                         Icon(Icons.person,color: Colors.black,size: 15,),

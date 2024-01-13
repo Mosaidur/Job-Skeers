@@ -20,7 +20,7 @@ class _LearningPageState extends State<LearningPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Center(child: Text("Learning"))),
+      appBar: AppBar(leadingWidth: 0,automaticallyImplyLeading: false,title: Center(child: Text("Learning"))),
       body: Column(
         children: [
           Container(

@@ -3,7 +3,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../Pages/Browse Jobs/ApplicationVerify.dart';
+import '../ApplicationVerify.dart';
 
 class JobDescription extends StatefulWidget {
   JobDescription({
