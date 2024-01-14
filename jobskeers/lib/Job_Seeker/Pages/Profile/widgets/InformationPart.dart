@@ -1,6 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../Education/academic_qualification.dart';
+import '../Education/language_prof.dart';
+import '../Education/professional_certification.dart';
 import '../Personal Info/contact_details.dart';
 import '../Personal Info/job_preferences.dart';
 import '../Personal Info/personal_details.dart';
@@ -250,7 +253,9 @@ class ProfileInformatioPage extends StatelessWidget {
 
                   //Academic Qualification
                   InkWell(
-                    onTap: (){},
+                    onTap: (){
+                      Navigator.push(context, MaterialPageRoute(builder: (context)=> AcademicQualification())  );
+                    },
                     child: Row(
                       children: [
                         Icon(Icons.school,color: Colors.black,size: 15,),
@@ -271,7 +276,9 @@ class ProfileInformatioPage extends StatelessWidget {
 
                   //  Language Proficiency
                   InkWell(
-                    onTap: (){},
+                    onTap: (){
+                      Navigator.push(context, MaterialPageRoute(builder: (context)=> LanguageProficiency() ));
+                    },
                     child: Row(
                       children: [
                         Icon(Icons.language,color: Colors.black,size: 15,),
@@ -292,7 +299,9 @@ class ProfileInformatioPage extends StatelessWidget {
 
                   //  Professional Certification
                   InkWell(
-                    onTap: (){},
+                    onTap: (){
+                      Navigator.push(context, MaterialPageRoute(builder: (context)=> Professional_Certification() ));
+                    },
                     child: Row(
                       children: [
                         Icon(Icons.leaderboard,color: Colors.black,size: 15,),
