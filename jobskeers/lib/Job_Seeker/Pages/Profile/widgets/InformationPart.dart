@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../Personal Info/contact_details.dart';
+import '../Personal Info/job_preferences.dart';
 import '../Personal Info/personal_details.dart';
 
 class ProfileInformatioPage extends StatelessWidget {
@@ -168,7 +170,9 @@ class ProfileInformatioPage extends StatelessWidget {
 
                   //  Contact Details
                   InkWell(
-                    onTap: (){},
+                    onTap: (){
+                      Navigator.push(context, MaterialPageRoute(builder: (context)=> Contact_details())  );
+                    },
                     child: Row(
                       children: [
                         Icon(Icons.insert_drive_file,color: Colors.black,size: 15,),
@@ -189,7 +193,9 @@ class ProfileInformatioPage extends StatelessWidget {
 
                   //  Job Preferences
                   InkWell(
-                    onTap: (){},
+                    onTap: (){
+                      Navigator.push(context, MaterialPageRoute(builder: (context)=> JobPreferences())  );
+                    },
                     child: Row(
                       children: [
                         Icon(Icons.workspaces_rounded,color: Colors.black,size: 15,),
