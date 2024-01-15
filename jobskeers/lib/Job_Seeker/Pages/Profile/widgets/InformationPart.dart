@@ -10,6 +10,8 @@ import '../Education/professional_certification.dart';
 import '../Personal Info/contact_details.dart';
 import '../Personal Info/job_preferences.dart';
 import '../Personal Info/personal_details.dart';
+import '../References and Links/links.dart';
+import '../References and Links/references.dart';
 import '../Trainning and Skills/training.dart';
 
 class ProfileInformatioPage extends StatelessWidget {
@@ -593,7 +595,9 @@ class ProfileInformatioPage extends StatelessWidget {
 
                   //References
                   InkWell(
-                    onTap: (){},
+                    onTap: (){
+                      Navigator.push(context, MaterialPageRoute(builder: (context)=> ReferenceDetails()));
+                    },
                     child: Row(
                       children: [
                         Icon(Icons.person_pin_rounded,color: Colors.black,size: 15,),
@@ -614,7 +618,9 @@ class ProfileInformatioPage extends StatelessWidget {
 
                   //  Links
                   InkWell(
-                    onTap: (){},
+                    onTap: (){
+                      Navigator.push(context, MaterialPageRoute(builder: (context)=> OtherProfileLinks()));
+                    },
                     child: Row(
                       children: [
                         Icon(Icons.link,color: Colors.black,size: 15,),

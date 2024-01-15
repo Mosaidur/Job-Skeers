@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../../loading_page.dart';
 import '../../ComingSoon.dart';
 
 class Mian_Feature extends StatelessWidget {
@@ -30,11 +31,10 @@ class Mian_Feature extends StatelessWidget {
                         onTap: () async {
 
                           final url = Uri.parse("https://skill.jobs/skill-assessment");
-
-                          if (!await launchUrl(
+                          LoadingPage();
+                          if (await launchUrl(
                             url,
-                            mode: LaunchMode.inAppBrowserView,
-                            webViewConfiguration: WebViewConfiguration()
+                            mode: LaunchMode.inAppWebView,
                           )) {
                             throw Exception('Could not launch $url');
                           }
@@ -79,8 +79,8 @@ class Mian_Feature extends StatelessWidget {
                       onTap: () async {
 
                         final url = Uri.parse("https://training.skill.jobs/");
-
-                        if (!await launchUrl(
+                        LoadingPage();
+                        if (await launchUrl(
                           url,
                           mode: LaunchMode.inAppWebView,
                         )) {
@@ -128,8 +128,8 @@ class Mian_Feature extends StatelessWidget {
                       onTap: () async {
 
                         final url = Uri.parse("https://skill.jobs/career-toolkit");
-
-                        if (!await launchUrl(
+                        LoadingPage();
+                        if (await launchUrl(
                           url,
                           mode: LaunchMode.inAppWebView,
                         )) {
@@ -178,7 +178,7 @@ class Mian_Feature extends StatelessWidget {
                         Navigator.push(context, MaterialPageRoute(builder: (context) => ComingSoon() ));
 
                         // final url = Uri.parse("https://skill.jobs/career-toolkit");
-                        //
+                        // LoadingPage();
                         // if (!await launchUrl(
                         //   url,
                         //   mode: LaunchMode.inAppWebView,
@@ -236,8 +236,8 @@ class Mian_Feature extends StatelessWidget {
                     onTap: () async {
 
                       final url = Uri.parse("https://skill.jobs/hr-guide");
-
-                      if (!await launchUrl(
+                      LoadingPage();
+                      if (await launchUrl(
                         url,
                         mode: LaunchMode.inAppWebView,
                       )) {
@@ -282,7 +282,7 @@ class Mian_Feature extends StatelessWidget {
                   padding: const EdgeInsets.all(8.0),
                   child: InkWell(
                     onTap: () async {
-
+                      LoadingPage();
                       Navigator.push(context, MaterialPageRoute(builder: (context) => ComingSoon() ));
 
                       // final url = Uri.parse("https://skill.jobs/career-toolkit");
@@ -336,7 +336,7 @@ class Mian_Feature extends StatelessWidget {
                       Navigator.push(context, MaterialPageRoute(builder: (context) => ComingSoon() ));
 
                       // final url = Uri.parse("https://skill.jobs/career-toolkit");
-                      //
+                      // LoadingPage();
                       // if (!await launchUrl(
                       //   url,
                       //   mode: LaunchMode.inAppWebView,
@@ -386,8 +386,8 @@ class Mian_Feature extends StatelessWidget {
                       //Navigator.push(context, MaterialPageRoute(builder: (context) => ComingSoon() ));
 
                       final url = Uri.parse("https://jobutsob.daffodilvarsity.edu.bd/");
-
-                      if (!await launchUrl(
+                      LoadingPage();
+                      if (await launchUrl(
                         url,
                         mode: LaunchMode.inAppWebView,
                       )) {

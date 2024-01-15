@@ -16,7 +16,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   startTimer (){
     Timer (Duration(seconds: 3),
-            () => Navigator.push(context,
+            () => Navigator.pushReplacement(context,
             MaterialPageRoute(builder: (context) => SelectJobSekkerAndEmplpoyer () ),
             )
     );
