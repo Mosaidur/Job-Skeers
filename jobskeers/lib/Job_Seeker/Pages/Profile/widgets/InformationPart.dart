@@ -1,5 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:jobskeers/Job_Seeker/Pages/Profile/Summary/experience_summary.dart';
+import 'package:jobskeers/Job_Seeker/Pages/Profile/Summary/profile_summary.dart';
+import 'package:jobskeers/Job_Seeker/Pages/Profile/Trainning%20and%20Skills/skills.dart';
 
 import '../Education/academic_qualification.dart';
 import '../Education/language_prof.dart';
@@ -7,6 +10,7 @@ import '../Education/professional_certification.dart';
 import '../Personal Info/contact_details.dart';
 import '../Personal Info/job_preferences.dart';
 import '../Personal Info/personal_details.dart';
+import '../Trainning and Skills/training.dart';
 
 class ProfileInformatioPage extends StatelessWidget {
   const ProfileInformatioPage({super.key});
@@ -356,13 +360,15 @@ class ProfileInformatioPage extends StatelessWidget {
 
                   //Skills
                   InkWell(
-                    onTap: (){},
+                    onTap: (){
+                      Navigator.push(context, MaterialPageRoute(builder: (context)=> SkillsInformation()));
+                    },
                     child: Row(
                       children: [
                         Icon(Icons.laptop_chromebook_outlined,color: Colors.black,size: 15,),
                         SizedBox(width: 15,),
                         Text(
-                          "Skills",
+                          "Skills Information",
                           style: TextStyle(
                             color: Colors.black,
                             fontSize: 15,
@@ -377,13 +383,15 @@ class ProfileInformatioPage extends StatelessWidget {
 
                   //  Training Summary
                   InkWell(
-                    onTap: (){},
+                    onTap: (){
+                      Navigator.push(context, MaterialPageRoute(builder: (context)=> TrainingInformation()));
+                    },
                     child: Row(
                       children: [
                         Icon(Icons.local_library,color: Colors.black,size: 15,),
                         SizedBox(width: 15,),
                         Text(
-                          "Training",
+                          "Training Information",
                           style: TextStyle(
                             color: Colors.black,
                             fontSize: 15,
@@ -506,7 +514,9 @@ class ProfileInformatioPage extends StatelessWidget {
 
                   //Profile Summary
                   InkWell(
-                    onTap: (){},
+                    onTap: (){
+                      Navigator.push(context, MaterialPageRoute(builder: (context)=> Profile_Summary()));
+                    },
                     child: Row(
                       children: [
                         Icon(Icons.star,color: Colors.black,size: 15,),
@@ -527,7 +537,9 @@ class ProfileInformatioPage extends StatelessWidget {
 
                   //  Experience Summary
                   InkWell(
-                    onTap: (){},
+                    onTap: (){
+                      Navigator.push(context, MaterialPageRoute(builder: (context)=> Experience_summary()));
+                    },
                     child: Row(
                       children: [
                         Icon(Icons.emoji_events,color: Colors.black,size: 15,),
