@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../Profile/Account Settings/upload_photo.dart';
 import 'Widgets/HiringCategoryInRow.dart';
 import 'Widgets/HomePageJobList.dart';
 import 'Widgets/Main_feature.dart';
@@ -47,13 +48,18 @@ class _JobSeekerHomePageState extends State<JobSeekerHomePage> {
                         // Image Icon
                         Padding(
                           padding: const EdgeInsets.only(left: 20.0,top: 20.0),
-                          child: Container(
-                            height: 70,
-                            // width: 100,
-                            decoration: BoxDecoration(
-                                shape: BoxShape.circle
+                          child: InkWell(
+                            onTap: (){
+                              Navigator.push(context, MaterialPageRoute(builder: (context)=> UploadPhoto())  );
+                            },
+                            child: Container(
+                              height: 70,
+                              // width: 100,
+                              decoration: BoxDecoration(
+                                  shape: BoxShape.circle
+                              ),
+                              child: Image.asset("assets/icons/man_logo.png"),
                             ),
-                            child: Image.asset("assets/icons/man_logo.png"),
                           ),
                         ),
       
@@ -305,20 +311,19 @@ class _JobSeekerHomePageState extends State<JobSeekerHomePage> {
       
             for (int i=0 ; i<10; i++)
               HomePageJobList(),
+
+
       
-      
-            // endDrawer: Drawer(
-            //   child: Column(
-            //     children: [
-            //       Container(
-            //         height: 500,
-            //         color: Colors.redAccent,
-            //       )
-            //     ],
-            //   ),
-            // ),
-      
-      
+          ],
+        ),
+      ),
+      endDrawer: Drawer(
+        child: Column(
+          children: [
+            Container(
+              height: 500,
+              color: Colors.redAccent,
+            )
           ],
         ),
       ),

@@ -1,9 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:jobskeers/Job_Seeker/Pages/Profile/Award%20&%20Co-Curricular%20Act/award.dart';
+import 'package:jobskeers/Job_Seeker/Pages/Profile/Award%20&%20Co-Curricular%20Act/co_curricular_act.dart';
 import 'package:jobskeers/Job_Seeker/Pages/Profile/Summary/experience_summary.dart';
 import 'package:jobskeers/Job_Seeker/Pages/Profile/Summary/profile_summary.dart';
 import 'package:jobskeers/Job_Seeker/Pages/Profile/Trainning%20and%20Skills/skills.dart';
 
+import '../Account Settings/account_settings.dart';
+import '../Account Settings/upload_photo.dart';
 import '../Education/academic_qualification.dart';
 import '../Education/language_prof.dart';
 import '../Education/professional_certification.dart';
@@ -81,7 +85,9 @@ class ProfileInformatioPage extends StatelessWidget {
 
                   //Upload Photo
                   InkWell(
-                    onTap: (){},
+                    onTap: (){
+                      Navigator.push(context, MaterialPageRoute(builder: (context)=> UploadPhoto())  );
+                    },
                     child: Row(
                       children: [
                         Icon(Icons.camera_alt,color: Colors.black,size: 15,),
@@ -102,7 +108,9 @@ class ProfileInformatioPage extends StatelessWidget {
 
                   //  Account Settings
                   InkWell(
-                    onTap: (){},
+                    onTap: (){
+                      Navigator.push(context, MaterialPageRoute(builder: (context)=> AccountSetting())  );
+                    },
                     child: Row(
                       children: [
                         Icon(Icons.settings,color: Colors.black,size: 15,),
@@ -441,7 +449,9 @@ class ProfileInformatioPage extends StatelessWidget {
 
                   //Award
                   InkWell(
-                    onTap: (){},
+                    onTap: (){
+                      Navigator.push(context, MaterialPageRoute(builder: (context)=> AwardDetails()));
+                    },
                     child: Row(
                       children: [
                         Icon(Icons.workspace_premium,color: Colors.black,size: 15,),
@@ -462,7 +472,9 @@ class ProfileInformatioPage extends StatelessWidget {
 
                   //  Co Curricular Activities
                   InkWell(
-                    onTap: (){},
+                    onTap: (){
+                      Navigator.push(context, MaterialPageRoute(builder: (context)=> Co_Curricular_Act_Details()));
+                    },
                     child: Row(
                       children: [
                         Icon(Icons.emoji_objects_rounded,color: Colors.black,size: 15,),

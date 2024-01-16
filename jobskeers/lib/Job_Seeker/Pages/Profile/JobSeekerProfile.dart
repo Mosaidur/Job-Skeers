@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'Account Settings/upload_photo.dart';
 import 'widgets/InformationPart.dart';
 
 class JobSeekerProfilePage extends StatelessWidget {
@@ -31,8 +32,11 @@ class JobSeekerProfilePage extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
 
+                    //profile Photo
                     InkWell(
-                      onTap: (){},
+                      onTap: (){
+                        Navigator.push(context, MaterialPageRoute(builder: (context)=> UploadPhoto())  );
+                      },
                       child: Container(
                       alignment: Alignment.center,
                       width: 80,
