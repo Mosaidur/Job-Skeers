@@ -55,7 +55,7 @@ class _Registration_OTPVerficationState
             ),
 
             Text(
-              "We have send the verification code to \n ${widget.phone_number!= null ? "number is missing" : widget.phone_number }",
+              "We have send the verification code to \n ${widget.phone_number!= null ? widget.phone_number : 'a missing number' }",
               style: TextStyle(
                 color: Color(0xff03438C),
                 fontWeight: FontWeight.bold,
@@ -65,10 +65,10 @@ class _Registration_OTPVerficationState
 
             InkWell(
               onTap: (){
-
+                Navigator.of(context).pop();
               },
               child: Text(
-              "Change ${widget.value != null ? "Phone Number or Email" : widget.value }?",
+              "Change ${widget.value != null ? widget.value : 'Phone Number or Email' }?",
               style: TextStyle(
                 color: Color(0xff03438C),
                 fontWeight: FontWeight.bold,
@@ -349,9 +349,12 @@ class _Registration_OTPVerficationState
     super.dispose();
   }
   void _verifyOtp() {
-    // Implement your OTP verification logic here
-    // For example, you can compare the entered OTP with the expected OTP
-    // If the OTP is correct, you can navigate to the next screen
-    // Otherwise, you can show an error message
+    String mergedText = _textController1.text +
+        _textController2.text +
+        _textController3.text +
+        _textController4.text +
+        _textController5.text;
+    print(mergedText);
+
   }
 }

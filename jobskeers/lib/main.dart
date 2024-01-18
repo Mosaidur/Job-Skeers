@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:jobskeers/Job_Seeker/Authentiction%20Pages/JobSeekerSign_In.dart';
+import 'package:jobskeers/SelectOneLogInPage.dart';
 
 
 import 'Job_Seeker/JobSeekerMainPage.dart';
 import 'Job_Seeker/loading_page.dart';
+import 'Select_LogInScreen.dart';
 import 'SplashScreen.dart';
 
 void main() {
@@ -24,8 +27,8 @@ class MyApp extends StatelessWidget {
         useMaterial3: false,
       ),
       // home: JobSeekerMainpage(),
-      // home: LoadingPage(),
-      home : SplashScreen(),
+      home: SelectLoginScreen(),
+      // home : SplashScreen(),
     );
   }
 }

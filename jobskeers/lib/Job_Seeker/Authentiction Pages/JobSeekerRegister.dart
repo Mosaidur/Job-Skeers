@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 //import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 
+import '../CustomSnackbar.dart';
 import 'JobSeekerForgetPass.dart';
 import 'JobSeekerSign_In.dart';
 import 'PhnandEmailVerifation.dart';
@@ -33,11 +34,18 @@ class _JobSeekerRegisterScreenState extends State<JobSeekerRegisterScreen> {
   bool _passwordVisible = false;
   bool _ConfirmpasswordVisible = false;
 
-  late String select;
+  late String select= "Phone Number" ;
+  // late String select = "Phone Number";
 
 
   // declare a GlobalKey
   final _formkey = GlobalKey<FormState>();
+
+  void updateSelection(String value) {
+    setState(() {
+      select = value;
+    });
+  }
 
   // void _submit ()async {
   //
@@ -383,11 +391,12 @@ class _JobSeekerRegisterScreenState extends State<JobSeekerRegisterScreen> {
                                   ),
                                 ),
 
-                                Radio_Button(select: 'Phone Number'),
+                                Radio_Button(select: select, onSelectionChanged: updateSelection,),
                               ],
                             ),
 
                             SizedBox(height: 10,),
+
 
                             ElevatedButton(
                               style: ElevatedButton.styleFrom(
@@ -400,15 +409,87 @@ class _JobSeekerRegisterScreenState extends State<JobSeekerRegisterScreen> {
                                   minimumSize: Size(double.infinity, 50)
                               ),
 
+
                               onPressed: (){
                                 //_submit();
-                                Navigator.push(context, MaterialPageRoute(builder: (context)=> Registration_OTPVerfication(
-                                  value: select,
-                                  phone_number: UserPhoneNumberTextEditingController.text ,)));
+
+                                // Check if all required fields are filled
+                                // Check if all required fields are filled and passwords match
+                                if (UserNameTextEditingController.text.isEmpty ||
+                                    UserEmailTextEditingController.text.isEmpty ||
+                                    UserPhoneNumberTextEditingController.text.isEmpty ||
+                                    UserAddressTextEditingController.text.isEmpty ||
+                                    UserPasswordTextEditingController.text.isEmpty ||
+                                    UserConfirmPasswordTextEditingController.text.isEmpty) {
+
+                                  Future.delayed(Duration.zero, () {
+                                    CustomSnackBar.show(
+                                      context,
+                                      message: 'Please Enter all the value',
+                                      backgroundColor: Colors.red.shade400, // Set your desired background color
+                                      actionLabel: 'Error',
+                                      iconData: Icons.error,
+                                      onActionPressed: () {
+                                        // Handle action press
+                                        Navigator.of(context).pop; // or any other action
+                                      },
+                                    );
+
+                                  });
+
+                                } else {
+                                  if (UserPasswordTextEditingController.text != UserConfirmPasswordTextEditingController.text)
+                                  {
+                                    Future.delayed(Duration.zero, () {
+                                      CustomSnackBar.show(
+                                        context,
+                                        message: 'Password not match',
+                                        backgroundColor: Colors.red.shade400, // Set your desired background color
+                                        actionLabel: 'Error',
+                                        iconData: Icons.error,
+                                        onActionPressed: () {
+                                          // Handle action press
+                                          Navigator.of(context).pop; // or any other action
+                                        },
+                                      );
+
+                                    });
+                                  }else {
+
+                                    String phoneOrEmail;
+
+                                    if (select == 'Phone Number') {
+                                      phoneOrEmail = UserPhoneNumberTextEditingController.text;
+                                    } else if (select == 'Email') {
+                                      phoneOrEmail = UserEmailTextEditingController.text;
+                                    } else {
+                                      // Handle the case when 'Phone & Email' is selected
+                                      // You might want to combine both phone and email or handle it differently based on your requirements.
+                                      phoneOrEmail = ' ${UserPhoneNumberTextEditingController.text} and ${UserEmailTextEditingController.text}';
+                                    }
+
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => Registration_OTPVerfication(
+                                          value: select,
+                                          phone_number: phoneOrEmail,
+                                        ),
+                                      ),
+                                    );
+
+                                  }
+                                }
+
+
+
+                                print( select );
+
+
                               },
 
                               child: Text(
-                                "Register",
+                                "Register with $select ",
                                 style:TextStyle(
                                   fontWeight: FontWeight.bold,
                                   fontSize: 20,
@@ -419,6 +500,7 @@ class _JobSeekerRegisterScreenState extends State<JobSeekerRegisterScreen> {
 
                             SizedBox(height: 10,),
 
+                            //Forgot password
                             GestureDetector(
                               onTap: (){
                                 Navigator.push(context, MaterialPageRoute(builder: (context)=> JobSeekerForgetPassScreen()));
@@ -436,6 +518,7 @@ class _JobSeekerRegisterScreenState extends State<JobSeekerRegisterScreen> {
 
                             SizedBox(height: 15,),
 
+                            //have an account
                             GestureDetector(
                               onTap: (){
                                 Navigator.push(context, MaterialPageRoute(builder: (context)=> JobSeekerSigninScreen()));
@@ -468,25 +551,6 @@ class _JobSeekerRegisterScreenState extends State<JobSeekerRegisterScreen> {
     );
   }
 
-  // Row addRadioButton(int btnValue, String title) {
-  //   return Row(
-  //     mainAxisAlignment: MainAxisAlignment.start,
-  //     children: <Widget>[
-  //       Radio(
-  //         activeColor: Theme.of(context).primaryColor,
-  //         value: Select_veri_Method [btnValue],
-  //         groupValue: widget.select,
-  //         onChanged: (value) {
-  //           setState(() {
-  //             print(value);
-  //             widget.select = value.toString();
-  //           });
-  //         },
-  //       ),
-  //       Text(title),
-  //     ],
-  //   );
-  // }
 
 
 }

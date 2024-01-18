@@ -2,8 +2,10 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:jobskeers/Job_Seeker/Authentiction%20Pages/JobSeekerSign_In.dart';
 
 import 'Select_JobSekkerAndEmplpoyer.dart';
+import 'Select_LogInScreen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -17,7 +19,7 @@ class _SplashScreenState extends State<SplashScreen> {
   startTimer (){
     Timer (Duration(seconds: 3),
             () => Navigator.pushReplacement(context,
-            MaterialPageRoute(builder: (context) => SelectJobSekkerAndEmplpoyer () ),
+            MaterialPageRoute(builder: (context) => JobSeekerSigninScreen() ),
             )
     );
   }

@@ -1,24 +1,25 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class Radio_Button extends StatefulWidget {
-  String select = "Phone Number";
+  String select;
+  final Function(String) onSelectionChanged;
 
-  Radio_Button({required this.select});
+  Radio_Button({required this.select, required this.onSelectionChanged});
 
   @override
   _Radio_ButtonState createState() => _Radio_ButtonState();
 }
 
 class _Radio_ButtonState extends State<Radio_Button> {
-  List<String> gender = ["Phone Number", "Email", "Phone & Email"];
+  List<String> verificationMethods = ["Phone Number", "Email", "Phone & Email"];
 
   @override
   Widget build(BuildContext context) {
     return Row(
       children: <Widget>[
-        addRadioButton(0, 'Phone Number'),
-        addRadioButton(1, 'Email'),
-        addRadioButton(2, 'Phone & Email'),
+        for (int i = 0; i < verificationMethods.length; i++)
+          addRadioButton(i, verificationMethods[i]),
       ],
     );
   }
@@ -29,13 +30,10 @@ class _Radio_ButtonState extends State<Radio_Button> {
       children: <Widget>[
         Radio(
           activeColor: Color(0xff03438C),
-          value: gender[btnValue],
+          value: verificationMethods[btnValue],
           groupValue: widget.select,
           onChanged: (value) {
-            setState(() {
-              print(value);
-              widget.select = value.toString();
-            });
+            widget.onSelectionChanged(value.toString());
           },
         ),
         Text(title),
