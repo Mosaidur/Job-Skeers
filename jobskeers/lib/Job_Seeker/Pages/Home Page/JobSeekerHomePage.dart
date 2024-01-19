@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../Authentiction Pages/JobSeekerSign_In.dart';
 import '../Profile/Account Settings/upload_photo.dart';
 import 'Widgets/HiringCategoryInRow.dart';
 import 'Widgets/HomePageJobList.dart';
@@ -8,7 +10,7 @@ import 'Widgets/Main_feature.dart';
 import '../Browse Jobs/BrowseJobsListPage.dart';
 
 class JobSeekerHomePage extends StatefulWidget {
-  const JobSeekerHomePage({Key? key}) : super(key: key);
+  JobSeekerHomePage({Key? key});
 
   @override
   State<JobSeekerHomePage> createState() => _JobSeekerHomePageState();
@@ -20,6 +22,25 @@ class _JobSeekerHomePageState extends State<JobSeekerHomePage> {
   String new_jobs ="100";
   String Live_jobs ="200";
   String Deadline_tomorrow = "150";
+
+
+  // getting the value of shared preferances
+  late SharedPreferences sprefs;
+  String? userID;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadPreferences();
+  }
+
+  _loadPreferences() async {
+    sprefs = await SharedPreferences.getInstance();
+    setState(() {
+      userID = sprefs.getString("USERID");
+    });
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +54,7 @@ class _JobSeekerHomePageState extends State<JobSeekerHomePage> {
             // Hadder of the HomePage
             Container(
               width: double.maxFinite,
-              height: 200,
+              height: 180,
               color: Color(0xffcae6f1),
               child: Column(
                 children: [
@@ -53,7 +74,7 @@ class _JobSeekerHomePageState extends State<JobSeekerHomePage> {
                               Navigator.push(context, MaterialPageRoute(builder: (context)=> UploadPhoto())  );
                             },
                             child: Container(
-                              height: 70,
+                              height: 50,
                               // width: 100,
                               decoration: BoxDecoration(
                                   shape: BoxShape.circle
@@ -68,7 +89,7 @@ class _JobSeekerHomePageState extends State<JobSeekerHomePage> {
                           padding: const EdgeInsets.only(left: 30.0,right: 8.0),
                           child: Container(
                             height: 20,
-                            width: 170,
+                            width: MediaQuery.of(context).size.width/2.1,
                             decoration: BoxDecoration(
                                 color: Colors.white60,
                                 borderRadius: BorderRadius.circular(5)
@@ -90,31 +111,37 @@ class _JobSeekerHomePageState extends State<JobSeekerHomePage> {
                         ),
       
                         // Notification Icon
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Stack(
-                            alignment: AlignmentDirectional.topEnd ,
-                            children: [
-      
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Icon(
-                                  Icons.notifications,
-                                  color: Color(0xff03438C),
+                        InkWell(
+                          onTap: (){
+
+
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Stack(
+                              alignment: AlignmentDirectional.topEnd ,
+                              children: [
+
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Icon(
+                                    Icons.notifications,
+                                    color: Color(0xff03438C),
+                                  ),
                                 ),
-                              ),
-      
-                              Text(
-                                "${number}",
-                                style: TextStyle(
-                                    color: Colors.red,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 15
-                                ),
-                                //textAlign: TextAlign.right,
-                              )
-      
-                            ],
+
+                                Text(
+                                  "${number}",
+                                  style: TextStyle(
+                                      color: Colors.red,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 15
+                                  ),
+                                  //textAlign: TextAlign.right,
+                                )
+
+                              ],
+                            ),
                           ),
                         ),
       
@@ -320,9 +347,19 @@ class _JobSeekerHomePageState extends State<JobSeekerHomePage> {
       endDrawer: Drawer(
         child: Column(
           children: [
-            Container(
-              height: 500,
-              color: Colors.redAccent,
+            Center(
+              child: Container(
+                height: 500,
+                color: Colors.redAccent,
+                child: Text(
+
+                  userID ?? "No UserID",
+                  style: TextStyle(
+                      fontSize: 90,
+                      fontWeight: FontWeight.bold
+                  ),
+                ),
+              ),
             )
           ],
         ),

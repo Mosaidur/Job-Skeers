@@ -27,8 +27,8 @@ class MyApp extends StatelessWidget {
         useMaterial3: false,
       ),
       // home: JobSeekerMainpage(),
-      home: SelectLoginScreen(),
-      // home : SplashScreen(),
+      // home: SelectLoginScreen(),
+      home : SplashScreen(),
     );
   }
 }

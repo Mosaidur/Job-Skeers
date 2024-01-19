@@ -30,7 +30,7 @@ class JobSeekerSigninScreen extends StatefulWidget {
 
 class _JobSeekerSigninScreenState extends State<JobSeekerSigninScreen> {
 
-  static const String UserIDGlobally = "USERID";
+  // static const String UserIDGlobally = "USERID";
 
   final UserEmailTextEditingController = TextEditingController();
   final UserPasswordTextEditingController = TextEditingController();
@@ -64,11 +64,9 @@ class _JobSeekerSigninScreenState extends State<JobSeekerSigninScreen> {
           // print('Login successful. User ID: ${loginResponse.userId}');
 
           //here used sharedPreferences
-          var prefs = await SharedPreferences.getInstance();
+          final SharedPreferences prefs = await SharedPreferences.getInstance();
           // int userId = int.parse('${loginResponse.userId}');
-          prefs.setString("USERID", loginResponse.userId!);
-
-
+          await prefs.setString("USERID", loginResponse.userId!);
 
           // Delay the execution of the showDialog
           Future.delayed(Duration.zero, () {
@@ -91,7 +89,9 @@ class _JobSeekerSigninScreenState extends State<JobSeekerSigninScreen> {
           Navigator.push(
               context, MaterialPageRoute(
               builder: (context) => JobSeekerMainpage()));
-        }else{
+
+        }
+        else{
           Future.delayed(Duration.zero, () {
             CustomSnackBar.show(
               context,
@@ -102,14 +102,11 @@ class _JobSeekerSigninScreenState extends State<JobSeekerSigninScreen> {
               iconData: Icons.error,
               onActionPressed: () {
                 // Handle action press
-                Navigator
-                    .of(context)
-                    .pop; // or any other action
+                Navigator.of(context).pop; // or any other action
               },
             );
           });
         }
-
       } else {
         // Login failed, handle the error message
         Future.delayed(Duration.zero, () {
@@ -126,9 +123,6 @@ class _JobSeekerSigninScreenState extends State<JobSeekerSigninScreen> {
           );
 
         });
-
-
-
       }
     } else {
       // Handle other HTTP status codes
@@ -146,9 +140,6 @@ class _JobSeekerSigninScreenState extends State<JobSeekerSigninScreen> {
         );
 
       });
-
-
-
     }
   }
 
@@ -365,4 +356,22 @@ class _JobSeekerSigninScreenState extends State<JobSeekerSigninScreen> {
       ),
     );
   }
+
+  // Future<String?> getUSERID() async {
+  //   var prefs = await SharedPreferences.getInstance();
+  //
+  //   return prefs.getString(UserIDGlobally); // Replace with the actual value
+  // }
+
+  // void someFunction() async {
+  //   String? userID = await getUSERID() as String;
+  //   Navigator.push(
+  //     context,
+  //     MaterialPageRoute(
+  //       builder: (context) => JobSeekerMainpage(UserIDGlobally: userID),
+  //     ),
+  //   );
+  // }
+
+
 }

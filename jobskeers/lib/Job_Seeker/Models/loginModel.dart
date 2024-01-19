@@ -6,7 +6,7 @@ class LoginResponse {
   LoginResponse({
     required this.success,
     required this.message,
-    required this.userId,
+     this.userId,
   });
 
   factory LoginResponse.fromJson(Map<String, dynamic> json) {

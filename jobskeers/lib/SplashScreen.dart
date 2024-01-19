@@ -3,6 +3,9 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:jobskeers/Job_Seeker/Authentiction%20Pages/JobSeekerSign_In.dart';
+import 'package:jobskeers/Job_Seeker/JobSeekerMainPage.dart';
+import 'package:jobskeers/Job_Seeker/Pages/Home%20Page/JobSeekerHomePage.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'Select_JobSekkerAndEmplpoyer.dart';
 import 'Select_LogInScreen.dart';
@@ -16,18 +19,66 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
 
-  startTimer (){
+
+  // getting the value of shared preferances
+  // late SharedPreferences sprefs;
+  // String? userID;
+
+
+  // _loadPreferences() async {
+  //   sprefs = await SharedPreferences.getInstance();
+  //   setState(() {
+  //     userID = sprefs.getString("USERID");
+  //   });
+  // }
+
+  startTimer ()async{
+
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final String? userID = prefs.getString("USERID");
+
+    (userID != null) ?
     Timer (Duration(seconds: 3),
             () => Navigator.pushReplacement(context,
-            MaterialPageRoute(builder: (context) => JobSeekerSigninScreen() ),
+            MaterialPageRoute(builder: (context) => JobSeekerMainpage() ),
             )
+    ) :
+    Timer (Duration(seconds: 3),
+            () => Navigator.pushReplacement(context,
+          MaterialPageRoute(builder: (context) => SelectLoginScreen() ),
+        )
     );
   }
+
+  // startTimer() async {
+  //
+  //   final SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   final String? userID = prefs.getString("USERID");
+  //
+  //   Future.delayed(Duration(seconds: 3), () {
+  //     if (userID != null || userID!.isNotEmpty) {
+  //       print("UserID: $userID");
+  //       Navigator.pushReplacement(
+  //         context,
+  //         MaterialPageRoute(builder: (context) => JobSeekerMainpage()),
+  //       );
+  //     } else {
+  //       print("UserID 2: $userID");
+  //       Navigator.pushReplacement(
+  //         context,
+  //         MaterialPageRoute(builder: (context) => JobSeekerSigninScreen()),
+  //       );
+  //     }
+  //   });
+  // }
+
 
   @override
 
   void initState (){
     super.initState();
+
+    // _loadPreferences();
     startTimer();
   }
 

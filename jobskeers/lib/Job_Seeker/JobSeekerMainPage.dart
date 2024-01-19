@@ -10,22 +10,27 @@ import 'Pages/Profile/JobSeekerProfile.dart';
 
 
 class JobSeekerMainpage extends StatefulWidget {
-  const JobSeekerMainpage({super.key});
+
+   JobSeekerMainpage({Key? key});
 
   @override
   State<JobSeekerMainpage> createState() => _JobSeekerMainpageState();
 }
 
 class _JobSeekerMainpageState extends State<JobSeekerMainpage> {
+  // late List pages;
+
+
+    final List pages = [
+      JobSeekerHomePage(),
+      LearningPage(),
+      ComingSoon(),
+      MyJobPage(),
+      JobSeekerProfilePage(),
+    ];
 
   int selectedIndex = 0;
-  final List pages = [
-    JobSeekerHomePage(),
-    LearningPage(),
-    ComingSoon(),
-    MyJobPage(),
-    JobSeekerProfilePage(),
-  ];
+
 
   @override
   Widget build(BuildContext context) {
