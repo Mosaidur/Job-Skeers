@@ -1,15 +1,20 @@
+import 'dart:convert';
+
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 //import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
+import 'package:jobskeers/Job_Seeker/loading_page.dart';
 
 import '../CustomSnackbar.dart';
+import '../Models/Reg_Email_verification.dart';
 import 'JobSeekerForgetPass.dart';
 import 'JobSeekerSign_In.dart';
 import 'PhnandEmailVerifation.dart';
 import 'Verification_Redio_button.dart';
+import 'package:http/http.dart' as http;
 
 
 
@@ -47,18 +52,71 @@ class _JobSeekerRegisterScreenState extends State<JobSeekerRegisterScreen> {
     });
   }
 
-  // void _submit ()async {
-  //
-  //   showDialog(
-  //       context: context,
-  //       barrierDismissible: false,
-  //       builder: (BuildContext context)
-  //       {
-  //         return LoadingScreen(message: "Processing, Please wait....",);
-  //       }
-  //   );
-  //
-  // }
+  Future<void> _submit (String email)async {
+
+
+      final url = 'http://10.0.2.2/JobSeeker_EmpAPI/reg_email_send.php'; // Replace with your actual API endpoint
+      final response =  await http.get(Uri.parse('$url?email=$email'));
+
+      LoadingPage();
+
+      if (response.statusCode == 200) {
+        final Map<String, dynamic> jsonResponse = json.decode(response.body);
+        final verificationDTO = EmailVerificationDTO.fromJson(jsonResponse);
+
+        if (verificationDTO.success == true) {
+
+
+          Future.delayed(Duration.zero, () {
+            CustomSnackBar.show(
+              context,
+              message: '${verificationDTO.message}.',
+              backgroundColor: Colors.green.shade400, // Set your desired background color
+              actionLabel: 'Successful.',
+              iconData: Icons.done,
+              onActionPressed: () {
+                // Handle action press
+                Navigator.of(context).pop; // or any other action
+              },
+            );
+          });
+
+
+        } else {
+
+          Future.delayed(Duration.zero, () {
+            CustomSnackBar.show(
+              context,
+              message: '${verificationDTO.message}.',
+              backgroundColor: Colors.red.shade400, // Set your desired background color
+              actionLabel: 'Error!',
+              iconData: Icons.error,
+              onActionPressed: () {
+                // Handle action press
+                Navigator.of(context).pop; // or any other action
+              },
+            );
+          });
+        }
+      } else {
+
+        Future.delayed(Duration.zero, () {
+          CustomSnackBar.show(
+            context,
+            message: 'Failed to load data from the server.',
+            backgroundColor: Colors.red.shade400, // Set your desired background color
+            actionLabel: 'Error.',
+            iconData: Icons.done,
+            onActionPressed: () {
+              // Handle action press
+              Navigator.of(context).pop; // or any other action
+            },
+          );
+        });
+      }
+
+
+  }
 
 
 
@@ -411,7 +469,7 @@ class _JobSeekerRegisterScreenState extends State<JobSeekerRegisterScreen> {
 
 
                               onPressed: (){
-                                //_submit();
+
 
                                 // Check if all required fields are filled
                                 // Check if all required fields are filled and passwords match
@@ -458,10 +516,15 @@ class _JobSeekerRegisterScreenState extends State<JobSeekerRegisterScreen> {
 
                                     String phoneOrEmail;
 
-                                    if (select == 'Phone Number') {
-                                      phoneOrEmail = UserPhoneNumberTextEditingController.text;
-                                    } else if (select == 'Email') {
+                                    if (select == 'Email') {
                                       phoneOrEmail = UserEmailTextEditingController.text;
+
+
+                                      _submit(phoneOrEmail.toString());
+
+
+                                    } else if ( select == 'Phone Number') {
+                                      phoneOrEmail = UserPhoneNumberTextEditingController.text;
                                     } else {
                                       // Handle the case when 'Phone & Email' is selected
                                       // You might want to combine both phone and email or handle it differently based on your requirements.
@@ -474,6 +537,11 @@ class _JobSeekerRegisterScreenState extends State<JobSeekerRegisterScreen> {
                                         builder: (context) => Registration_OTPVerfication(
                                           value: select,
                                           phone_number: phoneOrEmail,
+                                          NametextController: UserNameTextEditingController,
+                                          emailtextController: UserEmailTextEditingController,
+                                          phoneNumbertextController: UserPhoneNumberTextEditingController,
+                                          AddresstextController: UserAddressTextEditingController,
+                                          passwordtextController: UserPasswordTextEditingController,
                                         ),
                                       ),
                                     );
@@ -483,7 +551,7 @@ class _JobSeekerRegisterScreenState extends State<JobSeekerRegisterScreen> {
 
 
 
-                                print( select );
+                                // print( select );
 
 
                               },

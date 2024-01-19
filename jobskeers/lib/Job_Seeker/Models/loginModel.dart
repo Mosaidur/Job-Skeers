@@ -11,9 +11,10 @@ class LoginResponse {
 
   factory LoginResponse.fromJson(Map<String, dynamic> json) {
     return LoginResponse(
-      success: json['success'] as bool,
+      userId: json?['user_id'] as String?,
+      success: json['success'] as bool ,
       message: json['message'] as String,
-      userId: json?['userId'] as String?,
+
     );
   }
 }

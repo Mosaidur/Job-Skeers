@@ -15,6 +15,8 @@ import '../customDialogBox.dart';
 import 'JobSeekerForgetPass.dart';
 import 'JobSeekerRegister.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
+
 
 
 
@@ -27,6 +29,8 @@ class JobSeekerSigninScreen extends StatefulWidget {
 }
 
 class _JobSeekerSigninScreenState extends State<JobSeekerSigninScreen> {
+
+  static const String UserIDGlobally = "USERID";
 
   final UserEmailTextEditingController = TextEditingController();
   final UserPasswordTextEditingController = TextEditingController();
@@ -42,6 +46,7 @@ class _JobSeekerSigninScreenState extends State<JobSeekerSigninScreen> {
 
     final response = await http.post(
       Uri.parse(apiUrl),
+      headers: {'Content-Type': 'application/x-www-form-urlencoded'},
       body: {
         'email': UserEmailTextEditingController.text,
         'password': UserPasswordTextEditingController.text,
@@ -52,18 +57,68 @@ class _JobSeekerSigninScreenState extends State<JobSeekerSigninScreen> {
       final Map<String, dynamic> responseData = json.decode(response.body);
       final loginResponse = LoginResponse.fromJson(responseData);
 
-      if (loginResponse.success == true) {
+      if (loginResponse.success == true ) {
         // Login successful, handle the response
-        print('Login successful. User ID: ${loginResponse.userId}');
+        if (loginResponse.userId != null) {
 
-        // Delay the execution of the showDialog
+          // print('Login successful. User ID: ${loginResponse.userId}');
+
+          //here used sharedPreferences
+          var prefs = await SharedPreferences.getInstance();
+          // int userId = int.parse('${loginResponse.userId}');
+          prefs.setString("USERID", loginResponse.userId!);
+
+
+
+          // Delay the execution of the showDialog
+          Future.delayed(Duration.zero, () {
+            CustomSnackBar.show(
+              context,
+              message: '${loginResponse.message}',
+              backgroundColor: Colors.green.shade400,
+              // Set your desired background color
+              actionLabel: 'Successful',
+              iconData: Icons.done,
+              onActionPressed: () {
+                // Handle action press
+                Navigator
+                    .of(context)
+                    .pop; // or any other action
+              },
+            );
+          });
+
+          Navigator.push(
+              context, MaterialPageRoute(
+              builder: (context) => JobSeekerMainpage()));
+        }else{
+          Future.delayed(Duration.zero, () {
+            CustomSnackBar.show(
+              context,
+              message: 'Some unexpected issue happends',
+              backgroundColor: Colors.green.shade400,
+              // Set your desired background color
+              actionLabel: 'Login failed.',
+              iconData: Icons.error,
+              onActionPressed: () {
+                // Handle action press
+                Navigator
+                    .of(context)
+                    .pop; // or any other action
+              },
+            );
+          });
+        }
+
+      } else {
+        // Login failed, handle the error message
         Future.delayed(Duration.zero, () {
           CustomSnackBar.show(
             context,
             message: '${loginResponse.message}',
-            backgroundColor: Colors.green.shade400, // Set your desired background color
-            actionLabel: 'Successful',
-            iconData: Icons.done,
+            backgroundColor: Colors.red.shade400, // Set your desired background color
+            actionLabel: 'Login failed.',
+            iconData: Icons.error,
             onActionPressed: () {
               // Handle action press
               Navigator.of(context).pop; // or any other action
@@ -72,37 +127,27 @@ class _JobSeekerSigninScreenState extends State<JobSeekerSigninScreen> {
 
         });
 
-        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => JobSeekerMainpage()));
-      } else {
-        // Login failed, handle the error message
 
+
+      }
+    } else {
+      // Handle other HTTP status codes
+      Future.delayed(Duration.zero, () {
         CustomSnackBar.show(
           context,
-          message: '${loginResponse.message}',
+          message: 'Error: ${response.statusCode}. Try again.',
           backgroundColor: Colors.red.shade400, // Set your desired background color
           actionLabel: 'Login failed.',
-          iconData: Icons.done,
+          iconData: Icons.error,
           onActionPressed: () {
             // Handle action press
             Navigator.of(context).pop; // or any other action
           },
         );
 
-      }
-    } else {
-      // Handle other HTTP status codes
+      });
 
-      CustomSnackBar.show(
-        context,
-        message: 'Error: ${response.statusCode}. Try again.',
-        backgroundColor: Colors.red.shade400, // Set your desired background color
-        actionLabel: 'Login failed.',
-        iconData: Icons.done,
-        onActionPressed: () {
-          // Handle action press
-          Navigator.of(context).pop; // or any other action
-        },
-      );
+
 
     }
   }

@@ -18,8 +18,14 @@ class CustomSnackBar {
               color: Colors.white,
             ),
           SizedBox(width: iconData != null ? 8.0 : 0), // Adjust spacing if an icon is present
-          Text(message,
-          style: TextStyle(color: Colors.white),),
+          Expanded(
+            child: Text(
+              message,
+            softWrap: true,
+            maxLines: 3,
+            overflow: TextOverflow.ellipsis,
+            style: TextStyle(color: Colors.white),),
+          ),
         ],
       ),
       backgroundColor: backgroundColor,

@@ -1,11 +1,32 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:http/http.dart' as http;
+
+import '../../Select_LogInScreen.dart';
+import '../CustomSnackbar.dart';
+import '../Models/Reg_verify_code.dart';
+import '../Models/register_data_To.dart';
 
 class Registration_OTPVerfication extends StatefulWidget {
-  Registration_OTPVerfication({Key? key, required this.value, required this.phone_number});
+  Registration_OTPVerfication({Key? key,
+    required this.value, required this.phone_number,
+    required this.NametextController,
+    required this.emailtextController,
+    required this.phoneNumbertextController,
+    required this.AddresstextController,
+    required this.passwordtextController});
+
+
   late final String value;
   final String phone_number;
+  final TextEditingController NametextController;
+  final TextEditingController emailtextController;
+  final TextEditingController phoneNumbertextController;
+  final TextEditingController AddresstextController;
+  final TextEditingController passwordtextController;
 
   @override
   State<Registration_OTPVerfication> createState() =>
@@ -29,6 +50,133 @@ class _Registration_OTPVerficationState
     _textController4 = TextEditingController();
     _textController5 = TextEditingController();
   }
+
+
+
+
+  //Register Data
+  void signUp(JobSeeker data) async {
+    final apiUrl = 'http://10.0.2.2/JobSeeker_EmpAPI/Emp_register.php';
+    final response = await http.post(
+      Uri.parse(apiUrl),
+      headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+      body: data.toJson(),
+    );
+    final Map<String, dynamic> responseData = json.decode(response.body);
+    final ResponseDataModel responseModel = ResponseDataModel.fromJson(responseData);
+
+    if (response.statusCode == 200) {
+      // Successfully sent data to the server
+      Future.delayed(Duration.zero, () {
+        CustomSnackBar.show(
+          context,
+          message: '${responseModel.message}.',
+          backgroundColor: Colors.green.shade400, // Set your desired background color
+          actionLabel: 'Successful.',
+          iconData: Icons.done,
+          onActionPressed: () {
+            // Handle action press
+            Navigator.of(context).pop; // or any other action
+          },
+        );
+      });
+      Navigator.push(context, MaterialPageRoute(builder: (context)=> SelectLoginScreen() ));
+    } else {
+
+      // Handle errors here
+      print('Failed to send data. Error: ${response.statusCode}');
+      Future.delayed(Duration.zero, () {
+        CustomSnackBar.show(
+          context,
+          message: '${responseModel.message}.',
+          backgroundColor: Colors.red.shade400, // Set your desired background color
+          actionLabel: 'Error!',
+          iconData: Icons.error,
+          onActionPressed: () {
+            // Handle action press
+            Navigator.of(context).pop; // or any other action
+          },
+        );
+      });
+    }
+  }
+
+  void registerDataSubmit() {
+    final dto = JobSeeker(
+      name: widget.NametextController.text.toString(),
+      phoneNo: widget.phoneNumbertextController.text.toString(),
+      address: widget.AddresstextController.text.toString(),
+      email: widget.emailtextController.text.toString(),
+      password: widget.passwordtextController.text.toString(),
+    );
+
+    signUp(dto);
+  }
+
+
+
+  // Verification code match
+  Future<void> _verifySubmit(String verificationCode) async {
+    final apiUrl = 'http://10.0.2.2/JobSeeker_EmpAPI/reg_email_verify.php';
+    final response = await http.get(Uri.parse('$apiUrl?code=$verificationCode'));
+
+    if (response.statusCode == 200) {
+      final Map<String, dynamic> responseData = json.decode(response.body);
+      final verificationResponse = VerificationCodeResponse.fromJson(responseData);
+
+      if (verificationResponse.success== true) {
+        // Email verification successful
+        Future.delayed(Duration.zero, () {
+          CustomSnackBar.show(
+            context,
+            message: '${verificationResponse.message}.',
+            backgroundColor: Colors.green.shade400, // Set your desired background color
+            actionLabel: 'Successful.',
+            iconData: Icons.done,
+            onActionPressed: () {
+              // Handle action press
+              Navigator.of(context).pop; // or any other action
+            },
+          );
+        });
+
+        registerDataSubmit();
+
+      } else {
+        // Email verification failed
+        Future.delayed(Duration.zero, () {
+          CustomSnackBar.show(
+            context,
+            message: '${verificationResponse.message}.',
+            backgroundColor: Colors.red.shade400, // Set your desired background color
+            actionLabel: 'Error.',
+            iconData: Icons.error,
+            onActionPressed: () {
+              // Handle action press
+              Navigator.of(context).pop; // or any other action
+            },
+          );
+        });
+      }
+    } else {
+      // Handle HTTP error
+      Future.delayed(Duration.zero, () {
+        CustomSnackBar.show(
+          context,
+          message: 'HTTP Error: ${response.statusCode}.',
+          backgroundColor: Colors.red.shade400, // Set your desired background color
+          actionLabel: 'Error.',
+          iconData: Icons.error,
+          onActionPressed: () {
+            // Handle action press
+            Navigator.of(context).pop; // or any other action
+          },
+        );
+      });
+    }
+  }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -319,7 +467,13 @@ class _Registration_OTPVerficationState
               ),
               onPressed: () {
                 // Call a method to handle the verification logic
-                _verifyOtp();
+                String mergedText = _textController1.text +
+                    _textController2.text +
+                    _textController3.text +
+                    _textController4.text +
+                    _textController5.text;
+
+                _verifySubmit(mergedText);
               },
               child: Text(
                 "Verify",
@@ -348,13 +502,5 @@ class _Registration_OTPVerficationState
 
     super.dispose();
   }
-  void _verifyOtp() {
-    String mergedText = _textController1.text +
-        _textController2.text +
-        _textController3.text +
-        _textController4.text +
-        _textController5.text;
-    print(mergedText);
 
-  }
 }
