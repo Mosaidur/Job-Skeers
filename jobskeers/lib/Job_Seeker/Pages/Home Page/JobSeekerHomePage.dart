@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../Authentiction Pages/JobSeekerSign_In.dart';
+import '../../CustomSnackbar.dart';
 import '../Profile/Account Settings/upload_photo.dart';
 import 'Widgets/HiringCategoryInRow.dart';
 import 'Widgets/HomePageJobList.dart';
@@ -31,14 +32,20 @@ class _JobSeekerHomePageState extends State<JobSeekerHomePage> {
   @override
   void initState() {
     super.initState();
-    _loadPreferences();
+    _load_USERID_Preferences();
   }
 
-  _loadPreferences() async {
+  _load_USERID_Preferences() async {
     sprefs = await SharedPreferences.getInstance();
     setState(() {
       userID = sprefs.getString("USERID");
     });
+  }
+
+  _remove_USERID_Preferences() async {
+    sprefs = await SharedPreferences.getInstance();
+    sprefs.remove("USERID");
+
   }
 
 
@@ -360,6 +367,46 @@ class _JobSeekerHomePageState extends State<JobSeekerHomePage> {
                   ),
                 ),
               ),
+            ),
+
+            ElevatedButton(
+                onPressed: ()  async {
+
+                  if (userID != null) {
+                    await _remove_USERID_Preferences();
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(builder: (context) => JobSeekerSigninScreen()),
+                    );
+                  } else {
+                    // Perform logout logic here
+                    Future.delayed(Duration.zero, () {
+                      CustomSnackBar.show(
+                        context,
+                        message: 'Some unexpected issue happends',
+                        backgroundColor: Colors.green.shade400,
+                        // Set your desired background color
+                        actionLabel: 'Logout failed.',
+                        iconData: Icons.error,
+                        onActionPressed: () {
+                          // Handle action press
+                          Navigator.of(context).pop; // or any other action
+                        },
+                      );
+                    });
+                  }
+                },
+                style: ElevatedButton.styleFrom(
+                  primary: Colors.blue, // Change this color to your desired color
+                ),
+                child: Text(
+                  "Logout",
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20
+
+                  ),
+                )
             )
           ],
         ),

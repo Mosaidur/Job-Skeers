@@ -67,6 +67,9 @@ class _JobSeekerSigninScreenState extends State<JobSeekerSigninScreen> {
           final SharedPreferences prefs = await SharedPreferences.getInstance();
           // int userId = int.parse('${loginResponse.userId}');
           await prefs.setString("USERID", loginResponse.userId!);
+          await prefs.setString("USERNAME", loginResponse.userName!);
+          await prefs.setString("USEREMAIL", loginResponse.userEmail!);
+          await prefs.setString("USERPHONENO", loginResponse.userPhoneNo!);
 
           // Delay the execution of the showDialog
           Future.delayed(Duration.zero, () {
@@ -92,6 +95,7 @@ class _JobSeekerSigninScreenState extends State<JobSeekerSigninScreen> {
 
         }
         else{
+          // if userid == null
           Future.delayed(Duration.zero, () {
             CustomSnackBar.show(
               context,
@@ -350,7 +354,7 @@ class _JobSeekerSigninScreenState extends State<JobSeekerSigninScreen> {
                 ),
               ),
             ],
-                          ),
+            ),
           ],
         ),
       ),

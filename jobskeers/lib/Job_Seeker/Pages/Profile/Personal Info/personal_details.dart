@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'Edit_Personatl_Details.dart';
+
 class personal_details extends StatefulWidget {
   const personal_details({super.key});
 
@@ -37,7 +39,9 @@ class _personal_detailsState extends State<personal_details> {
             Text("Personal Details"),
 
             InkWell(
-              onTap: (){},
+              onTap: (){
+                Navigator.push(context, MaterialPageRoute(builder: (context) => Edit_Personatl_Details()));
+              },
               child: Icon(Icons.edit_note_sharp),
             )
           ],

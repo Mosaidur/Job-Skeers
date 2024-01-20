@@ -1,17 +1,46 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'Account Settings/upload_photo.dart';
 import 'widgets/InformationPart.dart';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 
-class JobSeekerProfilePage extends StatelessWidget {
+class JobSeekerProfilePage extends StatefulWidget {
   const JobSeekerProfilePage({super.key});
+
+  @override
+  State<JobSeekerProfilePage> createState() => _JobSeekerProfilePageState();
+}
+
+class _JobSeekerProfilePageState extends State<JobSeekerProfilePage> {
+
+  late SharedPreferences sprefs;
+  String? userID;
+  String? userName;
+  String? userEmail;
+  String? userPhone;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadUserData();
+  }
+
+  Future<void> _loadUserData() async {
+    sprefs = await SharedPreferences.getInstance();
+    setState(() {
+      userID = sprefs.getString("USERID");
+      userName = sprefs.getString("USERNAME");
+      userEmail = sprefs.getString("USEREMAIL");
+      userPhone = sprefs.getString("USERPHONENO");
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
 
-    final String name= "Mosaidur Rahman Asif";
-    final String email= "mosaidurrahmanasif@gamil.com";
-    final String Phone_No = "+8801568219379";
+
 
     return Scaffold(
       backgroundColor: Colors.blue.shade50,
@@ -49,83 +78,82 @@ class JobSeekerProfilePage extends StatelessWidget {
 
 
                     //Name, Email & phone Number
-                    InkWell(
-                      onTap: (){},
-                      child: Container(
-                        width: MediaQuery.of(context).size.width/1.5,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                      
-                            //Name
-                            Text(
-                              name,
-                              softWrap: true,
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                              style: TextStyle(
+                      InkWell(
+                        onTap: () {},
+                        child: Container(
+                          width: MediaQuery.of(context).size.width / 1.5,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              //Name
+                              Text(
+
+
+                                userName ?? "",
+                                softWrap: true,
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(
                                   color: Colors.white,
                                   fontWeight: FontWeight.bold,
-                                  fontSize: 20
+                                  fontSize: 20,
+                                ),
                               ),
-                            ),
-                      
-                            SizedBox(height: 10,),
-                      
-                            //Email
-                            Row(
-                              children: [
-                                Icon(Icons.mail_rounded,color: Colors.white,size: 15,),
-                                SizedBox(width: 10,),
-                                Container(
-                                  width: MediaQuery.of(context).size.width/1.8,
-                                  child: Text(
-                                    email,
-                                    softWrap: true,
-                                    maxLines: 2,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.w500,
-                                        fontSize: 15
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                      
-                            SizedBox(height: 10,),
-                      
-                            //Phone Number
-                            Row(
-                              children: [
-                                Icon(Icons.phone,color: Colors.white,size: 15,),
-                                SizedBox(width: 10,),
-                                Container(
-                                  width: MediaQuery.of(context).size.width/1.8,
-                                  child: Text(
-                                    Phone_No,
-                                    softWrap: true,
-                                    maxLines: 2,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.w500,
-                                        fontSize: 15
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                      
-                            SizedBox(height: 10,),
-                      
-                          ],
-                        ),
-                      ),
-                    )
+                              SizedBox(height: 10,),
 
-                  ],
+                              //Email
+                              Row(
+                                children: [
+                                  Icon(Icons.mail_rounded, color: Colors.white, size: 15,),
+                                  SizedBox(width: 10,),
+                                  Container(
+                                    width: MediaQuery.of(context).size.width / 1.8,
+                                    child: Text(
+                                      userEmail?? "",
+                                      softWrap: true,
+                                      maxLines: 2,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: 15,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(height: 10,),
+
+                              //Phone Number
+                              Row(
+                                children: [
+                                  Icon(Icons.phone, color: Colors.white, size: 15,),
+                                  SizedBox(width: 10,),
+                                  Container(
+                                    width: MediaQuery.of(context).size.width / 1.8,
+                                    child: Text(
+                                      userPhone?? "",
+                                      softWrap: true,
+                                      maxLines: 2,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: 15,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(height: 10,),
+                            ],
+                          ),
+                        ),
+                      )
+
+
+
+          ],
                 ),
               )
             ),
