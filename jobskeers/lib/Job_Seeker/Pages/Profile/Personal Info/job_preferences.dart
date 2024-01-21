@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'Edit_Job_preferences.dart';
+
 class JobPreferences extends StatefulWidget {
   const JobPreferences({super.key});
 
@@ -8,6 +10,7 @@ class JobPreferences extends StatefulWidget {
 }
 
 class _JobPreferencesState extends State<JobPreferences> {
+
   @override
   Widget build(BuildContext context) {
 
@@ -32,7 +35,9 @@ class _JobPreferencesState extends State<JobPreferences> {
             Text("Job Preferences"),
 
             InkWell(
-              onTap: (){},
+              onTap: (){
+                Navigator.push(context, MaterialPageRoute(builder: (context)=> Edit_Job_preferences()));
+              },
               child: Icon(Icons.edit_note_sharp),
             )
           ],

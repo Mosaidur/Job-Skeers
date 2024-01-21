@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'Edit_Contact_Details.dart';
+
 class Contact_details extends StatefulWidget {
   const Contact_details({super.key});
 
@@ -31,7 +33,9 @@ class _Contact_detailsState extends State<Contact_details> {
             Text("Contact Details"),
 
             InkWell(
-              onTap: (){},
+              onTap: (){
+                Navigator.push(context, MaterialPageRoute(builder: (context)=> Edit_Contact_Details()));
+              },
               child: Icon(Icons.edit_note_sharp),
             )
           ],
@@ -47,6 +51,7 @@ class _Contact_detailsState extends State<Contact_details> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            //Address
             Padding(
               padding: const EdgeInsets.only(top: 20.0, left: 20,right: 20,bottom: 20),
               child: Container(
@@ -119,7 +124,30 @@ class _Contact_detailsState extends State<Contact_details> {
                       ),
 
 
-                      SizedBox(height: 30,),
+                      SizedBox(height: 15,),
+
+                    ],
+
+                  ),
+                ),
+              ),
+            ),
+
+            //Phone Number
+            Padding(
+              padding: const EdgeInsets.only(top: 20.0, left: 20,right: 20,bottom: 20),
+              child: Container(
+                width: double.maxFinite,
+                // height: 700,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                  color: Colors.white,
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 15.0, left: 20,right: 20,bottom: 20),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
 
                       //Phone Number
                       Text(
@@ -193,8 +221,30 @@ class _Contact_detailsState extends State<Contact_details> {
                         ),
                       ),
 
+                      SizedBox(height: 15,),
 
-                      SizedBox(height: 30,),
+                    ],
+
+                  ),
+                ),
+              ),
+            ),
+
+            // Email Address
+            Padding(
+              padding: const EdgeInsets.only(top: 20.0, left: 20,right: 20,bottom: 20),
+              child: Container(
+                width: double.maxFinite,
+                // height: 700,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                  color: Colors.white,
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 15.0, left: 20,right: 20,bottom: 20),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
 
                       //Email Address
                       Text(
@@ -263,6 +313,7 @@ class _Contact_detailsState extends State<Contact_details> {
                 ),
               ),
             ),
+
           ],
         ),
       ),

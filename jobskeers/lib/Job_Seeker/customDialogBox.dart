@@ -2,23 +2,50 @@ import 'package:flutter/material.dart';
 
 class CustomDialogBox extends StatelessWidget {
   final String title;
-  final String Message;
-  final Color colors;
+  final String message;
+  final Color bgcolors;
+  final Widget pageLink;
 
-  CustomDialogBox({Key? key, required this.Message, required this.colors, required this.title}) : super(key: key);
+  CustomDialogBox({
+    Key? key,
+    required this.message,
+    required this.bgcolors,
+    required this.title,
+    required this.pageLink,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      backgroundColor: colors,
+      backgroundColor: bgcolors,
       title: Text(title),
-      content: Text(Message),
+      content: Text(message),
       actions: <Widget>[
         TextButton(
           onPressed: () {
             Navigator.of(context).pop();
           },
+          child: Text('Cancel'),
+          style: TextButton.styleFrom(
+            backgroundColor: Colors.red.shade300,
+          ),
+        ),
+        TextButton(
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) {
+                  // Replace the following line with the widget or screen you want to navigate to
+                  return pageLink;
+                },
+              ),
+            );
+          },
           child: Text('OK'),
+          style: TextButton.styleFrom(
+            backgroundColor: Colors.green.shade300,
+          ),
         ),
       ],
     );

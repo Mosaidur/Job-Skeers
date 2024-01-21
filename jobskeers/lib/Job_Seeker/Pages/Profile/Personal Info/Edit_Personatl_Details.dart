@@ -20,7 +20,8 @@ class _Edit_Personatl_DetailsState extends State<Edit_Personatl_Details> {
   final TextEditingController nidController = TextEditingController();
   final TextEditingController passportNoController = TextEditingController();
   final TextEditingController passportIssueDateController = TextEditingController();
-  final TextEditingController bloodGroupController = TextEditingController();
+  final TextEditingController  bloodGroupController = TextEditingController() ;
+
 
   String? _selectedReligion;
   String? _selectedGender;
