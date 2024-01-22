@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:jobskeers/Job_Seeker/Pages/Profile/Education/Edit_academic_qualification.dart';
+
+import 'Add_academic_qualification.dart';
 
 class AcademicQualification extends StatefulWidget {
   const AcademicQualification({super.key});
@@ -15,7 +18,7 @@ class _AcademicQualificationState extends State<AcademicQualification> {
     final String degreeTitle= " ";
     final String board= " ";
     final String group= " ";
-    final String insitutionName= " ";
+    final String institutionName= " ";
     final String result= " ";
     final String gpa= " ";
     final String passingYear= " ";
@@ -33,7 +36,9 @@ class _AcademicQualificationState extends State<AcademicQualification> {
             Text("Academic Qualification"),
 
             InkWell(
-              onTap: (){},
+              onTap: (){
+                Navigator.push(context, MaterialPageRoute(builder: (context)=> Add_academic_qualification()));
+              },
               child: Icon(Icons.add_comment),
             )
           ],
@@ -70,17 +75,24 @@ class _AcademicQualificationState extends State<AcademicQualification> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
 
-                          Text(
-                            levelOfEdu,
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20,
+                          Expanded(
+                            child: Text(
+                              levelOfEdu,
+                              softWrap: true,
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20,
+                              ),
                             ),
                           ),
 
                           InkWell(
-                            onTap: (){},
+                            onTap: (){
+                              Navigator.push(context, MaterialPageRoute(builder: (context)=>Edit_academic_qualification() ));
+                            },
                             child: Icon(Icons.edit_note_sharp),
                           )
 
@@ -169,7 +181,7 @@ class _AcademicQualificationState extends State<AcademicQualification> {
                       ),
                       SizedBox(height: 5,),
                       Text(
-                        insitutionName,
+                        institutionName,
                         style: TextStyle(
                           color: Colors.black,
                           fontSize: 15,
