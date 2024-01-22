@@ -444,7 +444,7 @@ class _Edit_academic_qualificationState extends State<Edit_academic_qualificatio
                     onPressed: (){
 
                     },
-                    child: Text("Submit"),
+                    child: Text("Update"),
                     style: ElevatedButton.styleFrom(
                       primary: Color(0xff03438C), // Change this color to your desired color
                     ),

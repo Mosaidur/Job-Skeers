@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../../Select_LogInScreen.dart';
 import '../../Authentiction Pages/JobSeekerSign_In.dart';
 import '../../CustomSnackbar.dart';
 import '../Profile/Account Settings/upload_photo.dart';
@@ -376,7 +377,7 @@ class _JobSeekerHomePageState extends State<JobSeekerHomePage> {
                     await _remove_USERID_Preferences();
                     Navigator.pushReplacement(
                       context,
-                      MaterialPageRoute(builder: (context) => JobSeekerSigninScreen()),
+                      MaterialPageRoute(builder: (context) => SelectLoginScreen()),
                     );
                   } else {
                     // Perform logout logic here

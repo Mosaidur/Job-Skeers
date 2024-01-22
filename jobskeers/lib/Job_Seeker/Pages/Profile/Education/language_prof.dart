@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+import 'Add_language_prof.dart';
+import 'Edit_language_prof.dart';
+
 class LanguageProficiency extends StatefulWidget {
   const LanguageProficiency({super.key});
 
@@ -25,7 +28,9 @@ class _LanguageProficiencyState extends State<LanguageProficiency> {
             Text("Language Proficiency"),
 
             InkWell(
-              onTap: (){},
+              onTap: (){
+                Navigator.push(context, MaterialPageRoute(builder: (context)=> Add_language_prof ()));
+              },
               child: Icon(Icons.add_comment),
             )
           ],
@@ -71,7 +76,9 @@ class _LanguageProficiencyState extends State<LanguageProficiency> {
                           ),
 
                           InkWell(
-                            onTap: (){},
+                            onTap: (){
+                              Navigator.push(context, MaterialPageRoute(builder: (context)=> Edit_language_prof ()));
+                            },
                             child: Icon(Icons.edit_note_sharp),
                           )
 
