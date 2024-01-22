@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:jobskeers/Job_Seeker/Pages/Profile/Education/academic_qualification.dart';
+
+import '../../../customDialogBox.dart';
 
 class Edit_academic_qualification extends StatefulWidget {
   final String? acQualificationid;
@@ -35,7 +38,31 @@ class _Edit_academic_qualificationState extends State<Edit_academic_qualificatio
         },
         child: Scaffold(
           appBar: AppBar(
-            title: Text("Edit Academic Qualification"),
+            title: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text("Edit Academic Qualification"),
+                InkWell(
+                  onTap: (){
+                    // Navigator.push(context, MaterialPageRoute(builder: (context)=> Add_language_prof ()));
+                    showDialog(
+                        context: context,
+                        builder: (BuildContext context) =>
+                            CustomDialogBox(
+                              message: 'Are you sure you want to delete?',
+                              bgcolors: Colors.white,
+                              title: 'Delete',
+                              pageLink: AcademicQualification(),
+
+                            )
+
+                    );
+                  },
+                  child: Icon(Icons.delete),
+                )
+
+              ],
+            ),
             leading: IconButton(
               icon: Icon(Icons.arrow_back_ios),
               onPressed: () {

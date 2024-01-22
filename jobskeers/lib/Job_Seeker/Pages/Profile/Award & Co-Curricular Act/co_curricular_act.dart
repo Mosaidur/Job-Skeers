@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+import 'Add_co_curricular_act.dart';
+import 'Edit_co_curricular_act.dart';
+
 class Co_Curricular_Act_Details extends StatefulWidget {
   const Co_Curricular_Act_Details({super.key});
 
@@ -24,7 +27,9 @@ class _Co_Curricular_Act_DetailsState extends State<Co_Curricular_Act_Details> {
             Text("Co Curricular Activities"),
 
             InkWell(
-              onTap: (){},
+              onTap: (){
+                Navigator.push(context, MaterialPageRoute(builder: (context)=> Add_co_curricular_act() ));
+              },
               child: Icon(Icons.add_comment),
             )
           ],
@@ -78,7 +83,9 @@ class _Co_Curricular_Act_DetailsState extends State<Co_Curricular_Act_Details> {
                           SizedBox(width: 15,),
 
                           InkWell(
-                            onTap: (){},
+                            onTap: (){
+                              Navigator.push(context, MaterialPageRoute(builder: (context)=> Edit_co_curricular_act() ));
+                            },
                             child: Icon(Icons.edit_note_sharp),
                           )
 
@@ -86,7 +93,7 @@ class _Co_Curricular_Act_DetailsState extends State<Co_Curricular_Act_Details> {
                       ),
                       SizedBox(height: 15,),
 
-                      // Award Receiving Year
+                      // WorkExperience in Co Curricular Activity
                       Text(
                         "Work Experiences",
                         style: TextStyle(

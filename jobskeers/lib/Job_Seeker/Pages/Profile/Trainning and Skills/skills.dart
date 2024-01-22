@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+import 'Add_skills.dart';
+import 'Edit_skills.dart';
+
 class SkillsInformation extends StatefulWidget {
   const SkillsInformation({super.key});
 
@@ -28,7 +31,9 @@ class _SkillsInformationState extends State<SkillsInformation> {
             Text("Skills Information"),
 
             InkWell(
-              onTap: (){},
+              onTap: (){
+                Navigator.push(context, MaterialPageRoute(builder: (context)=> Add_skills()));
+              },
               child: Icon(Icons.add_comment),
             )
           ],
@@ -76,7 +81,9 @@ class _SkillsInformationState extends State<SkillsInformation> {
                           ),
 
                           InkWell(
-                            onTap: (){},
+                            onTap: (){
+                              Navigator.push(context, MaterialPageRoute(builder: (context)=> Edit_skills()));
+                            },
                             child: Icon(Icons.edit_note_sharp),
                           )
 

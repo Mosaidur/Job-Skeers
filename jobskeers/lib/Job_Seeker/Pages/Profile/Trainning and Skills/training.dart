@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+import 'Add_training.dart';
+import 'Edit_training.dart';
+
 class TrainingInformation extends StatefulWidget {
   const TrainingInformation({super.key});
 
@@ -30,7 +33,9 @@ class _TrainingInformationState extends State<TrainingInformation> {
             Text("Training Information"),
 
             InkWell(
-              onTap: (){},
+              onTap: (){
+                Navigator.push(context, MaterialPageRoute(builder: (context)=> Add_training()));
+              },
               child: Icon(Icons.add_comment),
             )
           ],
@@ -77,7 +82,9 @@ class _TrainingInformationState extends State<TrainingInformation> {
                           ),
 
                           InkWell(
-                            onTap: (){},
+                            onTap: (){
+                              Navigator.push(context, MaterialPageRoute(builder: (context)=> Edit_training()));
+                            },
                             child: Icon(Icons.edit_note_sharp),
                           )
 

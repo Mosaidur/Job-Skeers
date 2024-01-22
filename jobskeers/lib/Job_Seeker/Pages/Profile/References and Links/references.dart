@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+import 'Add_references.dart';
+import 'Edit_references.dart';
+
 class ReferenceDetails extends StatefulWidget {
   const ReferenceDetails({super.key});
 
@@ -30,7 +33,9 @@ class _ReferenceDetailsState extends State<ReferenceDetails> {
             Text("Reference"),
 
             InkWell(
-              onTap: (){},
+              onTap: (){
+                Navigator.push(context, MaterialPageRoute(builder: (context)=> Add_references()));
+              },
               child: Icon(Icons.add_comment),
             )
           ],
@@ -83,7 +88,9 @@ class _ReferenceDetailsState extends State<ReferenceDetails> {
                           ),
 
                           InkWell(
-                            onTap: (){},
+                            onTap: (){
+                              Navigator.push(context, MaterialPageRoute(builder: (context)=> Edit_references()));
+                            },
                             child: Icon(Icons.edit_note_sharp),
                           )
 
@@ -127,6 +134,30 @@ class _ReferenceDetailsState extends State<ReferenceDetails> {
                       SizedBox(height: 5,),
                       Text(
                         mobile_no,
+                        softWrap: true,
+                        maxLines: 15,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 15,
+                          fontWeight: FontWeight.w800,
+                        ),
+                      ),
+
+                      SizedBox(height: 15,),
+
+                      // Email
+                      Text(
+                        "Email Address",
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 15,
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                      SizedBox(height: 5,),
+                      Text(
+                        email,
                         softWrap: true,
                         maxLines: 15,
                         overflow: TextOverflow.ellipsis,

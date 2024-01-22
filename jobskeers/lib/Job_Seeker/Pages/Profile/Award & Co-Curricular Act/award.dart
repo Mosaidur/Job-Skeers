@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+import 'Add_award.dart';
+import 'Edit_award.dart';
+
 class AwardDetails extends StatefulWidget {
   const AwardDetails({super.key});
 
@@ -26,7 +29,9 @@ class _AwardDetailsState extends State<AwardDetails> {
             Text("Awards"),
 
             InkWell(
-              onTap: (){},
+              onTap: (){
+                Navigator.push(context, MaterialPageRoute(builder: (context)=> Add_Award() ));
+              },
               child: Icon(Icons.add_comment),
             )
           ],
@@ -80,7 +85,9 @@ class _AwardDetailsState extends State<AwardDetails> {
                           SizedBox(width: 15,),
 
                           InkWell(
-                            onTap: (){},
+                            onTap: (){
+                              Navigator.push(context, MaterialPageRoute(builder: (context)=> Edit_Award() ));
+                            },
                             child: Icon(Icons.edit_note_sharp),
                           )
 

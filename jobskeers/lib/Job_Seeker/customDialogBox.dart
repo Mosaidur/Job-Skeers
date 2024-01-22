@@ -32,7 +32,8 @@ class CustomDialogBox extends StatelessWidget {
         ),
         TextButton(
           onPressed: () {
-            Navigator.push(
+            Navigator.of(context).pop();
+            Navigator.pushReplacement(
               context,
               MaterialPageRoute(
                 builder: (context) {

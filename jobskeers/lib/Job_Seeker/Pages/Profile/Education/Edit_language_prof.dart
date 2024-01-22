@@ -1,6 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:jobskeers/Job_Seeker/customDialogBox.dart';
+
+import 'language_prof.dart';
 
 class Edit_language_prof extends StatefulWidget {
   const Edit_language_prof({super.key});
@@ -28,7 +31,29 @@ class _Edit_language_profState extends State<Edit_language_prof> {
       },
       child: Scaffold(
         appBar: AppBar(
-          title: Text("Add Academic Qualification"),
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text("Edit Language Proficiency"),
+
+              InkWell(
+                onTap: (){
+                  // Navigator.push(context, MaterialPageRoute(builder: (context)=> Add_language_prof ()));
+                  showDialog(
+                      context: context,
+                      builder: (BuildContext context) =>
+                        CustomDialogBox(
+                          message: 'Are you sure you want to delete?',
+                          bgcolors: Colors.white,
+                          title: 'Delete',
+                          pageLink: LanguageProficiency(),
+                        )
+                  );
+                },
+                child: Icon(Icons.delete),
+              )
+            ],
+          ),
           leading: IconButton(
             icon: Icon(Icons.arrow_back_ios),
             onPressed: () {

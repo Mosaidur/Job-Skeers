@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../loading_page.dart';
+import 'Add_links.dart';
+import 'Edit_links.dart';
 
 class OtherProfileLinks extends StatefulWidget {
   const OtherProfileLinks({super.key});
@@ -18,7 +20,6 @@ class _OtherProfileLinksState extends State<OtherProfileLinks> {
     final String facebook = " ";
     final String linkedin = " ";
     final String github = " ";
-    final String otherLinkName = " ";
     final String otherLink = " ";
 
 
@@ -32,7 +33,9 @@ class _OtherProfileLinksState extends State<OtherProfileLinks> {
             Text("Links"),
 
             InkWell(
-              onTap: (){},
+              onTap: (){
+                Navigator.push(context, MaterialPageRoute(builder: (context)=> Add_Links() ));
+              },
               child: Icon(Icons.add_comment),
             )
           ],
@@ -83,7 +86,9 @@ class _OtherProfileLinksState extends State<OtherProfileLinks> {
                           ),
 
                           InkWell(
-                            onTap: (){},
+                            onTap: (){
+                              Navigator.push(context, MaterialPageRoute(builder: (context)=> Edit_links() ));
+                            },
                             child: Icon(Icons.edit_note_sharp),
                           )
 
@@ -193,7 +198,7 @@ class _OtherProfileLinksState extends State<OtherProfileLinks> {
                         child: Text(
                           website,
                           softWrap: true,
-                          maxLines: 15,
+                          maxLines: 2,
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(
                             color: Colors.black,
@@ -231,7 +236,7 @@ class _OtherProfileLinksState extends State<OtherProfileLinks> {
                         child: Text(
                           website,
                           softWrap: true,
-                          maxLines: 15,
+                          maxLines: 2,
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(
                             color: Colors.black,
@@ -245,7 +250,7 @@ class _OtherProfileLinksState extends State<OtherProfileLinks> {
 
                       // Other Link
                       Text(
-                        otherLinkName,
+                        "Other Link",
                         style: TextStyle(
                           color: Colors.black,
                           fontSize: 15,
@@ -269,7 +274,7 @@ class _OtherProfileLinksState extends State<OtherProfileLinks> {
                         child: Text(
                           website,
                           softWrap: true,
-                          maxLines: 15,
+                          maxLines: 2,
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(
                             color: Colors.black,

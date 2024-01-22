@@ -27,7 +27,7 @@ class _Add_language_profState extends State<Add_language_prof> {
       },
       child: Scaffold(
         appBar: AppBar(
-          title: Text("Add Academic Qualification"),
+          title: Text("Add Language Proficiency"),
           leading: IconButton(
             icon: Icon(Icons.arrow_back_ios),
             onPressed: () {

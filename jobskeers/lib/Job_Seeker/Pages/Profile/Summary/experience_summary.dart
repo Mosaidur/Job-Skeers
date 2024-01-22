@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'Add_experience_summary.dart';
+
 class Experience_summary extends StatefulWidget {
   const Experience_summary({super.key});
 
@@ -23,8 +25,12 @@ class _Experience_summaryState extends State<Experience_summary> {
             Text("Experience Summary"),
 
             InkWell(
-              onTap: (){},
+              onTap: (){
+                Navigator.push(context, MaterialPageRoute(builder: (context)=> Add_Experience_summary()));
+              },
               child: Icon(Icons.add_comment),
+              // child: Icon(Icons.edit_note_sharp),
+
             )
           ],
         ),
@@ -57,25 +63,13 @@ class _Experience_summaryState extends State<Experience_summary> {
                     children: [
 
                       // Experience Summary
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-
-                          Text(
-                            "Experience Summary",
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20,
-                            ),
-                          ),
-
-                          InkWell(
-                            onTap: (){},
-                            child: Icon(Icons.edit_note_sharp),
-                          )
-
-                        ],
+                      Text(
+                        "Experience Summary",
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20,
+                        ),
                       ),
                       SizedBox(height: 15,),
 

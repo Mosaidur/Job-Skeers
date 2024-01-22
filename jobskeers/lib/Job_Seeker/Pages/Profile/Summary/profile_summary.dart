@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'Add_profile_summary.dart';
+
 class Profile_Summary extends StatefulWidget {
   const Profile_Summary({super.key});
 
@@ -23,8 +25,11 @@ class _Profile_SummaryState extends State<Profile_Summary> {
             Text("Profile Summary"),
 
             InkWell(
-              onTap: (){},
+              onTap: (){
+                Navigator.push(context, MaterialPageRoute(builder: (context)=> Add_profile_summary() ));
+              },
               child: Icon(Icons.add_comment),
+              // Icon(Icons.edit_note_sharp),
             )
           ],
         ),
@@ -57,25 +62,13 @@ class _Profile_SummaryState extends State<Profile_Summary> {
                     children: [
 
                       // Profile Summary
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-
-                          Text(
-                            "Profile Summary",
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20,
-                            ),
-                          ),
-
-                          InkWell(
-                            onTap: (){},
-                            child: Icon(Icons.edit_note_sharp),
-                          )
-
-                        ],
+                      Text(
+                        "Profile Summary",
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20,
+                        ),
                       ),
                       SizedBox(height: 15,),
 

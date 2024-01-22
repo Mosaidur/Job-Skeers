@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+import 'Add_professional_certification.dart';
+import 'Edit_professional_certification.dart';
+
 class Professional_Certification extends StatefulWidget {
   const Professional_Certification({super.key});
 
@@ -27,7 +30,9 @@ class _Professional_CertificationState extends State<Professional_Certification>
             Text("Professional Certification"),
 
             InkWell(
-              onTap: (){},
+              onTap: (){
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>Add_professional_certification()));
+              },
               child: Icon(Icons.add_comment),
             )
           ],
@@ -73,7 +78,9 @@ class _Professional_CertificationState extends State<Professional_Certification>
                           ),
 
                           InkWell(
-                            onTap: (){},
+                            onTap: (){
+                              Navigator.push(context, MaterialPageRoute(builder: (context)=> Edit_professional_certification()));
+                            },
                             child: Icon(Icons.edit_note_sharp),
                           )
 
