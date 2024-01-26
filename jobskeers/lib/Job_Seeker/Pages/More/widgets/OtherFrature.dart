@@ -33,7 +33,7 @@ class _OthersFeaturesState extends State<OthersFeatures> {
                       Container(
                         height: 40,
                         width: 40,
-                        child: Image.asset("assets/Images2/online-interview.png"),
+                        child: Image.asset("assets/Images2/Online Job Fair.png"),
                       ),
                       SizedBox(
                         height: 5,
@@ -47,7 +47,7 @@ class _OthersFeaturesState extends State<OthersFeatures> {
                         ),
                       ),
                       Text(
-                        "Interview",
+                        "Job Fair",
                         style: TextStyle(
                           color: Color(0xff03438C),
                           fontSize: 15,
@@ -67,13 +67,13 @@ class _OthersFeaturesState extends State<OthersFeatures> {
                       Container(
                         height: 40,
                         width: 40,
-                        child: Image.asset("assets/Images2/online-test.png"),
+                        child: Image.asset("assets/Images2/Events.png"),
                       ),
                       SizedBox(
                         height: 5,
                       ),
                       Text(
-                        "Online",
+                        "Events",
                         style: TextStyle(
                           color: Color(0xff03438C),
                           fontSize: 15,
@@ -81,7 +81,7 @@ class _OthersFeaturesState extends State<OthersFeatures> {
                         ),
                       ),
                       Text(
-                        "Test",
+                        " ",
                         style: TextStyle(
                           color: Color(0xff03438C),
                           fontSize: 15,
@@ -92,7 +92,7 @@ class _OthersFeaturesState extends State<OthersFeatures> {
                   ),
                 ),
 
-                //Group logo and text
+                //Groups logo and text
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Column(
@@ -101,13 +101,13 @@ class _OthersFeaturesState extends State<OthersFeatures> {
                       Container(
                         height: 40,
                         width: 40,
-                        child: Image.asset("assets/Images2/On Board Interview.png"),
+                        child: Image.asset("assets/Images2/Groups.png"),
                       ),
                       SizedBox(
                         height: 5,
                       ),
                       Text(
-                        "On Board",
+                        "Groups",
                         style: TextStyle(
                           color: Color(0xff03438C),
                           fontSize: 15,
@@ -115,7 +115,7 @@ class _OthersFeaturesState extends State<OthersFeatures> {
                         ),
                       ),
                       Text(
-                        "Interview",
+                        " ",
                         style: TextStyle(
                           color: Color(0xff03438C),
                           fontSize: 15,
@@ -135,13 +135,13 @@ class _OthersFeaturesState extends State<OthersFeatures> {
                       Container(
                         height: 40,
                         width: 40,
-                        child: Image.asset("assets/Images2/Shortlisted Job.png"),
+                        child: Image.asset("assets/Images2/Chat.png"),
                       ),
                       SizedBox(
                         height: 5,
                       ),
                       Text(
-                        "Shortlisted",
+                        "Chat",
                         style: TextStyle(
                           color: Color(0xff03438C),
                           fontSize: 15,
@@ -149,7 +149,7 @@ class _OthersFeaturesState extends State<OthersFeatures> {
                         ),
                       ),
                       Text(
-                        "Job",
+                        " ",
                         style: TextStyle(
                           color: Color(0xff03438C),
                           fontSize: 15,
