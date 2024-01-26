@@ -360,7 +360,6 @@ class _JobSeekerHomePageState extends State<JobSeekerHomePage> {
                 height: 500,
                 color: Colors.redAccent,
                 child: Text(
-
                   userID ?? "No UserID",
                   style: TextStyle(
                       fontSize: 90,

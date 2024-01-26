@@ -11,6 +11,8 @@ import '../Account Settings/upload_photo.dart';
 import '../Education/academic_qualification.dart';
 import '../Education/language_prof.dart';
 import '../Education/professional_certification.dart';
+import '../Employment History/defence_emp_history.dart';
+import '../Employment History/emp_history.dart';
 import '../Personal Info/contact_details.dart';
 import '../Personal Info/job_preferences.dart';
 import '../Personal Info/personal_details.dart';
@@ -686,7 +688,9 @@ class ProfileInformatioPage extends StatelessWidget {
 
                   //Employment History
                   InkWell(
-                    onTap: (){},
+                    onTap: (){
+                      Navigator.push(context, MaterialPageRoute(builder: (context)=> Employe_History()));
+                    },
                     child: Row(
                       children: [
                         Icon(Icons.work,color: Colors.black,size: 15,),
@@ -707,7 +711,9 @@ class ProfileInformatioPage extends StatelessWidget {
 
                   //  Employment History (Retired Defence Person)
                   InkWell(
-                    onTap: (){},
+                    onTap: (){
+                      Navigator.push(context, MaterialPageRoute(builder: (context)=> Defence_Employe_History()));
+                    },
                     child: Row(
                       children: [
                         Icon(Icons.work_history_rounded,color: Colors.black,size: 15,),
