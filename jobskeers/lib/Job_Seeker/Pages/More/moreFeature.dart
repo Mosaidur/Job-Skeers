@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:jobskeers/Job_Seeker/Pages/More/widgets/AISupport.dart';
+import 'package:jobskeers/Job_Seeker/Pages/More/widgets/AboutUS.dart';
 import 'package:jobskeers/Job_Seeker/Pages/More/widgets/OtherFrature.dart';
 import 'package:jobskeers/Job_Seeker/Pages/More/widgets/invitation.dart';
 
@@ -149,6 +150,7 @@ class _MoreFeatureState extends State<MoreFeature> {
                 ),
               ),
             ),
+            AboutUsCategory(),
 
 
 
