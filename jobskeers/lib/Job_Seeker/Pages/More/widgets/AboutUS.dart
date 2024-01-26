@@ -24,7 +24,7 @@ class _AboutUsCategoryState extends State<AboutUsCategory> {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
 
-                //Online Job Fair logo and text
+                //Rate Us logo and text
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Column(
@@ -33,47 +33,13 @@ class _AboutUsCategoryState extends State<AboutUsCategory> {
                       Container(
                         height: 40,
                         width: 40,
-                        child: Image.asset("assets/Images2/Online Job Fair.png"),
+                        child: Image.asset("assets/Images2/RateUs.png"),
                       ),
                       SizedBox(
                         height: 5,
                       ),
                       Text(
-                        "Online",
-                        style: TextStyle(
-                          color: Color(0xff03438C),
-                          fontSize: 15,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      Text(
-                        "Job Fair",
-                        style: TextStyle(
-                          color: Color(0xff03438C),
-                          fontSize: 15,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-
-                //Events logo and text
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Container(
-                        height: 40,
-                        width: 40,
-                        child: Image.asset("assets/Images2/Events.png"),
-                      ),
-                      SizedBox(
-                        height: 5,
-                      ),
-                      Text(
-                        "Events",
+                        "Rate Us",
                         style: TextStyle(
                           color: Color(0xff03438C),
                           fontSize: 15,
@@ -92,7 +58,7 @@ class _AboutUsCategoryState extends State<AboutUsCategory> {
                   ),
                 ),
 
-                //Groups logo and text
+                //Feedback and Support logo and text
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Column(
@@ -101,13 +67,13 @@ class _AboutUsCategoryState extends State<AboutUsCategory> {
                       Container(
                         height: 40,
                         width: 40,
-                        child: Image.asset("assets/Images2/Groups.png"),
+                        child: Image.asset("assets/Images2/Feedback and Support.png"),
                       ),
                       SizedBox(
                         height: 5,
                       ),
                       Text(
-                        "Groups",
+                        "Feedback &",
                         style: TextStyle(
                           color: Color(0xff03438C),
                           fontSize: 15,
@@ -115,7 +81,7 @@ class _AboutUsCategoryState extends State<AboutUsCategory> {
                         ),
                       ),
                       Text(
-                        " ",
+                        "Support",
                         style: TextStyle(
                           color: Color(0xff03438C),
                           fontSize: 15,
@@ -126,7 +92,7 @@ class _AboutUsCategoryState extends State<AboutUsCategory> {
                   ),
                 ),
 
-                //chat  logo and text
+                //Privacy Policy logo and text
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Column(
@@ -135,13 +101,13 @@ class _AboutUsCategoryState extends State<AboutUsCategory> {
                       Container(
                         height: 40,
                         width: 40,
-                        child: Image.asset("assets/Images2/Chat.png"),
+                        child: Image.asset("assets/Images2/Privacy Policy.png"),
                       ),
                       SizedBox(
                         height: 5,
                       ),
                       Text(
-                        "Chat",
+                        "Privacy",
                         style: TextStyle(
                           color: Color(0xff03438C),
                           fontSize: 15,
@@ -149,7 +115,41 @@ class _AboutUsCategoryState extends State<AboutUsCategory> {
                         ),
                       ),
                       Text(
-                        " ",
+                        "Policy",
+                        style: TextStyle(
+                          color: Color(0xff03438C),
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+
+                //Terms & Conditions logo and text
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        height: 40,
+                        width: 40,
+                        child: Image.asset("assets/Images2/Terms & Conditions.png"),
+                      ),
+                      SizedBox(
+                        height: 5,
+                      ),
+                      Text(
+                        "Terms &",
+                        style: TextStyle(
+                          color: Color(0xff03438C),
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      Text(
+                        "Conditions",
                         style: TextStyle(
                           color: Color(0xff03438C),
                           fontSize: 15,

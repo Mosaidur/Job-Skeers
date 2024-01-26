@@ -58,8 +58,8 @@ class _MoreFeatureState extends State<MoreFeature> {
                 ),
               ),
             ),
-
             Mian_Feature(),
+            Divider(color: Colors.grey,thickness: 1,),
 
             //Hiring Category
             Container(
@@ -77,8 +77,8 @@ class _MoreFeatureState extends State<MoreFeature> {
                 ),
               ),
             ),
-
             HiringCategory(),
+            Divider(color: Colors.grey,thickness: 1,),
 
             //Invaitaion
             Container(
@@ -97,6 +97,7 @@ class _MoreFeatureState extends State<MoreFeature> {
               ),
             ),
             Invitation(),
+            Divider(color: Colors.grey,thickness: 1,),
 
             //AI Support
             Container(
@@ -115,6 +116,7 @@ class _MoreFeatureState extends State<MoreFeature> {
               ),
             ),
             AI_Support(),
+            Divider(color: Colors.grey,thickness: 1,),
 
             //Other Features
             Container(
@@ -133,6 +135,7 @@ class _MoreFeatureState extends State<MoreFeature> {
               ),
             ),
             OthersFeatures(),
+            Divider(color: Colors.grey,thickness: 1,),
 
             //About Us
             Container(
