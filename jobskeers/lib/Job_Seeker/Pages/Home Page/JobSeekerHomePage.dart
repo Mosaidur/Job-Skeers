@@ -10,6 +10,7 @@ import 'Widgets/HiringCategoryInRow.dart';
 import 'Widgets/HomePageJobList.dart';
 import 'Widgets/Main_feature.dart';
 import '../Browse Jobs/BrowseJobsListPage.dart';
+import 'Widgets/ManuDrawer.dart';
 
 class JobSeekerHomePage extends StatefulWidget {
   JobSeekerHomePage({Key? key});
@@ -352,65 +353,7 @@ class _JobSeekerHomePageState extends State<JobSeekerHomePage> {
           ],
         ),
       ),
-      endDrawer: Drawer(
-        child: Column(
-          children: [
-            Center(
-              child: Container(
-                height: 500,
-                color: Colors.redAccent,
-                child: Text(
-                  userID ?? "No UserID",
-                  style: TextStyle(
-                      fontSize: 90,
-                      fontWeight: FontWeight.bold
-                  ),
-                ),
-              ),
-            ),
-
-            ElevatedButton(
-                onPressed: ()  async {
-
-                  if (userID != null) {
-                    await _remove_USERID_Preferences();
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(builder: (context) => SelectLoginScreen()),
-                    );
-                  } else {
-                    // Perform logout logic here
-                    Future.delayed(Duration.zero, () {
-                      CustomSnackBar.show(
-                        context,
-                        message: 'Some unexpected issue happends',
-                        backgroundColor: Colors.green.shade400,
-                        // Set your desired background color
-                        actionLabel: 'Logout failed.',
-                        iconData: Icons.error,
-                        onActionPressed: () {
-                          // Handle action press
-                          Navigator.of(context).pop; // or any other action
-                        },
-                      );
-                    });
-                  }
-                },
-                style: ElevatedButton.styleFrom(
-                  primary: Colors.blue, // Change this color to your desired color
-                ),
-                child: Text(
-                  "Logout",
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20
-
-                  ),
-                )
-            )
-          ],
-        ),
-      ),
+      endDrawer: ManuDrawer(),
     );
   }
 }
