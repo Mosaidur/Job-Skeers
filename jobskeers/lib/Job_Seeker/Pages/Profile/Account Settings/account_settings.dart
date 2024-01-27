@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'ChangePassword.dart';
+
 class AccountSetting extends StatefulWidget {
   const AccountSetting({super.key});
 
@@ -175,7 +177,9 @@ class _AccountSettingState extends State<AccountSetting> {
 
                       // change password
                       InkWell(
-                        onTap: (){},
+                        onTap: (){
+                          Navigator.push(context, MaterialPageRoute(builder: (context)=> ChangePassword()));
+                        },
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [

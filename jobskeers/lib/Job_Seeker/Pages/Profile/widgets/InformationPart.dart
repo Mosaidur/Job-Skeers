@@ -710,25 +710,25 @@ class ProfileInformatioPage extends StatelessWidget {
                   SizedBox(height: 15,),
 
                   //  Employment History (Retired Defence Person)
-                  InkWell(
-                    onTap: (){
-                      Navigator.push(context, MaterialPageRoute(builder: (context)=> Defence_Employe_History()));
-                    },
-                    child: Row(
-                      children: [
-                        Icon(Icons.work_history_rounded,color: Colors.black,size: 15,),
-                        SizedBox(width: 15,),
-                        Text(
-                          "Employment History \n(Retired Defence Person)",
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 15,
-                            fontWeight: FontWeight.w400,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
+                  // InkWell(
+                  //   onTap: (){
+                  //     Navigator.push(context, MaterialPageRoute(builder: (context)=> Defence_Employe_History()));
+                  //   },
+                  //   child: Row(
+                  //     children: [
+                  //       Icon(Icons.work_history_rounded,color: Colors.black,size: 15,),
+                  //       SizedBox(width: 15,),
+                  //       Text(
+                  //         "Employment History \n(Retired Defence Person)",
+                  //         style: TextStyle(
+                  //           color: Colors.black,
+                  //           fontSize: 15,
+                  //           fontWeight: FontWeight.w400,
+                  //         ),
+                  //       ),
+                  //     ],
+                  //   ),
+                  // ),
 
                 ],
 
