@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'ChangePassword.dart';
 
@@ -10,11 +11,35 @@ class AccountSetting extends StatefulWidget {
 }
 
 class _AccountSettingState extends State<AccountSetting> {
+
+  late SharedPreferences sprefs;
+  String? userID;
+  String? userName;
+  String? userEmail;
+  String? userPhone;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadUserData();
+  }
+
+  Future<void> _loadUserData() async {
+    sprefs = await SharedPreferences.getInstance();
+    setState(() {
+      userID = sprefs.getString("USERID");
+      userName = sprefs.getString("USERNAME");
+      userEmail = sprefs.getString("USEREMAIL");
+      userPhone = sprefs.getString("USERPHONENO");
+    });
+  }
+
+
   @override
   Widget build(BuildContext context) {
 
-    final String changeEmail = " ";
-    final String changephoneNo = " ";
+    final String? changeEmail = userEmail;
+    final String? changephoneNo = userPhone;
     final String changepassword = " ";
 
 
@@ -74,7 +99,7 @@ class _AccountSettingState extends State<AccountSetting> {
 
 
                       Text(
-                        changeEmail,
+                        changeEmail!,
                         textAlign: TextAlign.justify,
                         // softWrap: true,
                         // maxLines: 15,
@@ -137,7 +162,7 @@ class _AccountSettingState extends State<AccountSetting> {
 
 
                       Text(
-                        changephoneNo,
+                        changephoneNo!,
                         textAlign: TextAlign.justify,
                         // softWrap: true,
                         // maxLines: 15,
