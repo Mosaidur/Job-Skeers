@@ -70,6 +70,7 @@ class _JobSeekerSigninScreenState extends State<JobSeekerSigninScreen> {
           await prefs.setString("USERNAME", loginResponse.userName!);
           await prefs.setString("USEREMAIL", loginResponse.userEmail!);
           await prefs.setString("USERPHONENO", loginResponse.userPhoneNo!);
+          await prefs.setString("USERTYPE", loginResponse.userPhoneNo!);
 
           // Delay the execution of the showDialog
           Future.delayed(Duration.zero, () {
@@ -301,6 +302,10 @@ class _JobSeekerSigninScreenState extends State<JobSeekerSigninScreen> {
                             ),
 
                             onPressed: _submit,
+
+                            // onPressed: ()=> Navigator.push(
+                            //     context, MaterialPageRoute(
+                            //     builder: (context) => JobSeekerMainpage())) ,
 
                             child: Text(
                               "Login",

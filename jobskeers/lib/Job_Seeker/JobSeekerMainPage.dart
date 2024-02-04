@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:jobskeers/Job_Seeker/Pages/Home%20Page/JobSeekerHomePage.dart';
 
 import 'Pages/ComingSoon.dart';
+import 'Pages/Event/event_page.dart';
 import 'Pages/Learning/LearningPage.dart';
 import 'Pages/More/moreFeature.dart';
 import 'Pages/My Job/My_jobsPage.dart';
@@ -24,7 +25,7 @@ class _JobSeekerMainpageState extends State<JobSeekerMainpage> {
 
     final List pages = [
       JobSeekerHomePage(),
-      LearningPage(),
+      EventPage(),
       MoreFeature(),
       MyJobPage(),
       JobSeekerProfilePage(),
@@ -53,7 +54,7 @@ class _JobSeekerMainpageState extends State<JobSeekerMainpage> {
               },
               items: [
                 BottomNavigationBarItem(icon: Icon(Icons.home),label: "Home"),
-                BottomNavigationBarItem(icon: Icon(Icons.school),label: "Learning"),
+                BottomNavigationBarItem(icon: Icon(Icons.event),label: "Event"),
                 BottomNavigationBarItem(icon: Icon(Icons.apps),label: "More"),
                 BottomNavigationBarItem(icon: Icon(Icons.work),label: "My Jobs"),
                 BottomNavigationBarItem(icon: Icon(Icons.person),label: "Profile"),
