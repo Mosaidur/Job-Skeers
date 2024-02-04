@@ -20,7 +20,7 @@ class _AboutEventPageState extends State<AboutEventPage> {
   String EventTitle ="Event Title";
   String EventLocation = "Event Location";
   String EventFaceBookLink = "https://www.facebook.com/share/qumFHw8a7qtYXcmj/?mibextid=9VsGKo";
-  String EventDescription = "";
+  String EventDescription = "Daffodil International University Daffodil International University";
   String EventOrganizer = "Daffodil International University" ;
 
   @override
@@ -97,9 +97,23 @@ class _AboutEventPageState extends State<AboutEventPage> {
 
                   SizedBox(height: 10),
 
-                  //Event Location
+                  //Event organizer
                   Text(
                     "Event by $EventOrganizer",
+                    softWrap: true,
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 1,
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 15,
+                      color: Colors.grey.shade700,
+                    ),
+                  ),
+
+                  SizedBox(height: 10,),
+                  // Event Location
+                  Text(
+                    "Event location $EventLocation",
                     softWrap: true,
                     overflow: TextOverflow.ellipsis,
                     maxLines: 1,
@@ -141,10 +155,23 @@ class _AboutEventPageState extends State<AboutEventPage> {
                         ),
                       ),
                     ),
-                  )
+                  ),
 
+                  SizedBox(height: 15,),
 
                   // EventDescription
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      EventDescription,
+                      textAlign: TextAlign.justify,
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 15,
+                        color: Colors.black,
+                      ),
+                    ),
+                  ),
 
                 ],
               ),
