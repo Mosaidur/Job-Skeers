@@ -1,4 +1,8 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+
+import '../../Event/event_page.dart';
+import '../../Groups/AllGroupPage.dart';
 
 class OthersFeatures extends StatefulWidget {
   const OthersFeatures({super.key});
@@ -61,68 +65,78 @@ class _OthersFeaturesState extends State<OthersFeatures> {
                 //Events logo and text
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Container(
-                        height: 40,
-                        width: 40,
-                        child: Image.asset("assets/Images2/Events.png"),
-                      ),
-                      SizedBox(
-                        height: 5,
-                      ),
-                      Text(
-                        "Events",
-                        style: TextStyle(
-                          color: Color(0xff03438C),
-                          fontSize: 15,
-                          fontWeight: FontWeight.bold,
+                  child: InkWell(
+                    onTap: (){
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => EventPage(backIcon: true)));
+                    },
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Container(
+                          height: 40,
+                          width: 40,
+                          child: Image.asset("assets/Images2/Events.png"),
                         ),
-                      ),
-                      Text(
-                        " ",
-                        style: TextStyle(
-                          color: Color(0xff03438C),
-                          fontSize: 15,
-                          fontWeight: FontWeight.bold,
+                        SizedBox(
+                          height: 5,
                         ),
-                      ),
-                    ],
+                        Text(
+                          "Events",
+                          style: TextStyle(
+                            color: Color(0xff03438C),
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Text(
+                          " ",
+                          style: TextStyle(
+                            color: Color(0xff03438C),
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
 
                 //Groups logo and text
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Container(
-                        height: 40,
-                        width: 40,
-                        child: Image.asset("assets/Images2/Groups.png"),
-                      ),
-                      SizedBox(
-                        height: 5,
-                      ),
-                      Text(
-                        "Groups",
-                        style: TextStyle(
-                          color: Color(0xff03438C),
-                          fontSize: 15,
-                          fontWeight: FontWeight.bold,
+                  child: InkWell(
+                    onTap: (){
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => AllGroupPage()));
+                    },
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Container(
+                          height: 40,
+                          width: 40,
+                          child: Image.asset("assets/Images2/Groups.png"),
                         ),
-                      ),
-                      Text(
-                        " ",
-                        style: TextStyle(
-                          color: Color(0xff03438C),
-                          fontSize: 15,
-                          fontWeight: FontWeight.bold,
+                        SizedBox(
+                          height: 5,
                         ),
-                      ),
-                    ],
+                        Text(
+                          "Groups",
+                          style: TextStyle(
+                            color: Color(0xff03438C),
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Text(
+                          " ",
+                          style: TextStyle(
+                            color: Color(0xff03438C),
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
 

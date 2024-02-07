@@ -21,7 +21,7 @@ class _AboutEventPageState extends State<AboutEventPage> {
   String EventLocation = "Event Location";
   String EventFaceBookLink = "https://www.facebook.com/share/qumFHw8a7qtYXcmj/?mibextid=9VsGKo";
   String EventDescription = "Daffodil International University Daffodil International University";
-  String EventOrganizer = "Daffodil International University" ;
+  String EventOrganizer = "Daffodil International University " ;
 
   @override
   void initState() {
@@ -102,7 +102,7 @@ class _AboutEventPageState extends State<AboutEventPage> {
                     "Event by $EventOrganizer",
                     softWrap: true,
                     overflow: TextOverflow.ellipsis,
-                    maxLines: 1,
+                    maxLines: 2,
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 15,

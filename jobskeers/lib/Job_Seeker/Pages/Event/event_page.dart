@@ -5,7 +5,9 @@ import '../../loading_page.dart';
 import 'AboutEventPage.dart';
 
 class EventPage extends StatefulWidget {
-  const EventPage({Key? key}) : super(key: key);
+  bool backIcon;
+  EventPage({Key? key, this.backIcon=false}) : super(key: key);
+
 
   @override
   State<EventPage> createState() => _EventPageState();
@@ -60,11 +62,19 @@ class _EventPageState extends State<EventPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.blue.shade50,
-      appBar: AppBar(
-        leadingWidth: 0,
-        automaticallyImplyLeading: false,
+      appBar:  AppBar(
         title: Center(child: Text("Event")),
+        // leadingWidth: (widget.backIcon !=false) ? 0: null,
+        // automaticallyImplyLeading: (widget.backIcon !=false) ? false : true,
+        leading: (widget.backIcon !=false) ? IconButton(
+          icon: Icon(Icons.arrow_back_ios),
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+        ) : null,
       ),
+
+
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(10.0),

@@ -88,7 +88,7 @@ class _MoreFeatureState extends State<MoreFeature> {
                 horizontal: 20,
               ),
               child: Text(
-                "Invaitaion",
+                "Invitaion",
                 style: TextStyle(
                   color: Color(0xff03438C),
                   fontWeight: FontWeight.bold,
