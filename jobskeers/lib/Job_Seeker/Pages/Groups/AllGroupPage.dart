@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:jobskeers/Job_Seeker/Pages/Groups/widgets/GroupTitle.dart';
 
+import 'GroupChat.dart';
+
 class AllGroupPage extends StatefulWidget {
   const AllGroupPage({super.key});
 
@@ -67,10 +69,15 @@ class _AllGroupPageState extends State<AllGroupPage> {
             ),
 
             for (int i =0 ; i<10;i++)
-            Grouptitle(
-              GroupName: 'CDC JOB ADVICE', 
-              GroupBio: 'JOB ADVICE',
-              // GroupImage: "",
+            InkWell(
+              onTap: (){
+                Navigator.push(context, MaterialPageRoute(builder: (context)=> CroupChat() ));
+              },
+              child: Grouptitle(
+                GroupName: 'CDC JOB ADVICE',
+                GroupBio: 'JOB ADVICE',
+                // GroupImage: "",
+              ),
             )
             
           ],
