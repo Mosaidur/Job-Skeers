@@ -70,7 +70,7 @@ class _JobSeekerSigninScreenState extends State<JobSeekerSigninScreen> {
           await prefs.setString("USERNAME", loginResponse.userName!);
           await prefs.setString("USEREMAIL", loginResponse.userEmail!);
           await prefs.setString("USERPHONENO", loginResponse.userPhoneNo!);
-          await prefs.setString("USERTYPE", loginResponse.userPhoneNo!);
+          await prefs.setString("USERS_Studentship_Title", loginResponse.Studentship_Title!);
 
           // Delay the execution of the showDialog
           Future.delayed(Duration.zero, () {

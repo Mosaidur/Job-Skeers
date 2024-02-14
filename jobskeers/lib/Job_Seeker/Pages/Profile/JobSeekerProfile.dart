@@ -20,6 +20,7 @@ class _JobSeekerProfilePageState extends State<JobSeekerProfilePage> {
   String? userName;
   String? userEmail;
   String? userPhone;
+  String? Studentship_Title;
 
   @override
   void initState() {
@@ -34,6 +35,7 @@ class _JobSeekerProfilePageState extends State<JobSeekerProfilePage> {
       userName = sprefs.getString("USERNAME");
       userEmail = sprefs.getString("USEREMAIL");
       userPhone = sprefs.getString("USERPHONENO");
+      Studentship_Title = sprefs.getString("USERS_Studentship_Title");
     });
   }
 
@@ -87,8 +89,6 @@ class _JobSeekerProfilePageState extends State<JobSeekerProfilePage> {
                             children: [
                               //Name
                               Text(
-
-
                                 userName ?? "",
                                 softWrap: true,
                                 maxLines: 1,
@@ -146,6 +146,30 @@ class _JobSeekerProfilePageState extends State<JobSeekerProfilePage> {
                                 ],
                               ),
                               SizedBox(height: 10,),
+
+                              //Studentship Title
+                              Row(
+                                children: [
+                                  Icon(Icons.school, color: Colors.white, size: 15,),
+                                  SizedBox(width: 10,),
+                                  Container(
+                                    width: MediaQuery.of(context).size.width / 1.8,
+                                    child: Text(
+                                      Studentship_Title?? "",
+                                      softWrap: true,
+                                      maxLines: 2,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: 15,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(height: 10,),
+
                             ],
                           ),
                         ),

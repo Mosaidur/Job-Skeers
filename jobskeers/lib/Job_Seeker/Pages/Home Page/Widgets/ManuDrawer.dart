@@ -22,6 +22,7 @@ class _ManuDrawerState extends State<ManuDrawer> {
   String? userName;
   String? userEmail;
   String? userPhone;
+  String? Studentship_Title;
 
   @override
   void initState() {
@@ -36,6 +37,7 @@ class _ManuDrawerState extends State<ManuDrawer> {
       userName = sprefs.getString("USERNAME");
       userEmail = sprefs.getString("USEREMAIL");
       userPhone = sprefs.getString("USERPHONENO");
+      Studentship_Title = sprefs.getString("USERS_Studentship_Title");
     });
   }
 
@@ -119,6 +121,18 @@ class _ManuDrawerState extends State<ManuDrawer> {
 
                         //Phone Number
                         Text(userPhone!,
+                          textAlign: TextAlign.start,
+                          softWrap: true,
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 1,
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 15),
+                        ),
+
+                        // Studentship Title
+                        Text(Studentship_Title!,
                           textAlign: TextAlign.start,
                           softWrap: true,
                           overflow: TextOverflow.ellipsis,

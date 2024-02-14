@@ -1,14 +1,14 @@
 class JobSeeker {
   final String name;
   final String phoneNo;
-  final String address;
+  final String Studentship_Title;
   final String email;
   final String password;
 
   JobSeeker({
     required this.name,
     required this.phoneNo,
-    required this.address,
+    required this.Studentship_Title,
     required this.email,
     required this.password,
   });
@@ -17,7 +17,7 @@ class JobSeeker {
     return {
       'name': name,
       'phone_no': phoneNo,
-      'address': address,
+      'Studentship_Title': Studentship_Title,
       'email': email,
       'password': password,
     };

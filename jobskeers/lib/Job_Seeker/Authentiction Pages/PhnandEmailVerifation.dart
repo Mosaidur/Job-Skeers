@@ -16,7 +16,7 @@ class Registration_OTPVerfication extends StatefulWidget {
     required this.NametextController,
     required this.emailtextController,
     required this.phoneNumbertextController,
-    required this.AddresstextController,
+    required this.Studentship_TitletextController,
     required this.passwordtextController});
 
 
@@ -25,7 +25,7 @@ class Registration_OTPVerfication extends StatefulWidget {
   final TextEditingController NametextController;
   final TextEditingController emailtextController;
   final TextEditingController phoneNumbertextController;
-  final TextEditingController AddresstextController;
+  final TextEditingController Studentship_TitletextController;
   final TextEditingController passwordtextController;
 
   @override
@@ -105,7 +105,7 @@ class _Registration_OTPVerficationState
     final dto = JobSeeker(
       name: widget.NametextController.text.toString(),
       phoneNo: widget.phoneNumbertextController.text.toString(),
-      address: widget.AddresstextController.text.toString(),
+      Studentship_Title: widget.Studentship_TitletextController.text.toString(),
       email: widget.emailtextController.text.toString(),
       password: widget.passwordtextController.text.toString(),
     );

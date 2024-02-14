@@ -32,12 +32,14 @@ class _JobSeekerRegisterScreenState extends State<JobSeekerRegisterScreen> {
   final UserNameTextEditingController = TextEditingController();
   final UserEmailTextEditingController = TextEditingController();
   final UserPhoneNumberTextEditingController = TextEditingController();
-  final UserAddressTextEditingController = TextEditingController();
+  final UserStudentshipTitleTextEditingController = TextEditingController();
   final UserPasswordTextEditingController = TextEditingController();
   final UserConfirmPasswordTextEditingController = TextEditingController();
 
   bool _passwordVisible = false;
   bool _ConfirmpasswordVisible = false;
+  String? _selectedUserStudentshipTitle;
+
 
   late String select= "Phone Number" ;
   // late String select = "Phone Number";
@@ -277,44 +279,49 @@ class _JobSeekerRegisterScreenState extends State<JobSeekerRegisterScreen> {
 
                             SizedBox(height: 10,),
 
-                            //Address form field
-                            TextFormField(
-                                inputFormatters: [
-                                  LengthLimitingTextInputFormatter(100),
-                                ],
-                                decoration: InputDecoration(
-                                    hintText: "Address",
-                                    hintStyle: TextStyle(
-                                      color: Colors.grey,
-                                    ),
-                                    filled: true,
-                                    fillColor: Colors.grey.shade200,
-                                    border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(40),
-                                      borderSide: BorderSide(
-                                        width: 0,
-                                        style: BorderStyle.none,
-                                      ),
-                                    ),
-                                    prefixIcon: Icon(Icons.house, color: Color(0xff03438C))
+                            //Studentship Title form field
+                            DropdownButtonFormField<String>(
+                              value: _selectedUserStudentshipTitle,
+                              icon: const Icon(Icons.keyboard_arrow_down),
+                              iconSize: 24,
+                              elevation: 16,
+                              style: const TextStyle(color: Colors.black),
+                              decoration: InputDecoration(
+                                hintText: "Studentship Title",
+                                prefixIcon: Icon(Icons.school),
+                                hintStyle: TextStyle(
+                                  color: Colors.grey,
                                 ),
-                                autovalidateMode: AutovalidateMode.onUserInteraction,
-                                validator: (text){
-                                  if (text == null || text.isEmpty){
-                                    return "Address can't be empty";
-                                  }
-                                  if (text.length<2){
-                                    return "Please enter a valid address";
-                                  }
-                                  if (text.length >99){
-                                    return"Address can't be more than 100";
-                                  }
-                                },
-                                onChanged: (text) => setState(() {
-                                  UserAddressTextEditingController.text = text;
-                                }
-                                )
+                                filled: true,
+                                fillColor: Colors.grey.shade200,
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(40),
+                                  borderSide: BorderSide(
+                                    width: 0,
+                                    style: BorderStyle.none,
+                                  ),
+                                ),
+                              ),
+                              items: <String>[
+                                'Running Student (1st & 2nd Year)',
+                                'Running Student (3rd & 4th Year)',
+                                'Fresh Graduate',
+                                'Postgraduate (Masters Program)',
+                                'Alumni',
+                              ].map<DropdownMenuItem<String>>((String value) {
+                                return DropdownMenuItem<String>(
+                                  value: value,
+                                  child: Text(value),
+                                );
+                              }).toList(),
+                              onChanged: (String? newValue) {
+                                setState(() {
+                                  _selectedUserStudentshipTitle = newValue!;
+                                  UserStudentshipTitleTextEditingController.text = newValue;
+                                });
+                              },
                             ),
+
 
                             SizedBox(height: 20,),
 
@@ -476,7 +483,7 @@ class _JobSeekerRegisterScreenState extends State<JobSeekerRegisterScreen> {
                                 if (UserNameTextEditingController.text.isEmpty ||
                                     UserEmailTextEditingController.text.isEmpty ||
                                     UserPhoneNumberTextEditingController.text.isEmpty ||
-                                    UserAddressTextEditingController.text.isEmpty ||
+                                    UserStudentshipTitleTextEditingController.text.isEmpty ||
                                     UserPasswordTextEditingController.text.isEmpty ||
                                     UserConfirmPasswordTextEditingController.text.isEmpty) {
 
@@ -540,7 +547,7 @@ class _JobSeekerRegisterScreenState extends State<JobSeekerRegisterScreen> {
                                           NametextController: UserNameTextEditingController,
                                           emailtextController: UserEmailTextEditingController,
                                           phoneNumbertextController: UserPhoneNumberTextEditingController,
-                                          AddresstextController: UserAddressTextEditingController,
+                                          Studentship_TitletextController: UserStudentshipTitleTextEditingController,
                                           passwordtextController: UserPasswordTextEditingController,
                                         ),
                                       ),
