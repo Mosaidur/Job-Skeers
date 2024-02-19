@@ -63,7 +63,7 @@ class _EventPageState extends State<EventPage> {
     return Scaffold(
       backgroundColor: Colors.blue.shade50,
       appBar:  AppBar(
-        title: Center(child: Text("Event")),
+        title: (widget.backIcon !=false) ? Text("Event")  : Center(child: Text("Event")),
         // leadingWidth: (widget.backIcon !=false) ? 0: null,
         // automaticallyImplyLeading: (widget.backIcon !=false) ? false : true,
         leading: (widget.backIcon !=false) ? IconButton(

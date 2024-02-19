@@ -4,6 +4,8 @@ import 'package:flutter/rendering.dart';
 import 'package:jobskeers/Job_Seeker/Pages/Groups/widgets/Grp_Others_ChatTextBox.dart';
 import 'package:jobskeers/Job_Seeker/Pages/Groups/widgets/MyChatTextBox.dart';
 
+import 'GroupDetails.dart';
+
 class CroupChat extends StatefulWidget {
   String? GroupID;
   CroupChat({super.key,
@@ -73,9 +75,14 @@ class _CroupChatState extends State<CroupChat> {
             },
           ) ,
           actions: [
-            Padding(
-              padding: const EdgeInsets.only(right: 15.0),
-              child: Icon(Icons.info, color: Colors.white,),
+            InkWell(
+              onTap: (){
+                Navigator.push(context, MaterialPageRoute(builder: (context)=> GroupDetails(GroupID: '1',)));
+              },
+              child: Padding(
+                padding: const EdgeInsets.only(right: 15.0),
+                child: Icon(Icons.info, color: Colors.white,),
+              ),
             )
           ],
         ),

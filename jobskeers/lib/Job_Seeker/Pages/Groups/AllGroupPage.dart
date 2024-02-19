@@ -40,7 +40,7 @@ class _AllGroupPageState extends State<AllGroupPage> {
                     "Create New Group",
                   style: TextStyle (
                     fontWeight: FontWeight.w500,
-                    fontSize: 17
+                    fontSize: 14
                   ),
                 ),
             ),
