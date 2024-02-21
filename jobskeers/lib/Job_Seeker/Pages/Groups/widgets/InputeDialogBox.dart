@@ -8,7 +8,7 @@ class CustomInputDialogBox extends StatelessWidget {
     return AlertDialog(
       title: Text('Enter Text'),
       content: TextFormField(
-        controller: controller,
+        //controller: controller,
         decoration: InputDecoration(
           hintText: 'Enter text here',
         ),
@@ -28,6 +28,6 @@ class CustomInputDialogBox extends StatelessWidget {
           child: Text('Submit'),
         ),
       ],
-    ),;
+    );
   }
 }

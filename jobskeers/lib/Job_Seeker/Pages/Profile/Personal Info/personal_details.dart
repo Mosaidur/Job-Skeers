@@ -1,5 +1,10 @@
-import 'package:flutter/material.dart';
+import 'dart:convert';
 
+import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
+import '../../../Models/Profile/personal_info.dart';
+import '../widgets/No_data_found.dart';
 import 'Edit_Personatl_Details.dart';
 
 class personal_details extends StatefulWidget {
@@ -10,23 +15,81 @@ class personal_details extends StatefulWidget {
 }
 
 class _personal_detailsState extends State<personal_details> {
+
+  late SharedPreferences sprefs;
+  String? userID;
+  String? userName;
+
+  // Define userDTO variable at the class level
+  UserDTO? userDTO;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadUserData();
+    Personalinfo();
+  }
+
+  // Define variables to hold user information
+  String? name ;
+  String? father_name;
+  String? mother_name;
+  String? dateOfBirth;
+  String? religion;
+  String? gender;
+  String? marital_status;
+  String? nationality;
+  String? nid;
+  String? passport_no;
+  String? passport_issue_date;
+  String? blood_group;
+  String? image = "assets/icons/man_logo.png";
+
+
+
+  Future<void> Personalinfo() async {
+    // Replace with actual user ID
+    final url = Uri.parse('http://10.0.2.2/JobSeeker_EmpAPI/Parsonal%20Info%20API/read_personal_info.php?user_id=$userID');
+
+    try {
+      final response = await http.get(url);
+
+      if (response.statusCode == 200) {
+        final Map<String, dynamic> jsonResponse = json.decode(response.body);
+        // Assign value to userDTO
+        userDTO = UserDTO.fromJson(jsonResponse);
+        setState(() {
+          father_name = userDTO?.personalInfo?.fatherName;
+          mother_name = userDTO?.personalInfo?.motherName;
+          dateOfBirth = userDTO?.personalInfo?.dateOfBirth;
+          religion = userDTO?.personalInfo?.religion;
+          gender = userDTO?.personalInfo?.gender;
+          marital_status = userDTO?.personalInfo?.maritalStatus;
+          nationality = userDTO?.personalInfo?.nationality;
+          nid = userDTO?.personalInfo?.nid;
+          passport_no = userDTO?.personalInfo?.passportNo;
+          passport_issue_date = userDTO?.personalInfo?.passportIssueDate;
+          blood_group = userDTO?.personalInfo?.bloodGroup;
+        });
+      } else {
+        print('Request failed with status: ${response.statusCode}');
+      }
+    } catch (e) {
+      print('Exception occurred: $e');
+    }
+  }
+
+
+  Future<void> _loadUserData() async {
+    sprefs = await SharedPreferences.getInstance();
+    setState(() {
+      userID = sprefs.getString("USERID");
+      userName = sprefs.getString("USERNAME");
+    });
+  }
   @override
   Widget build(BuildContext context) {
 
-
-    final String name = "Mosaidur Rahman Asif";
-    final String father_name = "Mahabubur Rahman Bhuiyan";
-    final String mother_name = "Melon Khatun";
-    final String dateOfBirth = "19 May 2001";
-    final String religion = "Muslim";
-    final String gender = "Male";
-    final String marital_status = "Unmarried";
-    final String nationality = "Bangladeshi";
-    final String nid = "24010159375";
-    final String passport_no = "31578964102";
-    final String passport_issue_date = "20 January 2023";
-    final String blood_group = "AB+";
-    final String image ="assets/icons/man_logo.png";
 
 
     return Scaffold(
@@ -53,7 +116,7 @@ class _personal_detailsState extends State<personal_details> {
           },
         ),
       ),
-      body: SingleChildScrollView(
+      body: ( userDTO == null || userDTO?.success != true )? NoDataFound() : SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
@@ -66,7 +129,7 @@ class _personal_detailsState extends State<personal_details> {
                 alignment: Alignment.center,
                 width: 100,
                 height: 100,
-                child: Image.asset(image),
+                child: Image.asset(image!),
               ),
             ),
             ),
@@ -88,7 +151,7 @@ class _personal_detailsState extends State<personal_details> {
                     children: [
 
                       Text(
-                        name,
+                        name!,
                         style: TextStyle(
                           color: Colors.black,
                           fontWeight: FontWeight.bold,
@@ -108,7 +171,7 @@ class _personal_detailsState extends State<personal_details> {
                       ),
                       SizedBox(height: 5,),
                       Text(
-                        father_name,
+                        father_name!,
                         style: TextStyle(
                           color: Colors.black,
                           fontSize: 15,
@@ -129,7 +192,7 @@ class _personal_detailsState extends State<personal_details> {
                       ),
                       SizedBox(height: 5,),
                       Text(
-                        mother_name,
+                        mother_name!,
                         style: TextStyle(
                           color: Colors.black,
                           fontSize: 15,
@@ -151,7 +214,7 @@ class _personal_detailsState extends State<personal_details> {
                       ),
                       SizedBox(height: 5,),
                       Text(
-                        dateOfBirth,
+                        dateOfBirth!,
                         style: TextStyle(
                           color: Colors.black,
                           fontSize: 15,
@@ -172,7 +235,7 @@ class _personal_detailsState extends State<personal_details> {
                       ),
                       SizedBox(height: 5,),
                       Text(
-                        religion,
+                        religion!,
                         style: TextStyle(
                           color: Colors.black,
                           fontSize: 15,
@@ -193,7 +256,7 @@ class _personal_detailsState extends State<personal_details> {
                       ),
                       SizedBox(height: 5,),
                       Text(
-                        gender,
+                        gender!,
                         style: TextStyle(
                           color: Colors.black,
                           fontSize: 15,
@@ -215,7 +278,7 @@ class _personal_detailsState extends State<personal_details> {
                       ),
                       SizedBox(height: 5,),
                       Text(
-                        marital_status,
+                        marital_status!,
                         style: TextStyle(
                           color: Colors.black,
                           fontSize: 15,
@@ -237,7 +300,7 @@ class _personal_detailsState extends State<personal_details> {
                       ),
                       SizedBox(height: 5,),
                       Text(
-                        nationality,
+                        nationality!,
                         style: TextStyle(
                           color: Colors.black,
                           fontSize: 15,
@@ -259,7 +322,7 @@ class _personal_detailsState extends State<personal_details> {
                       ),
                       SizedBox(height: 5,),
                       Text(
-                        nid,
+                        nid!,
                         style: TextStyle(
                           color: Colors.black,
                           fontSize: 15,
@@ -280,7 +343,7 @@ class _personal_detailsState extends State<personal_details> {
                       ),
                       SizedBox(height: 5,),
                       Text(
-                        passport_no,
+                        passport_no!,
                         style: TextStyle(
                           color: Colors.black,
                           fontSize: 15,
@@ -302,7 +365,7 @@ class _personal_detailsState extends State<personal_details> {
                       ),
                       SizedBox(height: 5,),
                       Text(
-                        passport_issue_date,
+                        passport_issue_date!,
                         style: TextStyle(
                           color: Colors.black,
                           fontSize: 15,
@@ -324,7 +387,7 @@ class _personal_detailsState extends State<personal_details> {
                       ),
                       SizedBox(height: 5,),
                       Text(
-                        blood_group,
+                        blood_group!,
                         style: TextStyle(
                           color: Colors.black,
                           fontSize: 15,
