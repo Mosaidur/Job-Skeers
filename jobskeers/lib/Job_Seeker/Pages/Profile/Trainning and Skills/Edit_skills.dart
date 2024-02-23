@@ -233,7 +233,7 @@ class _Edit_skillsState extends State<Edit_skills> {
                   },
                   child: Text("Updte"),
                   style: ElevatedButton.styleFrom(
-                    primary: Color(0xff03438C), // Change this color to your desired color
+                    backgroundColor: Color(0xff03438C), // Change this color to your desired color
                   ),
                 ),
 

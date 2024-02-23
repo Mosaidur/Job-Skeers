@@ -477,7 +477,7 @@ class _Edit_Job_preferencesState extends State<Edit_Job_preferences> {
                     onPressed: () {},
                     child: Text("Submit"),
                     style: ElevatedButton.styleFrom(
-                      primary: Color(
+                      backgroundColor: Color(
                           0xff03438C), // Change this color to your desired color
                     ),
                   ),

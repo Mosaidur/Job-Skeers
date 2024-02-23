@@ -457,8 +457,7 @@ class _Registration_OTPVerficationState
 
             ElevatedButton(
               style: ElevatedButton.styleFrom(
-                primary: Color(0xff03438C),
-                onPrimary: Colors.grey.shade200,
+                foregroundColor: Colors.grey.shade200, backgroundColor: Color(0xff03438C),
                 elevation: 0,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(15),

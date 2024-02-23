@@ -125,7 +125,7 @@ class _Add_co_curricular_actState extends State<Add_co_curricular_act> {
                   },
                   child: Text("Submit"),
                   style: ElevatedButton.styleFrom(
-                    primary: Color(0xff03438C), // Change this color to your desired color
+                    backgroundColor: Color(0xff03438C), // Change this color to your desired color
                   ),
                 ),
 

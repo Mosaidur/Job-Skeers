@@ -213,7 +213,7 @@ class _Add_language_profState extends State<Add_language_prof> {
                   },
                   child: Text("Submit"),
                   style: ElevatedButton.styleFrom(
-                    primary: Color(0xff03438C), // Change this color to your desired color
+                    backgroundColor: Color(0xff03438C), // Change this color to your desired color
                   ),
                 ),
 

@@ -454,7 +454,7 @@ class _Add_emp_historyState extends State<Add_emp_history> {
                   },
                   child: Text("Submit"),
                   style: ElevatedButton.styleFrom(
-                    primary: Color(0xff03438C), // Change this color to your desired color
+                    backgroundColor: Color(0xff03438C), // Change this color to your desired color
                   ),
                 ),
 

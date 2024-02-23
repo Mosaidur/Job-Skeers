@@ -350,7 +350,7 @@ class _Edit_trainingState extends State<Edit_training> {
                   },
                   child: Text("Update"),
                   style: ElevatedButton.styleFrom(
-                    primary: Color(0xff03438C), // Change this color to your desired color
+                    backgroundColor: Color(0xff03438C), // Change this color to your desired color
                   ),
                 ),
 

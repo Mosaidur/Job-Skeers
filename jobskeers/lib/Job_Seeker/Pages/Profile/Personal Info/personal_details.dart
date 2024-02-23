@@ -16,81 +16,97 @@ class personal_details extends StatefulWidget {
 
 class _personal_detailsState extends State<personal_details> {
 
-  late SharedPreferences sprefs;
-  String? userID;
-  String? userName;
-
-  // Define userDTO variable at the class level
-  UserDTO? userDTO;
 
   @override
   void initState() {
     super.initState();
     _loadUserData();
-    Personalinfo();
+    // Personalinfo();
+    _fetchPersonalInfo(UserID!);
   }
 
+  late SharedPreferences sprefs;
+  String? UserID;
+  String? userName;
+
+  // Define userDTO variable at the class level
+  // PersonalData? userDTO;
+  late bool success;
   // Define variables to hold user information
-  String? name ;
-  String? father_name;
-  String? mother_name;
-  String? dateOfBirth;
-  String? religion;
-  String? gender;
-  String? marital_status;
-  String? nationality;
-  String? nid;
-  String? passport_no;
-  String? passport_issue_date;
-  String? blood_group;
+  String? P_Details_Id;
+  String? name = '';
+  String? father_name = '';
+  String? mother_name = '';
+  String? dateOfBirth = '';
+  String? religion = '';
+  String? gender = '';
+  String? marital_status = '';
+  String? nationality = '';
+  String? nid = '';
+  String? passport_no = '';
+  String? passport_issue_date = '';
+  String? blood_group = '';
+
   String? image = "assets/icons/man_logo.png";
 
 
+  Future<void> _fetchPersonalInfo(String userId) async {
+    final String apiUrl = 'http://10.0.2.2/JobSeeker_EmpAPI/Parsonal%20Info%20API/read_personal_info.php';
 
-  Future<void> Personalinfo() async {
-    // Replace with actual user ID
-    final url = Uri.parse('http://10.0.2.2/JobSeeker_EmpAPI/Parsonal%20Info%20API/read_personal_info.php?user_id=$userID');
+    final response = await http.get(
+      Uri.parse('$apiUrl?user_id=$userId'),
+      headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+    );
 
-    try {
-      final response = await http.get(url);
+    if (response.statusCode == 200) {
+      final Map<String, dynamic> responseData = json.decode(response.body);
+      bool success = responseData['success'] ?? false;
 
-      if (response.statusCode == 200) {
-        final Map<String, dynamic> jsonResponse = json.decode(response.body);
-        // Assign value to userDTO
-        userDTO = UserDTO.fromJson(jsonResponse);
+      if (success) {
+        // Successfully fetched personal info
+        final personalInfoData = responseData['personal_info'];
+        // Parse the personal info data into PersonalInfoDTO
+        PersonalData personalInfoDTO = PersonalData.fromJson(responseData);
+        // Now you can access the data from personalInfoDTO and update your UI
         setState(() {
-          father_name = userDTO?.personalInfo?.fatherName;
-          mother_name = userDTO?.personalInfo?.motherName;
-          dateOfBirth = userDTO?.personalInfo?.dateOfBirth;
-          religion = userDTO?.personalInfo?.religion;
-          gender = userDTO?.personalInfo?.gender;
-          marital_status = userDTO?.personalInfo?.maritalStatus;
-          nationality = userDTO?.personalInfo?.nationality;
-          nid = userDTO?.personalInfo?.nid;
-          passport_no = userDTO?.personalInfo?.passportNo;
-          passport_issue_date = userDTO?.personalInfo?.passportIssueDate;
-          blood_group = userDTO?.personalInfo?.bloodGroup;
+          P_Details_Id = personalInfoDTO.personalInfo?.pDetailsId;
+          father_name = personalInfoDTO.personalInfo?.fatherName;
+          mother_name = personalInfoDTO.personalInfo?.motherName;
+          dateOfBirth = personalInfoDTO.personalInfo?.dateOfBirth;
+          religion = personalInfoDTO.personalInfo?.religion;
+          gender = personalInfoDTO.personalInfo?.gender;
+          marital_status = personalInfoDTO.personalInfo?.maritalStatus;
+          nationality = personalInfoDTO.personalInfo?.nationality;
+          nid = personalInfoDTO.personalInfo?.nid;
+          passport_no = personalInfoDTO.personalInfo?.passportNo;
+          passport_issue_date = personalInfoDTO.personalInfo?.passportIssueDate;
+          blood_group = personalInfoDTO.personalInfo?.bloodGroup;
+          if (P_Details_Id != null) {
+            print(P_Details_Id);
+          }
         });
       } else {
-        print('Request failed with status: ${response.statusCode}');
+        // User not found or other error occurred
+        String message = responseData['message'];
+        print('Error: $message');
       }
-    } catch (e) {
-      print('Exception occurred: $e');
+    } else {
+      // Request failed
+      print('Failed to fetch personal info. Error code: ${response.statusCode}');
     }
   }
-
 
   Future<void> _loadUserData() async {
     sprefs = await SharedPreferences.getInstance();
     setState(() {
-      userID = sprefs.getString("USERID");
+      UserID = sprefs.getString("USERID");
       userName = sprefs.getString("USERNAME");
+      print(UserID);
     });
   }
+
   @override
   Widget build(BuildContext context) {
-
-
 
     return Scaffold(
       backgroundColor: Colors.blue.shade50,
@@ -116,7 +132,7 @@ class _personal_detailsState extends State<personal_details> {
           },
         ),
       ),
-      body: ( userDTO == null || userDTO?.success != true )? NoDataFound() : SingleChildScrollView(
+      body: (success != true )? NoDataFound() : SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [

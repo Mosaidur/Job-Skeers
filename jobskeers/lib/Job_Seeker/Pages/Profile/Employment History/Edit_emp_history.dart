@@ -454,7 +454,7 @@ class _Edit_emp_historyState extends State<Edit_emp_history> {
                   },
                   child: Text("Update"),
                   style: ElevatedButton.styleFrom(
-                    primary: Color(0xff03438C), // Change this color to your desired color
+                    backgroundColor: Color(0xff03438C), // Change this color to your desired color
                   ),
                 ),
 

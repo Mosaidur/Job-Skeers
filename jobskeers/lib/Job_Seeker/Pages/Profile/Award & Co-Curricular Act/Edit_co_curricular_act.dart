@@ -150,7 +150,7 @@ class _Edit_co_curricular_actState extends State<Edit_co_curricular_act> {
                   },
                   child: Text("Update"),
                   style: ElevatedButton.styleFrom(
-                    primary: Color(0xff03438C), // Change this color to your desired color
+                    backgroundColor: Color(0xff03438C), // Change this color to your desired color
                   ),
                 ),
 

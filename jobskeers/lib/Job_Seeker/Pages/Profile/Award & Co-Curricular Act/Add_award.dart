@@ -208,7 +208,7 @@ class _Add_AwardState extends State<Add_Award> {
                   },
                   child: Text("Submit"),
                   style: ElevatedButton.styleFrom(
-                    primary: Color(0xff03438C), // Change this color to your desired color
+                    backgroundColor: Color(0xff03438C), // Change this color to your desired color
                   ),
                 ),
 

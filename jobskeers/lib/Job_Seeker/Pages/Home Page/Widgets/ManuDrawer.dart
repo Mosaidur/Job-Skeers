@@ -282,7 +282,7 @@ class _ManuDrawerState extends State<ManuDrawer> {
                   }
                 },
                 style: ElevatedButton.styleFrom(
-                  primary: Colors.blue.shade300, // Change this color to your desired color
+                  backgroundColor: Colors.blue.shade300, // Change this color to your desired color
                 ),
                 child: Text(
                   "Logout",
