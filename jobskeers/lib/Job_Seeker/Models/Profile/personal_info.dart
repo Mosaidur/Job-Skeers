@@ -13,7 +13,7 @@ class PersonalData {
     return PersonalData(
       success: json['success'] as bool,
       message: json['message'] as String,
-      personalInfo: json['personal_info'],
+      personalInfo: PersonalInfo.fromJson(json?['personal_info']) as PersonalInfo ?,
 
           // != null
           // ? PersonalInfo.fromJson(json['personal_info'])

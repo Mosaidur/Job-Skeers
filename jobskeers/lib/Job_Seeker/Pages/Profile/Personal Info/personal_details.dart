@@ -21,20 +21,15 @@ class _personal_detailsState extends State<personal_details> {
   void initState() {
     super.initState();
     _loadUserData();
-    // Personalinfo();
-    _fetchPersonalInfo(UserID!);
   }
 
   late SharedPreferences sprefs;
   String? UserID;
   String? userName;
 
-  // Define userDTO variable at the class level
-  // PersonalData? userDTO;
-  late bool success;
-  // Define variables to hold user information
+  late bool success = false;
+
   String? P_Details_Id;
-  String? name = '';
   String? father_name = '';
   String? mother_name = '';
   String? dateOfBirth = '';
@@ -55,19 +50,20 @@ class _personal_detailsState extends State<personal_details> {
 
     final response = await http.get(
       Uri.parse('$apiUrl?user_id=$userId'),
-      headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+      headers: {'Content-Type': 'application/json'},
     );
 
     if (response.statusCode == 200) {
       final Map<String, dynamic> responseData = json.decode(response.body);
-      bool success = responseData['success'] ?? false;
+      success = responseData['success']  ;
 
-      if (success) {
+      if (success==true) {
         // Successfully fetched personal info
         final personalInfoData = responseData['personal_info'];
+
         // Parse the personal info data into PersonalInfoDTO
         PersonalData personalInfoDTO = PersonalData.fromJson(responseData);
-        // Now you can access the data from personalInfoDTO and update your UI
+
         setState(() {
           P_Details_Id = personalInfoDTO.personalInfo?.pDetailsId;
           father_name = personalInfoDTO.personalInfo?.fatherName;
@@ -102,6 +98,9 @@ class _personal_detailsState extends State<personal_details> {
       UserID = sprefs.getString("USERID");
       userName = sprefs.getString("USERNAME");
       print(UserID);
+      if (UserID != null) {
+        _fetchPersonalInfo(UserID!);
+      }
     });
   }
 
@@ -117,12 +116,22 @@ class _personal_detailsState extends State<personal_details> {
 
             Text("Personal Details"),
 
+            (P_Details_Id == null || success != true )?
             InkWell(
               onTap: (){
-                Navigator.push(context, MaterialPageRoute(builder: (context) => Edit_Personatl_Details()));
+                Navigator.push(context, MaterialPageRoute(builder: (context) => Edit_Personatl_Details(pDetailsId:null)));
+              },
+              child: Icon(Icons.add_comment),
+            )
+            :
+            InkWell(
+              onTap: (){
+                Navigator.push(context, MaterialPageRoute(builder: (context) => Edit_Personatl_Details(pDetailsId:P_Details_Id)));
               },
               child: Icon(Icons.edit_note_sharp),
             )
+
+
           ],
         ),
         leading: IconButton(
@@ -132,7 +141,7 @@ class _personal_detailsState extends State<personal_details> {
           },
         ),
       ),
-      body: (success != true )? NoDataFound() : SingleChildScrollView(
+      body: (P_Details_Id == null || success != true )? NoDataFound() :  SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
@@ -167,7 +176,7 @@ class _personal_detailsState extends State<personal_details> {
                     children: [
 
                       Text(
-                        name!,
+                        userName!,
                         style: TextStyle(
                           color: Colors.black,
                           fontWeight: FontWeight.bold,

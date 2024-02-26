@@ -2,6 +2,7 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../Select_LogInScreen.dart';
@@ -151,148 +152,160 @@ class _ManuDrawerState extends State<ManuDrawer> {
 
             SizedBox(height: 10,),
 
-            //Account Setting
-            Padding(
-              padding: const EdgeInsets.fromLTRB(25,20,20,15),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text("Account Setting",
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold
+            Expanded(
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+              
+                    //Account Setting
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(25,20,20,15),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text("Account Setting",
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold
+                            ),
+                          ),
+              
+                          Icon(Icons.arrow_forward_ios)
+                        ],
+                      ),
                     ),
-                  ),
-                  
-                  Icon(Icons.arrow_forward_ios)
-                ],
-              ),
-            ),
-            Divider(color: Colors.grey,thickness: 1,indent: 20,endIndent: 20,),
-
-            //Event
-            Padding(
-              padding: const EdgeInsets.fromLTRB(25,20,20,15),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text("Events",
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold
+                    Divider(color: Colors.grey,thickness: 1,indent: 20,endIndent: 20,),
+              
+                    //Event
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(25,20,20,15),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text("Events",
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold
+                            ),
+                          ),
+              
+                          Icon(Icons.arrow_forward_ios)
+                        ],
+                      ),
                     ),
-                  ),
-
-                  Icon(Icons.arrow_forward_ios)
-                ],
-              ),
-            ),
-            Divider(color: Colors.grey,thickness: 1,indent: 20,endIndent: 20,),
-
-            //Groups
-            Padding(
-              padding: const EdgeInsets.fromLTRB(25,20,20,15),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text("Groups",
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold
+                    Divider(color: Colors.grey,thickness: 1,indent: 20,endIndent: 20,),
+              
+                    //Groups
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(25,20,20,15),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text("Groups",
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold
+                            ),
+                          ),
+              
+                          Icon(Icons.arrow_forward_ios)
+                        ],
+                      ),
                     ),
-                  ),
-
-                  Icon(Icons.arrow_forward_ios)
-                ],
-              ),
-            ),
-            Divider(color: Colors.grey,thickness: 1,indent: 20,endIndent: 20,),
-
-            //Friends
-            Padding(
-              padding: const EdgeInsets.fromLTRB(25,20,20,15),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text("Friends",
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold
+                    Divider(color: Colors.grey,thickness: 1,indent: 20,endIndent: 20,),
+              
+                    //Friends
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(25,20,20,15),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text("Friends",
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold
+                            ),
+                          ),
+              
+                          Icon(Icons.arrow_forward_ios)
+                        ],
+                      ),
                     ),
-                  ),
-
-                  Icon(Icons.arrow_forward_ios)
-                ],
-              ),
-            ),
-            Divider(color: Colors.grey,thickness: 1,indent: 20,endIndent: 20,),
-
-            //Special Offers
-            Padding(
-              padding: const EdgeInsets.fromLTRB(25,20,20,15),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text("Special Offers",
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold
+                    Divider(color: Colors.grey,thickness: 1,indent: 20,endIndent: 20,),
+              
+                    //Special Offers
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(25,20,20,15),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text("Special Offers",
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold
+                            ),
+                          ),
+              
+                          Icon(Icons.arrow_forward_ios)
+                        ],
+                      ),
                     ),
-                  ),
-
-                  Icon(Icons.arrow_forward_ios)
-                ],
-              ),
-            ),
-            Divider(color: Colors.grey,thickness: 1,indent: 20,endIndent: 20,),
-
-            SizedBox(height: 70 ,),
-
-            //Logout Button
-            ElevatedButton(
-                onPressed: ()  async {
-
-                  if (userID != null) {
-                    await _remove_USERID_Preferences();
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(builder: (context) => SelectLoginScreen()),
-                    );
-                  } else {
-                    // Perform logout logic here
-                    Future.delayed(Duration.zero, () {
-                      CustomSnackBar.show(
-                        context,
-                        message: 'Some unexpected issue happends',
-                        backgroundColor: Colors.green.shade400,
-                        // Set your desired background color
-                        actionLabel: 'Logout failed.',
-                        iconData: Icons.error,
-                        onActionPressed: () {
-                          // Handle action press
-                          Navigator.of(context).pop; // or any other action
+                    Divider(color: Colors.grey,thickness: 1,indent: 20,endIndent: 20,),
+              
+                    SizedBox(height: 70 ,),
+              
+                    //Logout Button
+                    ElevatedButton(
+                        onPressed: ()  async {
+              
+                          if (userID != null) {
+                            await _remove_USERID_Preferences();
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(builder: (context) => SelectLoginScreen()),
+                            );
+                          } else {
+                            // Perform logout logic here
+                            Future.delayed(Duration.zero, () {
+                              CustomSnackBar.show(
+                                context,
+                                message: 'Some unexpected issue happends',
+                                backgroundColor: Colors.green.shade400,
+                                // Set your desired background color
+                                actionLabel: 'Logout failed.',
+                                iconData: Icons.error,
+                                onActionPressed: () {
+                                  // Handle action press
+                                  Navigator.of(context).pop; // or any other action
+                                },
+                              );
+                            });
+                          }
                         },
-                      );
-                    });
-                  }
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.blue.shade300, // Change this color to your desired color
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.blue.shade300, // Change this color to your desired color
+                        ),
+                        child: Text(
+                          "Logout",
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20
+              
+                          ),
+                        )
+                    )
+              
+                  ],
                 ),
-                child: Text(
-                  "Logout",
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20
+              ),
+            ),
 
-                  ),
-                )
-            )
+
           ],
         ),
     );

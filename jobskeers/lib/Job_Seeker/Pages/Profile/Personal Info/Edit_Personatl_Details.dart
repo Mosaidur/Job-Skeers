@@ -1,14 +1,110 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:http/http.dart' as http;
+import '../../../Models/Profile/personal_info.dart';
 
 class Edit_Personatl_Details extends StatefulWidget {
-  const Edit_Personatl_Details({super.key});
+  final String? pDetailsId;
+  const Edit_Personatl_Details({Key? key, this.pDetailsId}) : super(key: key);
 
   @override
   State<Edit_Personatl_Details> createState() => _Edit_Personatl_DetailsState();
 }
 
 class _Edit_Personatl_DetailsState extends State<Edit_Personatl_Details> {
+
+
+  Future<void> _loadUserData() async {
+    sprefs = await SharedPreferences.getInstance();
+    setState(() {
+      UserID = sprefs.getString("USERID");
+      userName = sprefs.getString("USERNAME");
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _loadUserData();
+  }
+
+  late SharedPreferences sprefs;
+  String? UserID;
+  String? userName;
+
+
+  Future<void> insertPersonalInfo(PersonalInfo personalInfo) async {
+    final apiUrl = 'http://10.0.2.2/JobSeeker_EmpAPI/Emp_register.php';
+
+    try {
+      final response = await http.post(
+        Uri.parse(apiUrl),
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+        body: personalInfo,
+      );
+
+      if (response.statusCode == 200) {
+        final Map<String, dynamic> responseData = json.decode(response.body);
+        if (responseData['success']) {
+          print('Data inserted successfully');
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Data inserted successfully')));
+        } else {
+          print('Failed to insert data: ${responseData['message']}');
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Failed to insert data: ${responseData['message']}')));
+        }
+      } else {
+        print('Failed to insert data. Error: ${response.statusCode}');
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Failed to insert data. Error: ${response.statusCode}')));
+      }
+    } catch (error) {
+      print('Error: $error');
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Error: $error')));
+    }
+  }
+
+
+  void _submitForm() {
+    if (_validateForm()) {
+      final personalInfo = PersonalInfo(
+        fatherName: fatherNameController.text,
+        motherName: motherNameController.text,
+        dateOfBirth: dateOfBirthController.text,
+        religion: _selectedReligion ?? '',
+        gender: _selectedGender ?? '',
+        maritalStatus: _selectedmaritalStatus ?? '',
+        nationality: nationalityController.text,
+        nid: nidController.text,
+        passportNo: passportNoController.text,
+        passportIssueDate: passportIssueDateController.text,
+        bloodGroup: _selectebloodGroup ?? '',
+      );
+      insertPersonalInfo(personalInfo);
+    }
+  }
+
+  bool _validateForm() {
+    if (fatherNameController.text.isEmpty ||
+        motherNameController.text.isEmpty ||
+        dateOfBirthController.text.isEmpty ||
+        _selectedReligion == null ||
+        _selectedGender == null ||
+        _selectedmaritalStatus == null ||
+        nationalityController.text.isEmpty ||
+        nidController.text.isEmpty ||
+        passportNoController.text.isEmpty ||
+        passportIssueDateController.text.isEmpty ||
+        _selectebloodGroup == null) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Please fill all fields')));
+      return false;
+    }else{
+      return true;
+    }
+
+  }
+
   // Create TextEditingController variables for the provided information
   final TextEditingController fatherNameController = TextEditingController();
   final TextEditingController motherNameController = TextEditingController();
