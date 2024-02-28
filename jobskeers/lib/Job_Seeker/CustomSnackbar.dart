@@ -22,7 +22,7 @@ class CustomSnackBar {
             child: Text(
               message,
             softWrap: true,
-            maxLines: 3,
+            maxLines: 5,
             overflow: TextOverflow.ellipsis,
             style: TextStyle(color: Colors.white),),
           ),

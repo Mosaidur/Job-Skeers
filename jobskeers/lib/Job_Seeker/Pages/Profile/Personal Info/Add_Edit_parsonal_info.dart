@@ -6,12 +6,11 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import '../../../CustomSnackbar.dart';
 import '../../../Models/Profile/Insert_profile_info.dart';
-import '../../../Models/Profile/personal_info.dart';
-import '../../../Models/loginModel.dart';
 import '../../../Models/register_data_To.dart';
 import '../../../loading_page.dart';
 
-class Edit_Personatl_Details extends StatefulWidget {
+
+class Add_Edit_Personatl_Details extends StatefulWidget {
   final String? pDetailsId;
   final String? father_name;
   final String? mother_name ;
@@ -25,7 +24,7 @@ class Edit_Personatl_Details extends StatefulWidget {
   final String? passport_issue_date ;
   final String? blood_group ;
 
-  const Edit_Personatl_Details({
+  const Add_Edit_Personatl_Details({
     Key? key,
     this.pDetailsId,
     this.father_name = '',
@@ -42,10 +41,10 @@ class Edit_Personatl_Details extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<Edit_Personatl_Details> createState() => _Edit_Personatl_DetailsState();
+  State<Add_Edit_Personatl_Details> createState() => _Add_Edit_Personatl_DetailsState();
 }
 
-class _Edit_Personatl_DetailsState extends State<Edit_Personatl_Details> {
+class _Add_Edit_Personatl_DetailsState extends State<Add_Edit_Personatl_Details> {
 
 
   late SharedPreferences sprefs;
@@ -79,6 +78,7 @@ class _Edit_Personatl_DetailsState extends State<Edit_Personatl_Details> {
     _loadUserData();
     Pre_Update_value();
   }
+
 
   Future<void> updatePersonalInfo () async {
     LoadingPage();
@@ -164,110 +164,104 @@ class _Edit_Personatl_DetailsState extends State<Edit_Personatl_Details> {
     }
   }
 
-  // Future<void> updatePersonalInfo() async {
-  //   const String apiUrl = 'http://10.0.2.2/JobSeeker_EmpAPI/Parsonal%20Info%20API/Update_personal_info.php';
-  //   try {
-  //     final response = await http.post(
-  //       Uri.parse(apiUrl),
-  //       // headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-  //       headers: {'Content-Type': 'application/json'},
-  //       body: {
-  //         'user_id': UserID!,
-  //         'P_Details_Id': widget.pDetailsId!,
-  //         'father_name': fatherNameController.text.toString(),
-  //         'mother_name': motherNameController.text.toString(),
-  //         'date_of_birth': dateOfBirthController.text.toString(),
-  //         'religion': religionController.text.toString(),
-  //         'gender': genderController.text.toString(),
-  //         'marital_status': maritalStatusController.text.toString(),
-  //         'nationality': nationalityController.text.toString(),
-  //         'nid': nidController.text.toString(),
-  //         'passport_no': passportNoController.text.toString(),
-  //         'passport_issue_date': passportIssueDateController.text.toString(),
-  //         'blood_group': bloodGroupController.text.toString(),
-  //       },
-  //     );
-  //
-  //     if (response.statusCode == 200) {
-  //       final Map<String, dynamic> responseData = json.decode(response.body);
-  //       if (responseData['success']) {
-  //         Future.delayed(Duration.zero, () {
-  //           CustomSnackBar.show(
-  //             context,
-  //             message: 'Personal information updated successfully.',
-  //             backgroundColor: Colors.green.shade400,
-  //             actionLabel: 'Successful.',
-  //             iconData: Icons.done,
-  //             onActionPressed: () {
-  //               Navigator.of(context).pop();
-  //             },
-  //           );
-  //         });
-  //       } else {
-  //         print('Failed to update personal information: ${responseData['message']}');
-  //         ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Failed to update personal information: ${responseData['message']}')));
-  //       }
-  //     } else {
-  //       print('Failed to update personal information. Error: ${response.statusCode}');
-  //       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Failed to update personal information. Error: ${response.statusCode}')));
-  //     }
-  //   } catch (error) {
-  //     print('Error updating personal information: $error');
-  //     ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Error updating personal information: $error')));
-  //   }
-  // }
 
-  // Future<void> updatePersonalInfo() async {
-  //   const String apiUrl = 'http://10.0.2.2/JobSeeker_EmpAPI/Parsonal%20Info%20API/Update_personal_info.php';
-  //   try {
-  //     final Map<String, dynamic> requestBody = InsertPersonalInfoDTO(
-  //       userId: UserID!,
-  //       fatherName: fatherNameController.text.toString(),
-  //       motherName: motherNameController.text.toString(),
-  //       dateOfBirth: dateOfBirthController.text.toString(),
-  //       religion: religionController.text.toString(),
-  //       gender: genderController.text.toString(),
-  //       maritalStatus: maritalStatusController.text.toString(),
-  //       nationality: nationalityController.text.toString(),
-  //       nid: nidController.text.toString(),
-  //       passportNo: passportNoController.text.toString(),
-  //       passportIssueDate: passportIssueDateController.text.toString(),
-  //       bloodGroup: bloodGroupController.text.toString(),
-  //     ).toJson();
-  //
-  //     final response = await http.post(
-  //       Uri.parse(apiUrl),
-  //       headers: {'Content-Type': 'application/json'},
-  //       body: json.encode(requestBody),
-  //     );
-  //
-  //     if (response.statusCode == 200) {
-  //       try {
-  //         final Map<String, dynamic> responseData = json.decode(response.body);
-  //         if (responseData['success'] != null) {
-  //           if (responseData['success']) {
-  //             // Success handling
-  //           } else {
-  //             // Failure handling
-  //           }
-  //         } else {
-  //           print('Invalid JSON response');
-  //           ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Invalid JSON response')));
-  //         }
-  //       } catch (error) {
-  //         print('Error decoding response data: $error');
-  //         ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Error decoding response data: $error')));
-  //       }
-  //     } else {
-  //       print('Failed to update personal information. Error: ${response.statusCode}');
-  //       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Failed to update personal information. Error: ${response.statusCode}')));
-  //     }
-  //   } catch (error) {
-  //     print('Error updating personal information: $error');
-  //     ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Error updating personal information: $error')));
-  //   }
-  // }
+  Future<void> insertPersonalInfo() async {
+    LoadingPage();
+    const apiUrl = 'http://10.0.2.2/JobSeeker_EmpAPI/Parsonal%20Info%20API/insert_personal_info.php';
+    try {
+      final response = await http.post(
+        Uri.parse(apiUrl),
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+        body: {
+          'user_id': UserID,
+          'father_name': fatherNameController.text.toString(),
+          'mother_name': motherNameController.text.toString(),
+          'date_of_birth': dateOfBirthController.text.toString(),
+          'religion': religionController.text.toString(),
+          'gender': genderController.text.toString(),
+          'marital_status': maritalStatusController.text.toString(),
+          'nationality': nationalityController.text.toString(),
+          'nid': nidController.text.toString(),
+          'passport_no': passportNoController.text.toString(),
+          'passport_issue_date': passportIssueDateController.text.toString(),
+          'blood_group': bloodGroupController.text.toString(),
+        },
+      );
 
+      if (response.statusCode == 200) {
+        final Map<String, dynamic> responseData = json.decode(response.body);
+        if (responseData['success']) {
+          Future.delayed(Duration.zero, () {
+            CustomSnackBar.show(
+              context,
+              message: 'Data inserted successfully.',
+              backgroundColor: Colors.green.shade400, // Set your desired background color
+              actionLabel: 'Successful.',
+              iconData: Icons.done,
+              onActionPressed: () {
+                // Handle action press
+                Navigator.of(context).pop; // or any other action
+              },
+            );
+          });
+
+        } else {
+          print('Failed to insert data: ${responseData['message']}');
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Failed to insert data: ${responseData['message']}')));
+
+          Future.delayed(Duration.zero, () {
+            CustomSnackBar.show(
+              context,
+              message: 'Failed to insert data: ${responseData['message']}.',
+              backgroundColor: Colors.red.shade400, // Set your desired background color
+              actionLabel: 'Error!',
+              iconData: Icons.error,
+              onActionPressed: () {
+                // Handle action press
+                Navigator.of(context).pop; // or any other action
+              },
+            );
+          });
+
+        }
+      } else {
+        Future.delayed(Duration.zero, () {
+          CustomSnackBar.show(
+            context,
+            message: 'Failed to insert data. Error: ${response.statusCode}.',
+            backgroundColor: Colors.red.shade400, // Set your desired background color
+            actionLabel: 'Error!',
+            iconData: Icons.error,
+            onActionPressed: () {
+              // Handle action press
+              Navigator.of(context).pop; // or any other action
+            },
+          );
+        });
+
+      }
+    } catch (error) {
+      Future.delayed(Duration.zero, () {
+        CustomSnackBar.show(
+          context,
+          message: 'Error: $error.',
+          backgroundColor: Colors.red.shade400, // Set your desired background color
+          actionLabel: 'Error!',
+          iconData: Icons.error,
+          onActionPressed: () {
+            // Handle action press
+            Navigator.of(context).pop; // or any other action
+          },
+        );
+      });
+    }
+  }
+
+  void _insertPersonalInfo() {
+    if (_validateForm()){
+      insertPersonalInfo();
+    }
+  }
 
   void _updatePersonalInfo() {
     if (_validateForm()){
@@ -387,6 +381,9 @@ class _Edit_Personatl_DetailsState extends State<Edit_Personatl_Details> {
           title: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
+
+              (widget.pDetailsId == null)?
+              Text("Add Personal Details") :
               Text("Edit Personal Details"),
 
               // InkWell(
@@ -859,12 +856,19 @@ class _Edit_Personatl_DetailsState extends State<Edit_Personatl_Details> {
 
                 ElevatedButton(
                   onPressed: (){
+                    if (widget.pDetailsId == null){
+                      if(_validateForm() == true) {
+                        Navigator.pop(context);
+                        _insertPersonalInfo();
+                      }
+                    }else {
                       if(_validateForm() == true) {
                         Navigator.pop(context);
                         _updatePersonalInfo();
                       }
+                    }
                   },
-                  child: Text("Update"),
+                  child: (widget.pDetailsId == null)? Text("Submit") : Text("Update"),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Color(0xff03438C), // Change this color to your desired color
                   ),

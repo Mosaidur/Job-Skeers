@@ -27,40 +27,43 @@ class _SelectLoginScreenState extends State<SelectLoginScreen > {
           ),
 
 
-          Container(
-            // color: Colors.grey,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                buildNavItem(0, "I'm Job Seeker"),
-                buildNavItem(1, "I'm Employer"),
-              ],
-            ),
-          ),
-          SizedBox(height: 20,)
+
         ],
       ),
       bottomNavigationBar: Container(
         width: double.maxFinite,
-        height: 180,
+        height: 70,
         child: Column(
           children: [
-            Text(
-              "Powered by",
-              style: TextStyle(
-                  color: Color(0xff03438C),
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20
+
+            Container(
+              // color: Colors.grey,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  buildNavItem(0, "I'm Job Seeker"),
+                  buildNavItem(1, "I'm Employer"),
+                ],
               ),
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Image.asset("assets/images/cdc_logo.png",height: 80,),
-                Image.asset("assets/images/skilljobs_logo.png",height: 80,)
-              ],
-            ),
-            Image.asset("assets/images/Daffodil-International-University-DIU-logo.png",height: 50,)
+            // SizedBox(height: 20,)
+
+            // Text(
+            //   "Powered by",
+            //   style: TextStyle(
+            //       color: Color(0xff03438C),
+            //       fontWeight: FontWeight.bold,
+            //       fontSize: 20
+            //   ),
+            // ),
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.center,
+            //   children: [
+            //     Image.asset("assets/images/cdc_logo.png",height: 80,),
+            //     Image.asset("assets/images/skilljobs_logo.png",height: 80,)
+            //   ],
+            // ),
+            // Image.asset("assets/images/Daffodil-International-University-DIU-logo.png",height: 50,)
           ],
         ),
       ),

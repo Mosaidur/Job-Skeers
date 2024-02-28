@@ -4,8 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../Models/Profile/personal_info.dart';
+import '../../../loading_page.dart';
 import '../widgets/No_data_found.dart';
-import 'Edit_Personatl_Details.dart';
+import 'Add_Edit_parsonal_info.dart';
 
 class personal_details extends StatefulWidget {
   const personal_details({super.key});
@@ -46,6 +47,7 @@ class _personal_detailsState extends State<personal_details> {
 
 
   Future<void> _fetchPersonalInfo(String userId) async {
+    LoadingPage();
     final String apiUrl = 'http://10.0.2.2/JobSeeker_EmpAPI/Parsonal%20Info%20API/read_personal_info.php';
 
     final response = await http.get(
@@ -59,7 +61,7 @@ class _personal_detailsState extends State<personal_details> {
 
       if (success==true) {
         // Successfully fetched personal info
-        final personalInfoData = responseData['personal_info'];
+        // final personalInfoData = responseData['personal_info'];
 
         // Parse the personal info data into PersonalInfoDTO
         PersonalData personalInfoDTO = PersonalData.fromJson(responseData);
@@ -119,14 +121,29 @@ class _personal_detailsState extends State<personal_details> {
             (P_Details_Id == null || success != true )?
             InkWell(
               onTap: (){
-                Navigator.push(context, MaterialPageRoute(builder: (context) => Edit_Personatl_Details(pDetailsId:null)));
+                Navigator.push(context, MaterialPageRoute(builder: (context) => Add_Edit_Personatl_Details(pDetailsId: null)));
               },
               child: Icon(Icons.add_comment),
             )
             :
             InkWell(
               onTap: (){
-                Navigator.push(context, MaterialPageRoute(builder: (context) => Edit_Personatl_Details(pDetailsId:P_Details_Id)));
+
+                Navigator.push(context, MaterialPageRoute(builder: (context) =>
+                    Add_Edit_Personatl_Details(
+                      pDetailsId: P_Details_Id,
+                      father_name: father_name,
+                      mother_name: mother_name,
+                      dateOfBirth: dateOfBirth,
+                      religion: religion,
+                      gender: gender,
+                      marital_status: marital_status,
+                      nationality: nationality,
+                      nid: nid,
+                      passport_no: passport_no,
+                      passport_issue_date: passport_issue_date,
+                      blood_group: blood_group,
+                    )));
               },
               child: Icon(Icons.edit_note_sharp),
             )

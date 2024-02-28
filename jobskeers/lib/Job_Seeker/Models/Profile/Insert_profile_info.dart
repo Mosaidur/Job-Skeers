@@ -1,4 +1,7 @@
+import 'dart:async';
+
 class InsertPersonalInfoDTO {
+  String? pDetailsId;
   String userId;
   String fatherName;
   String motherName;
@@ -13,6 +16,7 @@ class InsertPersonalInfoDTO {
   String bloodGroup;
 
   InsertPersonalInfoDTO({
+    this.pDetailsId,
     required this.userId,
     required this.fatherName,
     required this.motherName,
@@ -29,6 +33,7 @@ class InsertPersonalInfoDTO {
 
   Map<String, dynamic> toJson() {
     return {
+      'P_Details_Id': pDetailsId,
       'user_id': userId,
       'father_name': fatherName,
       'mother_name': motherName,
