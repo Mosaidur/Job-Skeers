@@ -1,5 +1,13 @@
-import 'package:flutter/material.dart';
+import 'dart:async';
+import 'dart:convert';
 
+import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:http/http.dart' as http;
+import '../../../CustomSnackbar.dart';
+import '../../../Models/Profile/ContactInfo.dart';
+import '../../../loading_page.dart';
+import '../widgets/No_data_found.dart';
 import 'Edit_Contact_Details.dart';
 
 class Contact_details extends StatefulWidget {
@@ -10,313 +18,516 @@ class Contact_details extends StatefulWidget {
 }
 
 class _Contact_detailsState extends State<Contact_details> {
+
+
+  late SharedPreferences sprefs;
+  String? UserID;
+  String? userName;
+
+  String? present_address;
+  String? permanent_address;
+  String? primary_phone_no;
+
+  String? secondary_phone_no;
+  String? emargency_phone_no;
+  String? primary_email;
+  String? secondary_email;
+
+  late bool success = false;
+  String? C_Details_Id;
+
+  late StreamController<ContactInfoData> _contactInfoStreamController;
+  late Stream<ContactInfoData> _contactInfoStream = Stream.periodic(Duration(milliseconds: 1));
+  late Timer _timer;
+
   @override
-  Widget build(BuildContext context) {
+  void initState() {
+    super.initState();
+    _contactInfoStreamController = StreamController<ContactInfoData>();
+    _contactInfoStream = _contactInfoStreamController.stream;
+    _loadUserData();
+    _startPolling();
+  }
 
-    final String present_address= "DSC, Ashulia, Savar, Dhaka, Bangladesh";
-    final String permanent_address= "Battrish, Aminal Hospiatl road, Kishoregonj, Dhaka , Bangladesh";
-    final String primary_phone_no= "+8801584219379";
-    final String secondary_phone_no= "+8801716312519";
-    final String emargency_phone_no= "+8801550609694";
-    final String primary_email= "Moasidurasif@gamil.com";
-    final String secondary_email= "Moasidurrahmanasif@gamil.com";
+  void _startPolling() {
+    const pollingInterval = Duration(minutes: 3); // Set your desired polling interval
+    _timer = Timer.periodic(pollingInterval, (timer) {
+      if (UserID != null) {
+        _fetchContactInfo(UserID!);
+      }
+    });
+  }
+
+
+  @override
+  void dispose() {
+    _contactInfoStreamController.close();
+    super.dispose();
+    _timer.cancel();
+  }
+
+  // void _startTimer() {
+  //   _timer = Timer.periodic(Duration(microseconds: 5), (timer) {
+  //     // Fetch updated data periodically
+  //     if (UserID != null) {
+  //       _fetchContactInfo(UserID!);
+  //     }
+  //   });
+  // }
 
 
 
-    return Scaffold(
-      backgroundColor: Colors.blue.shade50,
-      appBar: AppBar(
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
+  Future<void> _fetchContactInfo(String userId) async {
+    LoadingPage();
+    final String apiUrl = 'http://10.0.2.2/JobSeeker_EmpAPI/Contact%20Info%20API/Read_Contact_info.php';
 
-            Text("Contact Details"),
+    final response = await http.get(
+      Uri.parse('$apiUrl?user_id=$userId'),
+      headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+    );
 
-            InkWell(
-              onTap: (){
-                Navigator.push(context, MaterialPageRoute(builder: (context)=> Edit_Contact_Details()));
+    if (response.statusCode == 200) {
+      final Map<String, dynamic>? responseData = json.decode(response.body);
+
+      if (responseData != null) {
+        success = responseData['success'];
+
+        if (success == true) {
+          ContactInfoData ContactInfoDTO = ContactInfoData.fromJson(responseData);
+
+          setState(() {
+            C_Details_Id = ContactInfoDTO.contactInfo?.contactId;
+            present_address = ContactInfoDTO.contactInfo?.presentAddress;
+            permanent_address = ContactInfoDTO.contactInfo?.permanentAddress;
+            secondary_phone_no = ContactInfoDTO.contactInfo?.secondaryPhoneNo;
+            emargency_phone_no = ContactInfoDTO.contactInfo?.emergencyPhoneNo;
+            secondary_email = ContactInfoDTO.contactInfo?.secondaryEmail;
+            if (C_Details_Id != null) {
+              print(C_Details_Id);
+            }
+          });
+
+          // Emit fetched contact info
+          _contactInfoStreamController.add(ContactInfoDTO);
+
+        } else {
+          // User not found or other error occurred
+          String message = responseData['message'];
+          print('Error: $message');
+
+          Future.delayed(Duration.zero, () {
+            CustomSnackBar.show(
+              context,
+              message: responseData['message'],
+              backgroundColor: Colors.red.shade400, // Set your desired background color
+              actionLabel: 'Error!',
+              iconData: Icons.done,
+              onActionPressed: () {
+                // Handle action press
+                Navigator.of(context).pop; // or any other action
               },
-              child: Icon(Icons.edit_note_sharp),
-            )
-          ],
+            );
+          });
+        }
+      } else {
+        // Request failed
+        print('Failed to fetch personal info. Error code: ${response
+            .statusCode}');
+
+        Future.delayed(Duration.zero, () {
+          CustomSnackBar.show(
+            context,
+            message: 'Error:- ${response.statusCode}',
+            backgroundColor: Colors.red.shade400, // Set your desired background color
+            actionLabel: 'Error!',
+            iconData: Icons.done,
+            onActionPressed: () {
+              // Handle action press
+              Navigator.of(context).pop; // or any other action
+            },
+          );
+        });
+
+      }
+    }
+  }
+
+    Future<void> _loadUserData() async {
+      sprefs = await SharedPreferences.getInstance();
+      setState(() {
+        UserID = sprefs.getString("USERID");
+        userName = sprefs.getString("USERNAME");
+        primary_email = sprefs.getString("USEREMAIL");
+        primary_phone_no = sprefs.getString("USERPHONENO");
+        print(UserID);
+        if (UserID != null) {
+          _fetchContactInfo(UserID!);
+        }
+      });
+    }
+
+
+
+    @override
+    Widget build(BuildContext context) {
+      return Scaffold(
+        backgroundColor: Colors.blue.shade50,
+        appBar: AppBar(
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+
+              Text("Contact Details"),
+
+
+              (C_Details_Id == null || success != true) ?
+              InkWell(
+                onTap: () {
+                  Navigator.push(context, MaterialPageRoute(
+                      builder: (context) =>
+                          Edit_Contact_Details(
+                              CDetailsId: C_Details_Id = null,
+                            primaryEmailController: primary_email,
+                            primaryPhoneNoController: primary_phone_no,
+                          )));
+                },
+                child: Icon(Icons.add_comment),
+              )
+                  :
+              InkWell(
+                onTap: () {
+                  Navigator.push(
+                      context, MaterialPageRoute(builder: (context) =>
+                      Edit_Contact_Details(
+                        CDetailsId: C_Details_Id,
+                        permanentAddressController: permanent_address,
+                        presentAddressController: present_address,
+                        secondaryEmailController: secondary_email,
+                        secondaryPhoneNoController: secondary_phone_no,
+                        emergencyPhoneNoController: emargency_phone_no,
+                        primaryEmailController: primary_email,
+                        primaryPhoneNoController: primary_phone_no,
+                      )
+                  ));
+                },
+                child: Icon(Icons.edit_note_sharp),
+              )
+
+            ],
+          ),
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back_ios),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
         ),
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back_ios),
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-        ),
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            //Address
-            Padding(
-              padding: const EdgeInsets.only(top: 20.0, left: 20,right: 20,bottom: 20),
-              child: Container(
-                width: double.maxFinite,
-                // height: 700,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
-                  color: Colors.white,
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 15.0, left: 20,right: 20,bottom: 20),
+        body: StreamBuilder<ContactInfoData>(
+          stream: _contactInfoStream,
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return Center(child: CircularProgressIndicator());
+            } else if (snapshot.hasError) {
+              Future.delayed(Duration.zero, () {
+                CustomSnackBar.show(
+                  context,
+                  message: 'Error: ${snapshot.error}',
+                  backgroundColor: Colors.red.shade400, // Set your desired background color
+                  actionLabel: 'Error!',
+                  iconData: Icons.done,
+                  onActionPressed: () {
+                    // Handle action press
+                    Navigator.of(context).pop(); // or any other action
+                  },
+                );
+              });
+              return Center(child: CircularProgressIndicator());
+            } else {
+              ContactInfoData? data = snapshot.data;
+              if (data == null) {
+                return NoDataFound();
+              } else {
+                return SingleChildScrollView(
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
+                      //Address
+                      Padding(
+                        padding: const EdgeInsets.only(
+                            top: 20.0, left: 20, right: 20, bottom: 20),
+                        child: Container(
+                          width: double.maxFinite,
+                          // height: 700,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20),
+                            color: Colors.white,
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.only(
+                                top: 15.0, left: 20, right: 20, bottom: 20),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
 
-                      Text(
-                        "Address",
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20,
+                                Text(
+                                  "Address",
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 20,
+                                  ),
+                                ),
+                                SizedBox(height: 15,),
+
+                                //Present Address
+                                Text(
+                                  "Present Address:",
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                                ),
+                                SizedBox(height: 5,),
+                                Text(
+                                  present_address!,
+                                  softWrap: true,
+                                  maxLines: 15,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.w800,
+                                  ),
+                                ),
+
+                                SizedBox(height: 15,),
+
+                                //  Permanenet Address
+                                Text(
+                                  "Permanenet Address:",
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                                ),
+                                SizedBox(height: 5,),
+                                Text(
+                                  permanent_address!,
+                                  softWrap: true,
+                                  maxLines: 15,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.w800,
+                                  ),
+                                ),
+
+
+                                SizedBox(height: 15,),
+
+                              ],
+
+                            ),
+                          ),
                         ),
                       ),
-                      SizedBox(height: 15,),
-
-                      //Present Address
-                      Text(
-                        "Present Address:",
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 15,
-                          fontWeight: FontWeight.w400,
-                        ),
-                      ),
-                      SizedBox(height: 5,),
-                      Text(
-                        present_address,
-                        softWrap: true,
-                        maxLines: 15,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 15,
-                          fontWeight: FontWeight.w800,
-                        ),
-                      ),
-
-                      SizedBox(height: 15,),
-
-                      //  Permanenet Address
-                      Text(
-                        "Permanenet Address:",
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 15,
-                          fontWeight: FontWeight.w400,
-                        ),
-                      ),
-                      SizedBox(height: 5,),
-                      Text(
-                        permanent_address,
-                        softWrap: true,
-                        maxLines: 15,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 15,
-                          fontWeight: FontWeight.w800,
-                        ),
-                      ),
-
-
-                      SizedBox(height: 15,),
-
-                    ],
-
-                  ),
-                ),
-              ),
-            ),
-
-            //Phone Number
-            Padding(
-              padding: const EdgeInsets.only(top: 20.0, left: 20,right: 20,bottom: 20),
-              child: Container(
-                width: double.maxFinite,
-                // height: 700,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
-                  color: Colors.white,
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 15.0, left: 20,right: 20,bottom: 20),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
 
                       //Phone Number
-                      Text(
-                        "Phone Number",
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20,
-                        ),
-                      ),
-                      SizedBox(height: 15,),
+                      Padding(
+                        padding: const EdgeInsets.only(
+                            top: 20.0, left: 20, right: 20, bottom: 20),
+                        child: Container(
+                          width: double.maxFinite,
+                          // height: 700,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20),
+                            color: Colors.white,
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.only(
+                                top: 15.0, left: 20, right: 20, bottom: 20),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
 
-                      //  Primary Phone Number
-                      Text(
-                        "Primary Phone Number:",
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 15,
-                          fontWeight: FontWeight.w400,
-                        ),
-                      ),
-                      SizedBox(height: 5,),
-                      Text(
-                        primary_phone_no,
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 15,
-                          fontWeight: FontWeight.w800,
+                                //Phone Number
+                                Text(
+                                  "Phone Number",
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 20,
+                                  ),
+                                ),
+                                SizedBox(height: 15,),
+
+                                //  Primary Phone Number
+                                Text(
+                                  "Primary Phone Number:",
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                                ),
+                                SizedBox(height: 5,),
+                                Text(
+                                  primary_phone_no!,
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.w800,
+                                  ),
+                                ),
+
+                                SizedBox(height: 15,),
+
+                                //  Secondary Phone Number
+                                Text(
+                                  "Secondary Phone Number:",
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                                ),
+                                SizedBox(height: 5,),
+                                Text(
+                                  secondary_phone_no!,
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.w800,
+                                  ),
+                                ),
+
+                                SizedBox(height: 15,),
+
+                                //  Emargency Phone Number
+                                Text(
+                                  "Emargency Phone Number:",
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                                ),
+                                SizedBox(height: 5,),
+                                Text(
+                                  emargency_phone_no!,
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.w800,
+                                  ),
+                                ),
+
+                                SizedBox(height: 15,),
+
+                              ],
+
+                            ),
+                          ),
                         ),
                       ),
 
-                      SizedBox(height: 15,),
+                      // Email Address
+                      Padding(
+                        padding: const EdgeInsets.only(
+                            top: 20.0, left: 20, right: 20, bottom: 20),
+                        child: Container(
+                          width: double.maxFinite,
+                          // height: 700,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20),
+                            color: Colors.white,
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.only(
+                                top: 15.0, left: 20, right: 20, bottom: 20),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
 
-                      //  Secondary Phone Number
-                      Text(
-                        "Secondary Phone Number:",
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 15,
-                          fontWeight: FontWeight.w400,
+                                //Email Address
+                                Text(
+                                  "Email Address",
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 20,
+                                  ),
+                                ),
+                                SizedBox(height: 15,),
+
+                                //  Primary Email Address
+                                Text(
+                                  "Primary Email Address:",
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                                ),
+                                SizedBox(height: 5,),
+                                Text(
+                                  primary_email!,
+                                  softWrap: true,
+                                  maxLines: 5,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.w800,
+                                  ),
+                                ),
+
+
+                                SizedBox(height: 15,),
+
+                                //  Secondary Email Address
+                                Text(
+                                  "Secondary Email Address:",
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                                ),
+                                SizedBox(height: 5,),
+                                Text(
+                                  secondary_email!,
+                                  softWrap: true,
+                                  maxLines: 5,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.w800,
+                                  ),
+                                ),
+
+
+                                SizedBox(height: 15,),
+
+                              ],
+
+                            ),
+                          ),
                         ),
                       ),
-                      SizedBox(height: 5,),
-                      Text(
-                        secondary_phone_no,
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 15,
-                          fontWeight: FontWeight.w800,
-                        ),
-                      ),
-
-                      SizedBox(height: 15,),
-
-                      //  Emargency Phone Number
-                      Text(
-                        "Emargency Phone Number:",
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 15,
-                          fontWeight: FontWeight.w400,
-                        ),
-                      ),
-                      SizedBox(height: 5,),
-                      Text(
-                        emargency_phone_no,
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 15,
-                          fontWeight: FontWeight.w800,
-                        ),
-                      ),
-
-                      SizedBox(height: 15,),
 
                     ],
-
                   ),
-                ),
-              ),
-            ),
-
-            // Email Address
-            Padding(
-              padding: const EdgeInsets.only(top: 20.0, left: 20,right: 20,bottom: 20),
-              child: Container(
-                width: double.maxFinite,
-                // height: 700,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
-                  color: Colors.white,
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 15.0, left: 20,right: 20,bottom: 20),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-
-                      //Email Address
-                      Text(
-                        "Email Address",
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20,
-                        ),
-                      ),
-                      SizedBox(height: 15,),
-
-                      //  Primary Email Address
-                      Text(
-                        "Primary Email Address:",
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 15,
-                          fontWeight: FontWeight.w400,
-                        ),
-                      ),
-                      SizedBox(height: 5,),
-                      Text(
-                        primary_email,
-                        softWrap: true,
-                        maxLines: 5,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 15,
-                          fontWeight: FontWeight.w800,
-                        ),
-                      ),
-
-
-                      SizedBox(height: 15,),
-
-                      //  Secondary Email Address
-                      Text(
-                        "Secondary Email Address:",
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 15,
-                          fontWeight: FontWeight.w400,
-                        ),
-                      ),
-                      SizedBox(height: 5,),
-                      Text(
-                        secondary_email,
-                        softWrap: true,
-                        maxLines: 5,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 15,
-                          fontWeight: FontWeight.w800,
-                        ),
-                      ),
-
-
-                      SizedBox(height: 15,),
-
-                    ],
-
-                  ),
-                ),
-              ),
-            ),
-
-          ],
+                );
+              }
+            }
+          },
         ),
-      ),
-    );
+
+      );
+    }
   }
-}

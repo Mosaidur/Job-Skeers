@@ -1,10 +1,37 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:jobskeers/Job_Seeker/Pages/Profile/Account%20Settings/account_settings.dart';
 import 'package:jobskeers/Job_Seeker/customDialogBox.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:http/http.dart' as http;
+import '../../../CustomSnackbar.dart';
+import '../../../Models/register_data_To.dart';
+import '../../../loading_page.dart';
 
 class Edit_Contact_Details extends StatefulWidget {
-  const Edit_Contact_Details({super.key});
+  final String? CDetailsId;
+  final String? presentAddressController;
+  final String? permanentAddressController;
+  final String? secondaryPhoneNoController;
+  final String? emergencyPhoneNoController;
+  final String? secondaryEmailController;
+
+  final String? primaryEmailController;
+  final String? primaryPhoneNoController;
+
+  Edit_Contact_Details({super.key,
+    this.CDetailsId,
+    this.presentAddressController,
+    this.permanentAddressController,
+    this.secondaryPhoneNoController,
+    this.emergencyPhoneNoController,
+    this.secondaryEmailController,
+
+    this.primaryEmailController,
+    this.primaryPhoneNoController
+  });
 
   @override
   State<Edit_Contact_Details> createState() => _Edit_Contact_DetailsState();
@@ -12,14 +39,263 @@ class Edit_Contact_Details extends StatefulWidget {
 
 class _Edit_Contact_DetailsState extends State<Edit_Contact_Details> {
 
+  late SharedPreferences sprefs;
+  String? UserID;
+  String? userName;
+  String? userEmail;
+  String? userPhone;
+
+  Future<void> _loadUserData() async {
+    sprefs = await SharedPreferences.getInstance();
+    setState(() {
+      UserID = sprefs.getString("USERID");
+      userName = sprefs.getString("USERNAME");
+      userEmail = sprefs.getString("USEREMAIL");
+      userPhone = sprefs.getString("USERPHONENO");
+    });
+  }
+
+
   // Creating text editing controllers for the provided information
-  final TextEditingController presentAddressController = TextEditingController();
-  final TextEditingController permanentAddressController = TextEditingController();
-  final TextEditingController primaryPhoneNoController = TextEditingController();
-  final TextEditingController secondaryPhoneNoController = TextEditingController();
-  final TextEditingController emergencyPhoneNoController = TextEditingController();
-  final TextEditingController primaryEmailController = TextEditingController();
-  final TextEditingController secondaryEmailController = TextEditingController();
+  late final TextEditingController presentAddressController ;
+  late final TextEditingController permanentAddressController ;
+  late final TextEditingController secondaryPhoneNoController ;
+  late final TextEditingController emergencyPhoneNoController;
+  late final TextEditingController secondaryEmailController ;
+
+  late final TextEditingController primaryPhoneNoController  ;
+  late final TextEditingController primaryEmailController ;
+
+  void Pre_Update_value() {
+    if (widget.CDetailsId != null) {
+      presentAddressController = TextEditingController(text: widget.presentAddressController );
+      permanentAddressController = TextEditingController(text: widget.permanentAddressController );
+      secondaryPhoneNoController = TextEditingController(text: widget.secondaryPhoneNoController );
+      emergencyPhoneNoController = TextEditingController(text: widget.emergencyPhoneNoController );
+      secondaryEmailController = TextEditingController(text: widget.secondaryEmailController );
+      primaryEmailController = TextEditingController(text: userEmail);
+      primaryPhoneNoController = TextEditingController(text: userPhone );
+    }else{
+      presentAddressController = TextEditingController();
+      permanentAddressController = TextEditingController();
+      secondaryPhoneNoController = TextEditingController();
+      emergencyPhoneNoController = TextEditingController();
+      secondaryEmailController = TextEditingController();
+      primaryPhoneNoController = TextEditingController(text: userPhone );
+      primaryEmailController = TextEditingController(text: userEmail);
+    }
+  }
+
+  bool _validateForm() {
+    if (presentAddressController.text.isEmpty ||
+        permanentAddressController.text.isEmpty ||
+        secondaryPhoneNoController.text.isEmpty ||
+        emergencyPhoneNoController.text.isEmpty ||
+        secondaryEmailController.text.isEmpty ) {
+
+      Future.delayed(Duration.zero, () {
+        CustomSnackBar.show(
+          context,
+          message: 'Please fill all fields.',
+          backgroundColor: Colors.red.shade400, // Set your desired background color
+          actionLabel: 'Error!',
+          iconData: Icons.error,
+          onActionPressed: () {
+            // Handle action press
+            Navigator.of(context).pop; // or any other action
+          },
+        );
+      });
+      return false;
+    }else{
+      return true;
+    }
+
+  }
+
+  void _insertContactInfo() {
+    if (_validateForm()){
+      insertContactInfo();
+    }
+  }
+
+  void _updateContactInfo() {
+    if (_validateForm()){
+      updateContactInfo();
+    }
+  }
+
+  Future<void> insertContactInfo() async {
+    LoadingPage();
+    const apiUrl = 'http://10.0.2.2/JobSeeker_EmpAPI/Contact%20Info%20API/Insert_Contact_info.php';
+    try {
+      final response = await http.post(
+        Uri.parse(apiUrl),
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+        body: {
+          'userId': UserID,
+          'presentAddress': presentAddressController.text,
+          'permanentAddress': permanentAddressController.text,
+          'secondaryPhoneNo': secondaryPhoneNoController.text,
+          'emergencyPhoneNo': emergencyPhoneNoController.text,
+          'secondaryEmail': secondaryEmailController.text,
+
+        },
+      );
+
+      if (response.statusCode == 200) {
+        final Map<String, dynamic> responseData = json.decode(response.body);
+        if (responseData['success']) {
+          Future.delayed(Duration.zero, () {
+            CustomSnackBar.show(
+              context,
+              message: 'Data inserted successfully.',
+              backgroundColor: Colors.green.shade400, // Set your desired background color
+              actionLabel: 'Successful.',
+              iconData: Icons.done,
+              onActionPressed: () {
+                // Handle action press
+                Navigator.of(context).pop; // or any other action
+              },
+            );
+          });
+
+        } else {
+          print('Failed to insert data: ${responseData['message']}');
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Failed to insert data: ${responseData['message']}')));
+
+          Future.delayed(Duration.zero, () {
+            CustomSnackBar.show(
+              context,
+              message: 'Failed to insert data: ${responseData['message']}.',
+              backgroundColor: Colors.red.shade400, // Set your desired background color
+              actionLabel: 'Error!',
+              iconData: Icons.error,
+              onActionPressed: () {
+                // Handle action press
+                Navigator.of(context).pop; // or any other action
+              },
+            );
+          });
+
+        }
+      } else {
+        Future.delayed(Duration.zero, () {
+          CustomSnackBar.show(
+            context,
+            message: 'Failed to insert data. Error: ${response.statusCode}.',
+            backgroundColor: Colors.red.shade400, // Set your desired background color
+            actionLabel: 'Error!',
+            iconData: Icons.error,
+            onActionPressed: () {
+              // Handle action press
+              Navigator.of(context).pop; // or any other action
+            },
+          );
+        });
+
+      }
+    } catch (error) {
+      Future.delayed(Duration.zero, () {
+        CustomSnackBar.show(
+          context,
+          message: 'Error: $error.',
+          backgroundColor: Colors.red.shade400, // Set your desired background color
+          actionLabel: 'Error!',
+          iconData: Icons.error,
+          onActionPressed: () {
+            // Handle action press
+            Navigator.of(context).pop; // or any other action
+          },
+        );
+      });
+    }
+  }
+
+  Future<void> updateContactInfo () async {
+    LoadingPage();
+
+    const String apiUrl = 'http://10.0.2.2/JobSeeker_EmpAPI/Contact%20Info%20API/Update_Contact_info.php';
+
+    try {
+      final response = await http.post(
+        Uri.parse(apiUrl),
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+        body: {
+          'userId': UserID,
+          'contactId': widget.CDetailsId,
+          'presentAddress': presentAddressController.text,
+          'permanentAddress': permanentAddressController.text,
+          'secondaryPhoneNo': secondaryPhoneNoController.text,
+          'emergencyPhoneNo': emergencyPhoneNoController.text,
+          'secondaryEmail': secondaryEmailController.text,
+        },
+      );
+
+      if (response.statusCode == 200)  {
+        final Map<String, dynamic> responseData = json.decode(response.body);
+        final Response = ResponseDataModel.fromJson(responseData);
+
+        if (Response.success == true ) {
+          // Show success message
+          CustomSnackBar.show(
+            context,
+            message: '${Response.message}',
+            backgroundColor: Colors.green.shade400,
+            actionLabel: 'Successful',
+            iconData: Icons.done,
+            onActionPressed: () {
+              Navigator.of(context).pop(); // or any other action
+            },
+          );
+        } else {
+          // Show error message
+          CustomSnackBar.show(
+            context,
+            message: 'Update Response: ${Response.message}',
+            backgroundColor: Colors.red.shade400,
+            actionLabel: 'Error!',
+            iconData: Icons.error,
+            onActionPressed: () {
+              Navigator.of(context).pop(); // or any other action
+            },
+          );
+        }
+      } else {
+        // Handle other HTTP status codes
+        CustomSnackBar.show(
+          context,
+          message: 'Response Error: ${response.statusCode}. Try again.',
+          backgroundColor: Colors.red.shade400,
+          actionLabel: 'Error!',
+          iconData: Icons.error,
+          onActionPressed: () {
+            Navigator.of(context).pop(); // or any other action
+          },
+        );
+      }
+    } catch (e) {
+      // Handle exceptions
+      print('Exception occurred: $e');
+      CustomSnackBar.show(
+        context,
+        message: 'Exception occurred: $e',
+        backgroundColor: Colors.red.shade400,
+        actionLabel: 'Error!',
+        iconData: Icons.error,
+        onActionPressed: () {
+          Navigator.of(context).pop(); // or any other action
+        },
+      );
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _loadUserData();
+    Pre_Update_value();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -65,8 +341,8 @@ class _Edit_Contact_DetailsState extends State<Edit_Contact_Details> {
                   controller: presentAddressController,
                   enabled: true,
                   decoration: InputDecoration(
-                    hintText: "Present Address",
-                    hintStyle: TextStyle(
+                    labelText: "Present Address",
+                    labelStyle: TextStyle(
                       color: Colors.grey,
                     ),
                     filled: true,
@@ -107,8 +383,8 @@ class _Edit_Contact_DetailsState extends State<Edit_Contact_Details> {
                   controller: permanentAddressController,
                   enabled: true,
                   decoration: InputDecoration(
-                    hintText: "Permanent Address",
-                    hintStyle: TextStyle(
+                    labelText: "Permanent Address",
+                    labelStyle: TextStyle(
                       color: Colors.grey,
                     ),
                     filled: true,
@@ -161,8 +437,8 @@ class _Edit_Contact_DetailsState extends State<Edit_Contact_Details> {
                   readOnly: true,
                   enabled: true,
                   decoration: InputDecoration(
-                    hintText: "Primary Phone Number",
-                    hintStyle: TextStyle(
+                    labelText: "Primary Phone Number",
+                    labelStyle: TextStyle(
                       color: Colors.grey,
                     ),
                     filled: true,
@@ -187,13 +463,13 @@ class _Edit_Contact_DetailsState extends State<Edit_Contact_Details> {
                   autovalidateMode: AutovalidateMode.onUserInteraction,
                   validator: (text){
                     if (text == null || text.isEmpty){
-                      return "Passport No can't be empty";
+                      return "Secondary Phone Number can't be empty";
                     }
                     if (text.length<9){
-                      return "Please enter a valid Passport No";
+                      return "Please enter a valid secondary Phone Number";
                     }
                     if (text.length>99){
-                      return "Please enter a valid Passport No";
+                      return "Please enter a valid secondary Phone Number";
                     }
                   },
                   onChanged: (text) => setState(() {
@@ -203,8 +479,9 @@ class _Edit_Contact_DetailsState extends State<Edit_Contact_Details> {
                   controller: secondaryPhoneNoController,
                   enabled: true,
                   decoration: InputDecoration(
-                    hintText: "Secondary Phone Number",
-                    hintStyle: TextStyle(
+                    labelText: "Secondary Phone Number",
+                    // hintText: "Secondary Phone Number",
+                    labelStyle: TextStyle(
                       color: Colors.grey,
                     ),
                     filled: true,
@@ -229,13 +506,13 @@ class _Edit_Contact_DetailsState extends State<Edit_Contact_Details> {
                   autovalidateMode: AutovalidateMode.onUserInteraction,
                   validator: (text){
                     if (text == null || text.isEmpty){
-                      return "Passport No can't be empty";
+                      return "Emergency Phone No No can't be empty";
                     }
                     if (text.length<9){
-                      return "Please enter a valid Passport No";
+                      return "Please enter a valid Emergency Phone No";
                     }
                     if (text.length>99){
-                      return "Please enter a valid Passport No";
+                      return "Please enter a valid Emergency Phone No";
                     }
                   },
                   onChanged: (text) => setState(() {
@@ -245,8 +522,9 @@ class _Edit_Contact_DetailsState extends State<Edit_Contact_Details> {
                   controller: emergencyPhoneNoController,
                   enabled: true,
                   decoration: InputDecoration(
-                    hintText: "Emergency Phone Number",
-                    hintStyle: TextStyle(
+                    labelText: "Emergency Phone Number",
+                    // hintText: "Emergency Phone Number",
+                    labelStyle: TextStyle(
                       color: Colors.grey,
                     ),
                     filled: true,
@@ -299,8 +577,9 @@ class _Edit_Contact_DetailsState extends State<Edit_Contact_Details> {
                   readOnly: true,
                   enabled: true,
                   decoration: InputDecoration(
-                    hintText: "Primary Email",
-                    hintStyle: TextStyle(
+                    labelText: "Primary Email",
+                    // hintText: userEmail!,
+                    labelStyle: TextStyle(
                       color: Colors.grey,
                     ),
                     filled: true,
@@ -325,13 +604,13 @@ class _Edit_Contact_DetailsState extends State<Edit_Contact_Details> {
                   autovalidateMode: AutovalidateMode.onUserInteraction,
                   validator: (text){
                     if (text == null || text.isEmpty){
-                      return "Passport No can't be empty";
+                      return "Secondary Email No can't be empty";
                     }
                     if (text.length<9){
-                      return "Please enter a valid Passport No";
+                      return "Please enter a valid Secondary Email";
                     }
                     if (text.length>99){
-                      return "Please enter a valid Passport No";
+                      return "Please enter a valid Secondary Email";
                     }
                   },
                   onChanged: (text) => setState(() {
@@ -341,8 +620,9 @@ class _Edit_Contact_DetailsState extends State<Edit_Contact_Details> {
                   controller: secondaryEmailController,
                   enabled: true,
                   decoration: InputDecoration(
-                    hintText: "Secondary Email",
-                    hintStyle: TextStyle(
+                    labelText:  "Secondary Email" ,
+                    // hintText: "Secondary Email",
+                    labelStyle: TextStyle(
                       color: Colors.grey,
                     ),
                     filled: true,
@@ -361,9 +641,19 @@ class _Edit_Contact_DetailsState extends State<Edit_Contact_Details> {
 
                 ElevatedButton(
                   onPressed: (){
-
+                    if (widget.CDetailsId == null){
+                      if(_validateForm() == true) {
+                        Navigator.pop(context);
+                        _insertContactInfo();
+                      }
+                    }else {
+                      if(_validateForm() == true) {
+                        Navigator.pop(context);
+                        _updateContactInfo();
+                      }
+                    }
                   },
-                  child: Text("Submit"),
+                  child: (widget.CDetailsId == null)? Text("Submit") : Text("Update"),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Color(0xff03438C), // Change this color to your desired color
                   ),

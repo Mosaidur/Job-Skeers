@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
+import '../../../CustomSnackbar.dart';
 import '../../../Models/Profile/personal_info.dart';
 import '../../../loading_page.dart';
 import '../widgets/No_data_found.dart';
@@ -87,10 +88,38 @@ class _personal_detailsState extends State<personal_details> {
         // User not found or other error occurred
         String message = responseData['message'];
         print('Error: $message');
+        Future.delayed(Duration.zero, () {
+          CustomSnackBar.show(
+            context,
+            message: responseData['message'],
+            backgroundColor: Colors.red.shade400, // Set your desired background color
+            actionLabel: 'Error!',
+            iconData: Icons.done,
+            onActionPressed: () {
+              // Handle action press
+              Navigator.of(context).pop; // or any other action
+            },
+          );
+        });
       }
     } else {
       // Request failed
       print('Failed to fetch personal info. Error code: ${response.statusCode}');
+
+      Future.delayed(Duration.zero, () {
+        CustomSnackBar.show(
+          context,
+          message: 'Error:- ${response.statusCode}',
+          backgroundColor: Colors.red.shade400, // Set your desired background color
+          actionLabel: 'Error!',
+          iconData: Icons.done,
+          onActionPressed: () {
+            // Handle action press
+            Navigator.of(context).pop; // or any other action
+          },
+        );
+      });
+
     }
   }
 
@@ -436,8 +465,6 @@ class _personal_detailsState extends State<personal_details> {
                           fontWeight: FontWeight.w800,
                         ),
                       ),
-
-
                     ],
 
                   ),
