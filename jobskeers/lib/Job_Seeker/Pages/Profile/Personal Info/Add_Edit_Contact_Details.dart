@@ -10,7 +10,7 @@ import '../../../CustomSnackbar.dart';
 import '../../../Models/register_data_To.dart';
 import '../../../loading_page.dart';
 
-class Edit_Contact_Details extends StatefulWidget {
+class Add_Edit_Contact_Details extends StatefulWidget {
   final String? CDetailsId;
   final String? presentAddressController;
   final String? permanentAddressController;
@@ -21,7 +21,7 @@ class Edit_Contact_Details extends StatefulWidget {
   final String? primaryEmailController;
   final String? primaryPhoneNoController;
 
-  Edit_Contact_Details({super.key,
+  Add_Edit_Contact_Details({super.key,
     this.CDetailsId,
     this.presentAddressController,
     this.permanentAddressController,
@@ -34,10 +34,10 @@ class Edit_Contact_Details extends StatefulWidget {
   });
 
   @override
-  State<Edit_Contact_Details> createState() => _Edit_Contact_DetailsState();
+  State<Add_Edit_Contact_Details> createState() => _Add_Edit_Contact_DetailsState();
 }
 
-class _Edit_Contact_DetailsState extends State<Edit_Contact_Details> {
+class _Add_Edit_Contact_DetailsState extends State<Add_Edit_Contact_Details> {
 
   late SharedPreferences sprefs;
   String? UserID;
@@ -52,6 +52,7 @@ class _Edit_Contact_DetailsState extends State<Edit_Contact_Details> {
       userName = sprefs.getString("USERNAME");
       userEmail = sprefs.getString("USEREMAIL");
       userPhone = sprefs.getString("USERPHONENO");
+      Pre_Update_value( userPhone!,userEmail!);
     });
   }
 
@@ -66,7 +67,9 @@ class _Edit_Contact_DetailsState extends State<Edit_Contact_Details> {
   late final TextEditingController primaryPhoneNoController  ;
   late final TextEditingController primaryEmailController ;
 
-  void Pre_Update_value() {
+
+
+  void Pre_Update_value( String userPhone, String userEmail) {
     if (widget.CDetailsId != null) {
       presentAddressController = TextEditingController(text: widget.presentAddressController );
       permanentAddressController = TextEditingController(text: widget.permanentAddressController );
@@ -248,6 +251,8 @@ class _Edit_Contact_DetailsState extends State<Edit_Contact_Details> {
               Navigator.of(context).pop(); // or any other action
             },
           );
+
+          // _contactInfoStreamController.sink.add(ContactInfoDTO);
         } else {
           // Show error message
           CustomSnackBar.show(
@@ -294,7 +299,7 @@ class _Edit_Contact_DetailsState extends State<Edit_Contact_Details> {
   void initState() {
     super.initState();
     _loadUserData();
-    Pre_Update_value();
+
   }
 
   @override

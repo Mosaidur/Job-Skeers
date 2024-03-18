@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
@@ -23,6 +24,7 @@ class _personal_detailsState extends State<personal_details> {
   void initState() {
     super.initState();
     _loadUserData();
+    _startPolling();
   }
 
   late SharedPreferences sprefs;
@@ -46,6 +48,7 @@ class _personal_detailsState extends State<personal_details> {
 
   String? image = "assets/icons/man_logo.png";
 
+  late Timer _timer;
 
   Future<void> _fetchPersonalInfo(String userId) async {
     LoadingPage();
@@ -134,6 +137,23 @@ class _personal_detailsState extends State<personal_details> {
       }
     });
   }
+
+  void _startPolling() {
+    const pollingInterval = Duration(milliseconds: 500); // Set your desired polling interval
+    _timer = Timer.periodic(pollingInterval, (timer) {
+      if (UserID != null) {
+        _fetchPersonalInfo(UserID!);
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    // _contactInfoStreamController.close();
+    super.dispose();
+    _timer.cancel();
+  }
+
 
   @override
   Widget build(BuildContext context) {
