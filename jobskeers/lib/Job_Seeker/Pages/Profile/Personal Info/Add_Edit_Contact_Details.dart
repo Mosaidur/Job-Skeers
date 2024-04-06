@@ -12,25 +12,25 @@ import '../../../loading_page.dart';
 
 class Add_Edit_Contact_Details extends StatefulWidget {
   final String? CDetailsId;
-  final String? presentAddressController;
-  final String? permanentAddressController;
-  final String? secondaryPhoneNoController;
-  final String? emergencyPhoneNoController;
-  final String? secondaryEmailController;
+  final String? presentAddress;
+  final String? permanentAddress;
+  final String? secondaryPhoneNo;
+  final String? emergencyPhoneNo;
+  final String? secondaryEmail;
 
-  final String? primaryEmailController;
-  final String? primaryPhoneNoController;
+  final String? primaryEmail;
+  final String? primaryPhoneNo;
 
   Add_Edit_Contact_Details({super.key,
     this.CDetailsId,
-    this.presentAddressController,
-    this.permanentAddressController,
-    this.secondaryPhoneNoController,
-    this.emergencyPhoneNoController,
-    this.secondaryEmailController,
+    this.presentAddress,
+    this.permanentAddress,
+    this.secondaryPhoneNo,
+    this.emergencyPhoneNo,
+    this.secondaryEmail,
 
-    this.primaryEmailController,
-    this.primaryPhoneNoController
+    this.primaryEmail,
+    this.primaryPhoneNo
   });
 
   @override
@@ -52,8 +52,9 @@ class _Add_Edit_Contact_DetailsState extends State<Add_Edit_Contact_Details> {
       userName = sprefs.getString("USERNAME");
       userEmail = sprefs.getString("USEREMAIL");
       userPhone = sprefs.getString("USERPHONENO");
-      Pre_Update_value( userPhone!,userEmail!);
+      // Pre_Update_value( userPhone!,userEmail!);
     });
+    // Pre_Update_value( userPhone!,userEmail!);
   }
 
 
@@ -67,25 +68,29 @@ class _Add_Edit_Contact_DetailsState extends State<Add_Edit_Contact_Details> {
   late final TextEditingController primaryPhoneNoController  ;
   late final TextEditingController primaryEmailController ;
 
-
-
   void Pre_Update_value( String userPhone, String userEmail) {
-    if (widget.CDetailsId != null) {
-      presentAddressController = TextEditingController(text: widget.presentAddressController );
-      permanentAddressController = TextEditingController(text: widget.permanentAddressController );
-      secondaryPhoneNoController = TextEditingController(text: widget.secondaryPhoneNoController );
-      emergencyPhoneNoController = TextEditingController(text: widget.emergencyPhoneNoController );
-      secondaryEmailController = TextEditingController(text: widget.secondaryEmailController );
-      primaryEmailController = TextEditingController(text: userEmail);
+
       primaryPhoneNoController = TextEditingController(text: userPhone );
+      primaryEmailController = TextEditingController(text: userEmail);
+  }
+
+  void Update_value() {
+    if (widget.CDetailsId != null) {
+      presentAddressController = TextEditingController(text: widget.presentAddress );
+      permanentAddressController = TextEditingController(text: widget.permanentAddress );
+      secondaryPhoneNoController = TextEditingController(text: widget.secondaryPhoneNo );
+      emergencyPhoneNoController = TextEditingController(text: widget.emergencyPhoneNo );
+      secondaryEmailController = TextEditingController(text: widget.secondaryEmail );
+      primaryEmailController = TextEditingController(text: widget.primaryEmail);
+      primaryPhoneNoController = TextEditingController(text: widget.primaryPhoneNo );
     }else{
       presentAddressController = TextEditingController();
       permanentAddressController = TextEditingController();
       secondaryPhoneNoController = TextEditingController();
       emergencyPhoneNoController = TextEditingController();
       secondaryEmailController = TextEditingController();
-      primaryPhoneNoController = TextEditingController(text: userPhone );
-      primaryEmailController = TextEditingController(text: userEmail);
+      primaryPhoneNoController = TextEditingController(text: widget.primaryPhoneNo );
+      primaryEmailController = TextEditingController(text: widget.primaryEmail);
     }
   }
 
@@ -299,7 +304,7 @@ class _Add_Edit_Contact_DetailsState extends State<Add_Edit_Contact_Details> {
   void initState() {
     super.initState();
     _loadUserData();
-
+    Update_value();
   }
 
   @override

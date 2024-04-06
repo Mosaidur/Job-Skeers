@@ -1,12 +1,38 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:jobskeers/Job_Seeker/Pages/Profile/Education/academic_qualification.dart';
-
+import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
+import '../../../CustomSnackbar.dart';
+import '../../../Models/register_data_To.dart';
 import '../../../customDialogBox.dart';
+import '../../../loading_page.dart';
 
 class Edit_academic_qualification extends StatefulWidget {
   final String? acQualificationid;
-  Edit_academic_qualification({super.key, this.acQualificationid});
+  final String? levelOfEdu;
+  final String? degreeTitle;
+  final String? board;
+  final String? group;
+  final String? institutionName;
+  final String? result;
+  final String? gpa;
+  final String? passingYear;
+  final String? duration;
+  Edit_academic_qualification(
+      {super.key,
+    this.acQualificationid,
+    this.levelOfEdu,
+    this.degreeTitle,
+    this.board,
+    this.group,
+    this.institutionName,
+    this.result,
+    this.gpa,
+    this.passingYear,
+    this.duration});
 
   @override
   State<Edit_academic_qualification> createState() => _Edit_academic_qualificationState();
@@ -14,20 +40,426 @@ class Edit_academic_qualification extends StatefulWidget {
 
 class _Edit_academic_qualificationState extends State<Edit_academic_qualification> {
 
-
-  final TextEditingController levelOfEduController = TextEditingController(text: "");
-  final TextEditingController degreeTitleController = TextEditingController(text: "PSC/ 5 pass");
-  final TextEditingController boardController = TextEditingController(text: "");
-  final TextEditingController majorOrgroupController = TextEditingController(text: "");
-  final TextEditingController institutionNameController = TextEditingController(text: "");
-  final TextEditingController resultController = TextEditingController(text: "");
-  final TextEditingController gpaController = TextEditingController(text: "");
-  final TextEditingController passingYearController = TextEditingController(text: "");
-  final TextEditingController durationController = TextEditingController(text: "");
+  late  TextEditingController levelOfEduController;
+  late  TextEditingController degreeTitleController;
+  late  TextEditingController boardController;
+  late  TextEditingController majorOrgroupController;
+  late  TextEditingController institutionNameController;
+  late  TextEditingController resultController;
+  late  TextEditingController gpaController;
+  late  TextEditingController passingYearController;
+  late  TextEditingController durationController;
 
   String? _selectedLevelOfEdu ;
   String? _selectedBoard;
   String? _selectedResult;
+
+  late SharedPreferences sprefs;
+  String? UserID;
+
+  Future<void> _loadUserData() async {
+    sprefs = await SharedPreferences.getInstance();
+    setState(() {
+      UserID = sprefs.getString("USERID");
+      // Pre_Update_value();
+    });
+  }
+
+
+
+  void Pre_Update_value() {
+    if (widget.acQualificationid == null) {
+       levelOfEduController = TextEditingController();
+      degreeTitleController = TextEditingController();
+      boardController = TextEditingController();
+      majorOrgroupController = TextEditingController();
+      institutionNameController = TextEditingController();
+      resultController = TextEditingController();
+      gpaController = TextEditingController();
+      passingYearController = TextEditingController();
+      durationController = TextEditingController();
+    }else{
+      levelOfEduController = TextEditingController(text: widget.levelOfEdu);
+      degreeTitleController = TextEditingController(text: widget.degreeTitle);
+      boardController = TextEditingController(text: widget.board);
+      majorOrgroupController = TextEditingController(text: widget.group);
+      institutionNameController = TextEditingController(text: widget.institutionName);
+      resultController = TextEditingController(text: widget.result);
+      gpaController = TextEditingController(text: widget.gpa);
+      passingYearController = TextEditingController(text: widget.passingYear);
+      durationController = TextEditingController(text: widget.duration);
+
+
+
+      // levelOfEduController = TextEditingController();
+      // degreeTitleController = TextEditingController();
+      // boardController = TextEditingController();
+      // majorOrgroupController = TextEditingController();
+      // institutionNameController = TextEditingController();
+      // resultController = TextEditingController();
+      // gpaController = TextEditingController();
+      // passingYearController = TextEditingController();
+      // durationController = TextEditingController();
+
+    }
+  }
+
+  bool _validateForm() {
+
+    if(
+    (boardController.text== 'PSC/ 5 pass'||
+        boardController.text== 'JSC/JDC/8 pass'||
+        boardController.text== 'Secondary' ||
+        boardController.text==   'Higher Secondary') && (resultController.text == 'Grade')
+    // (boardController.text != 'PSC/ 5 pass' &&
+    //     boardController.text != 'JSC/JDC/8 pass' &&
+    //     boardController.text != 'Secondary' &&
+    //     boardController.text != 'Higher Secondary') &&
+    //     (resultController.text != 'Grade')
+    ){
+      if (levelOfEduController.text.isEmpty ||
+          degreeTitleController.text.isEmpty ||
+          majorOrgroupController.text.isEmpty ||
+          institutionNameController.text.isEmpty ||
+          resultController.text.isEmpty ||
+          passingYearController.text.isEmpty ||
+          boardController.text.isEmpty ||
+          gpaController.text.isEmpty ||
+          durationController.text.isEmpty ) {
+
+        Future.delayed(Duration.zero, () {
+          CustomSnackBar.show(
+            context,
+            message: 'Please fill all fields.',
+            backgroundColor: Colors.red.shade400, // Set your desired background color
+            actionLabel: 'Error!',
+            iconData: Icons.error,
+            onActionPressed: () {
+              // Handle action press
+              Navigator.of(context).pop; // or any other action
+            },
+          );
+        });
+        // return false;
+      }
+      return false;
+    }else if(
+    levelOfEduController.text.isEmpty ||
+        degreeTitleController.text.isEmpty ||
+        // boardController.text.isEmpty ||
+        majorOrgroupController.text.isEmpty ||
+        institutionNameController.text.isEmpty ||
+        resultController.text.isEmpty ||
+        // gpaController.text.isEmpty ||
+        passingYearController.text.isEmpty ||
+        durationController.text.isEmpty
+    ) {
+      Future.delayed(Duration.zero, () {
+        CustomSnackBar.show(
+          context,
+          message: 'Please fill all fields.',
+          backgroundColor: Colors.red.shade400, // Set your desired background color
+          actionLabel: 'Error!',
+          iconData: Icons.error,
+          onActionPressed: () {
+            // Handle action press
+            Navigator.of(context).pop; // or any other action
+          },
+        );
+      });
+      return false;
+    }else{
+      return true;
+    }
+
+  }
+
+
+
+
+  void _insertEducationInfo() {
+    if (_validateForm()){
+      insertEducationInfo();
+    }
+  }
+
+  void _updateEducationInfo() {
+    if (_validateForm()){
+      updateEducationInfo();
+    }
+  }
+
+  Future<void> insertEducationInfo() async {
+    LoadingPage();
+    const apiUrl = 'http://10.0.2.2/JobSeeker_EmpAPI/Education%20History/Insert_education_history.php';
+    try {
+      final response = await http.post(
+        Uri.parse(apiUrl),
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+        body: {
+          'user_id': UserID,
+          'levelOfEdu': levelOfEduController.text,
+          'degreeTitle': degreeTitleController.text,
+          'board': (['PSC/ 5 pass', 'JSC/JDC/8 pass', 'Secondary', 'Higher Secondary'].contains(levelOfEduController.text)) ? boardController.text : " ",
+          // 'board': (() {
+          //   if (['PSC/ 5 pass', 'JSC/JDC/8 pass', 'Secondary', 'Higher Secondary'].contains(levelOfEduController.text)) {
+          //     return boardController.text;
+          //   } else {
+          //     return "";
+          //   }
+          // })(),
+          // 'gpa': (() {
+          //   if (resultController.text == 'Grade') {
+          //     return gpaController.text;
+          //   } else {
+          //     return "";
+          //   }
+          // })(),
+          'groupandMajor': majorOrgroupController.text,
+          'institutionName': institutionNameController.text,
+          'result': resultController.text,
+          'gpa': (resultController.text == 'Grade') ? gpaController.text : " ",
+          'passingYear': passingYearController.text,
+          'duration': durationController.text,
+        },
+      );
+
+      if (response.statusCode == 200) {
+        final Map<String, dynamic> responseData = json.decode(response.body);
+        if (responseData['success']) {
+          Future.delayed(Duration.zero, () {
+            CustomSnackBar.show(
+              context,
+              message: 'Data inserted successfully.',
+              backgroundColor: Colors.green.shade400, // Set your desired background color
+              actionLabel: 'Successful.',
+              iconData: Icons.done,
+              onActionPressed: () {
+                // Handle action press
+                Navigator.of(context).pop; // or any other action
+              },
+            );
+          });
+
+        } else {
+          print('Failed to insert data: ${responseData['message']}');
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Failed to insert data: ${responseData['message']}')));
+
+          Future.delayed(Duration.zero, () {
+            CustomSnackBar.show(
+              context,
+              message: 'Failed to insert data: ${responseData['message']}.',
+              backgroundColor: Colors.red.shade400, // Set your desired background color
+              actionLabel: 'Error!',
+              iconData: Icons.error,
+              onActionPressed: () {
+                // Handle action press
+                Navigator.of(context).pop; // or any other action
+              },
+            );
+          });
+
+        }
+      } else {
+        Future.delayed(Duration.zero, () {
+          CustomSnackBar.show(
+            context,
+            message: 'Failed to insert data. Error: ${response.statusCode}.',
+            backgroundColor: Colors.red.shade400, // Set your desired background color
+            actionLabel: 'Error!',
+            iconData: Icons.error,
+            onActionPressed: () {
+              // Handle action press
+              Navigator.of(context).pop; // or any other action
+            },
+          );
+        });
+
+      }
+    } catch (error) {
+      Future.delayed(Duration.zero, () {
+        CustomSnackBar.show(
+          context,
+          message: 'Error: $error.',
+          backgroundColor: Colors.red.shade400, // Set your desired background color
+          actionLabel: 'Error!',
+          iconData: Icons.error,
+          onActionPressed: () {
+            // Handle action press
+            Navigator.of(context).pop; // or any other action
+          },
+        );
+      });
+    }
+  }
+
+  Future<void> updateEducationInfo () async {
+    LoadingPage();
+
+    const String apiUrl = 'http://10.0.2.2/JobSeeker_EmpAPI/Education%20History/Update_education_history.php';
+
+    try {
+      final response = await http.post(
+        Uri.parse(apiUrl),
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+        body: {
+          'user_id': UserID,
+          'Ac_Quali_Id': widget.acQualificationid,
+          'levelOfEdu': levelOfEduController.text,
+          'degreeTitle': degreeTitleController.text,
+          'board': (['PSC/ 5 pass', 'JSC/JDC/8 pass', 'Secondary', 'Higher Secondary']
+              .contains(levelOfEduController.text))
+              ? boardController.text
+              : "",
+          'groupandMajor': majorOrgroupController.text,
+          'institutionName': institutionNameController.text,
+          'result': resultController.text,
+          'gpa': (resultController.text == 'Grade') ? gpaController.text : "",
+          'passingYear': passingYearController.text,
+          'duration': durationController.text,
+        },
+      );
+
+      if (response.statusCode == 200)  {
+        final Map<String, dynamic> responseData = json.decode(response.body);
+        final Response = ResponseDataModel.fromJson(responseData);
+
+        if (Response.success == true ) {
+          // Show success message
+          CustomSnackBar.show(
+            context,
+            message: '${Response.message}',
+            backgroundColor: Colors.green.shade400,
+            actionLabel: 'Successful',
+            iconData: Icons.done,
+            onActionPressed: () {
+              Navigator.of(context).pop(); // or any other action
+            },
+          );
+
+
+        } else {
+          // Show error message
+          CustomSnackBar.show(
+            context,
+            message: 'Update Response: ${Response.message}',
+            backgroundColor: Colors.red.shade400,
+            actionLabel: 'Error!',
+            iconData: Icons.error,
+            onActionPressed: () {
+              Navigator.of(context).pop(); // or any other action
+            },
+          );
+        }
+      } else {
+        // Handle other HTTP status codes
+        CustomSnackBar.show(
+          context,
+          message: 'Response Error: ${response.statusCode}. Try again.',
+          backgroundColor: Colors.red.shade400,
+          actionLabel: 'Error!',
+          iconData: Icons.error,
+          onActionPressed: () {
+            Navigator.of(context).pop(); // or any other action
+          },
+        );
+      }
+    } catch (e) {
+      // Handle exceptions
+      print('Exception occurred: $e');
+      CustomSnackBar.show(
+        context,
+        message: 'Exception occurred: $e',
+        backgroundColor: Colors.red.shade400,
+        actionLabel: 'Error!',
+        iconData: Icons.error,
+        onActionPressed: () {
+          Navigator.of(context).pop(); // or any other action
+        },
+      );
+    }
+  }
+
+  Future<void> deleteEducationInfo() async {
+    LoadingPage();
+
+    const String apiUrl = 'http://10.0.2.2/JobSeeker_EmpAPI/Education%20History/Delete_education_history.php';
+
+    try {
+      final response = await http.post(
+        Uri.parse(apiUrl),
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+        body: {
+          'user_id': UserID,
+          'Ac_Quali_Id': widget.acQualificationid,
+        },
+      );
+
+      if (response.statusCode == 200) {
+        final Map<String, dynamic> responseData = json.decode(response.body);
+        final Response = ResponseDataModel.fromJson(responseData);
+
+        if (Response.success == true) {
+          // Show success message
+          CustomSnackBar.show(
+            context,
+            message: '${Response.message}',
+            backgroundColor: Colors.green.shade400,
+            actionLabel: 'Successful',
+            iconData: Icons.done,
+            onActionPressed: () {
+              Navigator.of(context).pop(); // or any other action
+            },
+          );
+        } else {
+          // Show error message
+          CustomSnackBar.show(
+            context,
+            message: 'Delete Response: ${Response.message}',
+            backgroundColor: Colors.red.shade400,
+            actionLabel: 'Error!',
+            iconData: Icons.error,
+            onActionPressed: () {
+              Navigator.of(context).pop(); // or any other action
+            },
+          );
+        }
+      } else {
+        // Handle other HTTP status codes
+        CustomSnackBar.show(
+          context,
+          message: 'Response Error: ${response.statusCode}. Try again.',
+          backgroundColor: Colors.red.shade400,
+          actionLabel: 'Error!',
+          iconData: Icons.error,
+          onActionPressed: () {
+            Navigator.of(context).pop(); // or any other action
+          },
+        );
+      }
+    } catch (e) {
+      // Handle exceptions
+      print('Exception occurred: $e');
+      CustomSnackBar.show(
+        context,
+        message: 'Exception occurred: $e',
+        backgroundColor: Colors.red.shade400,
+        actionLabel: 'Error!',
+        iconData: Icons.error,
+        onActionPressed: () {
+          Navigator.of(context).pop(); // or any other action
+        },
+      );
+    }
+  }
+
+
+  @override
+  void initState() {
+    super.initState();
+    _loadUserData();
+    Pre_Update_value();
+  }
 
 
   @override
@@ -45,6 +477,7 @@ class _Edit_academic_qualificationState extends State<Edit_academic_qualificatio
                 InkWell(
                   onTap: (){
                     // Navigator.push(context, MaterialPageRoute(builder: (context)=> Add_language_prof ()));
+                    // deleteEducationInfo();
                     showDialog(
                         context: context,
                         builder: (BuildContext context) =>
@@ -53,7 +486,7 @@ class _Edit_academic_qualificationState extends State<Edit_academic_qualificatio
                               bgcolors: Colors.white,
                               title: 'Delete',
                               pageLink: AcademicQualification(),
-
+                              workedfunction: deleteEducationInfo,
                             )
 
                     );
@@ -368,7 +801,7 @@ class _Edit_academic_qualificationState extends State<Edit_academic_qualificatio
                     keyboardType: TextInputType.number,
                     enabled: true,
                     decoration: InputDecoration(
-                      hintText: "GPA*",
+                      hintText: "GPA/ CGPA *",
                       hintStyle: TextStyle(
                         color: Colors.grey,
                       ),
@@ -437,7 +870,7 @@ class _Edit_academic_qualificationState extends State<Edit_academic_qualificatio
                       if (text == null || text.isEmpty){
                         return "Duration can't be empty";
                       }
-                      if (text.length<10){
+                      if (text.length<1){
                         return "Please enter a valid Duration";
                       }
                     },
@@ -470,8 +903,20 @@ class _Edit_academic_qualificationState extends State<Edit_academic_qualificatio
                   ElevatedButton(
                     onPressed: (){
 
+                      if (widget.acQualificationid == null){
+                        if(_validateForm() == true) {
+                          Navigator.pop(context);
+                          _insertEducationInfo();
+                        }
+                      }else {
+                        if(_validateForm() == true) {
+                          Navigator.pop(context);
+                          _updateEducationInfo();
+                        }
+                      }
+
                     },
-                    child: Text("Update"),
+                    child: (widget.acQualificationid == null)? Text("Submit") : Text("Update"),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Color(0xff03438C), // Change this color to your desired color
                     ),

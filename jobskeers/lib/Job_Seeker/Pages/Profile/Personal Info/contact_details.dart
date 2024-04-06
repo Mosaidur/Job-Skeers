@@ -99,19 +99,20 @@ class _Contact_detailsState extends State<Contact_details> {
           String message = responseData['message'];
           print('Error: $message');
 
-          Future.delayed(Duration.zero, () {
-            CustomSnackBar.show(
-              context,
-              message: responseData['message'],
-              backgroundColor: Colors.red.shade400, // Set your desired background color
-              actionLabel: 'Error!',
-              iconData: Icons.done,
-              onActionPressed: () {
-                // Handle action press
-                Navigator.of(context).pop; // or any other action
-              },
-            );
-          });
+          // Future.delayed(Duration.zero, () {
+          //   CustomSnackBar.show(
+          //     context,
+          //     message: responseData['message'],
+          //     backgroundColor: Colors.red.shade400, // Set your desired background color
+          //     actionLabel: 'Error!',
+          //     iconData: Icons.done,
+          //     onActionPressed: () {
+          //       // Handle action press
+          //       Navigator.of(context).pop; // or any other action
+          //     },
+          //   );
+          // });
+
         }
       } else {
         // Request failed
@@ -151,9 +152,6 @@ class _Contact_detailsState extends State<Contact_details> {
     }
 
 
-
-
-
   @override
     Widget build(BuildContext context) {
       return Scaffold(
@@ -169,12 +167,13 @@ class _Contact_detailsState extends State<Contact_details> {
               (C_Details_Id == null || success != true) ?
               InkWell(
                 onTap: () {
+                  // _timer.cancel(); // Cancel the timer
                   Navigator.push(context, MaterialPageRoute(
                       builder: (context) =>
                           Add_Edit_Contact_Details(
                               CDetailsId: C_Details_Id = null,
-                            primaryEmailController: primary_email,
-                            primaryPhoneNoController: primary_phone_no,
+                            primaryEmail: primary_email,
+                            primaryPhoneNo: primary_phone_no,
                           )));
                 },
                 child: Icon(Icons.add_comment),
@@ -182,17 +181,18 @@ class _Contact_detailsState extends State<Contact_details> {
                   :
               InkWell(
                 onTap: () {
+                  // _timer.cancel(); // Cancel the timer
                   Navigator.push(
                       context, MaterialPageRoute(builder: (context) =>
                       Add_Edit_Contact_Details(
                         CDetailsId: C_Details_Id,
-                        permanentAddressController: permanent_address,
-                        presentAddressController: present_address,
-                        secondaryEmailController: secondary_email,
-                        secondaryPhoneNoController: secondary_phone_no,
-                        emergencyPhoneNoController: emargency_phone_no,
-                        primaryEmailController: primary_email,
-                        primaryPhoneNoController: primary_phone_no,
+                        permanentAddress: permanent_address,
+                        presentAddress: present_address,
+                        secondaryEmail: secondary_email,
+                        secondaryPhoneNo: secondary_phone_no,
+                        emergencyPhoneNo: emargency_phone_no,
+                        primaryEmail: primary_email,
+                        primaryPhoneNo: primary_phone_no,
                       )
                   ));
                 },

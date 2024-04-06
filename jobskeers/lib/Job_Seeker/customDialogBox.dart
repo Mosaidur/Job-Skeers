@@ -5,6 +5,7 @@ class CustomDialogBox extends StatelessWidget {
   final String message;
   final Color bgcolors;
   final Widget pageLink;
+  final Function? workedfunction;
 
   CustomDialogBox({
     Key? key,
@@ -12,6 +13,7 @@ class CustomDialogBox extends StatelessWidget {
     required this.bgcolors,
     required this.title,
     required this.pageLink,
+    this.workedfunction,
   }) : super(key: key);
 
   @override
@@ -32,8 +34,10 @@ class CustomDialogBox extends StatelessWidget {
         ),
         TextButton(
           onPressed: () {
+            // Call workedfunction if it's not null
+            workedfunction?.call();
             Navigator.of(context).pop();
-            Navigator.pushReplacement(
+            Navigator.pop(
               context,
               MaterialPageRoute(
                 builder: (context) {

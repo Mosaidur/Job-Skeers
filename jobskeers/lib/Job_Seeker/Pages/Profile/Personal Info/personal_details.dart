@@ -20,12 +20,6 @@ class personal_details extends StatefulWidget {
 class _personal_detailsState extends State<personal_details> {
 
 
-  @override
-  void initState() {
-    super.initState();
-    _loadUserData();
-    _startPolling();
-  }
 
   late SharedPreferences sprefs;
   String? UserID;
@@ -91,19 +85,21 @@ class _personal_detailsState extends State<personal_details> {
         // User not found or other error occurred
         String message = responseData['message'];
         print('Error: $message');
-        Future.delayed(Duration.zero, () {
-          CustomSnackBar.show(
-            context,
-            message: responseData['message'],
-            backgroundColor: Colors.red.shade400, // Set your desired background color
-            actionLabel: 'Error!',
-            iconData: Icons.done,
-            onActionPressed: () {
-              // Handle action press
-              Navigator.of(context).pop; // or any other action
-            },
-          );
-        });
+
+        // Future.delayed(Duration.zero, () {
+        //   CustomSnackBar.show(
+        //     context,
+        //     message: responseData['message'],
+        //     backgroundColor: Colors.red.shade400, // Set your desired background color
+        //     actionLabel: 'Error!',
+        //     iconData: Icons.done,
+        //     onActionPressed: () {
+        //       // Handle action press
+        //       Navigator.of(context).pop; // or any other action
+        //     },
+        //   );
+        // });
+
       }
     } else {
       // Request failed
@@ -145,6 +141,13 @@ class _personal_detailsState extends State<personal_details> {
         _fetchPersonalInfo(UserID!);
       }
     });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _loadUserData();
+    _startPolling();
   }
 
   @override

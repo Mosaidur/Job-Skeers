@@ -1,43 +1,148 @@
+import 'dart:async';
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:jobskeers/Job_Seeker/Pages/Profile/Education/Edit_academic_qualification.dart';
+import 'package:jobskeers/Job_Seeker/Pages/Profile/Education/Widgets/data_academic_qualifi.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:http/http.dart' as http;
 
+import '../../../CustomSnackbar.dart';
+import '../../../Models/Profile/Read_edu_data.dart';
+import '../../../loading_page.dart';
+import '../widgets/No_data_found.dart';
 import 'Add_academic_qualification.dart';
 
 class AcademicQualification extends StatefulWidget {
-  const AcademicQualification({super.key});
+  const AcademicQualification({Key? key});
 
   @override
   State<AcademicQualification> createState() => _AcademicQualificationState();
 }
 
 class _AcademicQualificationState extends State<AcademicQualification> {
+
+  late SharedPreferences sprefs;
+  String? UserID;
+  String? userName;
+
+  List<Map<String, String?>> fetchedDataList = [];
+
+  late bool success = false;
+  String? acQualificationid;
+
+  late Timer _timer;
+
+  @override
+  void dispose() {
+    super.dispose();
+    _timer.cancel();
+
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    _loadUserData();
+    _startPolling();
+  }
+
+  void _startPolling() {
+    const pollingInterval = Duration(milliseconds: 500);
+    _timer = Timer.periodic(pollingInterval, (timer) {
+      if (UserID != null) {
+        _fetchEducationInfo(UserID!);
+        print(UserID);
+      }
+    });
+  }
+
+
+  Future<void> _fetchEducationInfo(String userId) async {
+    LoadingPage();
+    final String apiUrl = 'http://10.0.2.2/JobSeeker_EmpAPI/Education%20History/Read_education_history.php';
+
+    final response = await http.get(
+      Uri.parse('$apiUrl?user_id=$userId'),
+      headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+    );
+
+    if (response.statusCode == 200) {
+      final Map<String, dynamic>? responseData = json.decode(response.body);
+
+      if (responseData != null) {
+        success = responseData['success'];
+
+        if (success == true) {
+          List<dynamic> educationHistoryJson = responseData['education_history'];
+          List<EducationHistory> educationHistory = educationHistoryJson.map((eduJson) => EducationHistory.fromJson(eduJson)).toList();
+
+          setState(() {
+            fetchedDataList = educationHistory.map((history) => {
+              'acQualificationid': history.acQualiId,
+              'levelOfEdu': history.levelOfEdu,
+              'degreeTitle': history.degreeTitle,
+              'board': history.board,
+              'group': history.groupAndMajor,
+              'institutionName': history.institutionName,
+              'result': history.result,
+              'gpa': history.gpa,
+              'passingYear': history.passingYear,
+              'duration': history.duration,
+            }).toList();
+          });
+        } else {
+          String message = responseData['message'];
+          print('Error: $message');
+          // _showSnackBar(message);
+        }
+      } else {
+        print('Failed to fetch personal info. Error code: ${response.statusCode}');
+        _showSnackBar('Error:- ${response.statusCode}');
+      }
+    }
+  }
+
+  Future<void> _loadUserData() async {
+    sprefs = await SharedPreferences.getInstance();
+    setState(() {
+      UserID = sprefs.getString("USERID");
+      userName = sprefs.getString("USERNAME");
+      print(UserID);
+      if (UserID != null) {
+        _fetchEducationInfo(UserID!);
+      }
+    });
+  }
+
+  void _showSnackBar(String message) {
+    Future.delayed(Duration.zero, () {
+      CustomSnackBar.show(
+        context,
+        message: message,
+        backgroundColor: Colors.red.shade400,
+        actionLabel: 'Error!',
+        iconData: Icons.done,
+        onActionPressed: () {
+          Navigator.of(context).pop();
+        },
+      );
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-
-    final String levelOfEdu= "SSC";
-    final String degreeTitle= " ";
-    final String board= " ";
-    final String group= " ";
-    final String institutionName= " ";
-    final String result= " ";
-    final String gpa= " ";
-    final String passingYear= " ";
-    final String duration= " ";
-
-
-
     return Scaffold(
       backgroundColor: Colors.blue.shade50,
       appBar: AppBar(
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-
             Text("Academic Qualification"),
-
             InkWell(
               onTap: (){
-                Navigator.push(context, MaterialPageRoute(builder: (context)=> Add_academic_qualification()));
+                Navigator.push(context, MaterialPageRoute(builder: (context)=> Edit_academic_qualification(acQualificationid: null)));
               },
               child: Icon(Icons.add_comment),
             )
@@ -50,240 +155,31 @@ class _AcademicQualificationState extends State<AcademicQualification> {
           },
         ),
       ),
-      body: SingleChildScrollView(
+      body: (fetchedDataList.isEmpty || success != true )? NoDataFound() : SingleChildScrollView(
         child: Column(
-          children: [
-            // for (int i=0; i<3;i++ )
-            //Academic Qualification
-            Padding(
-              padding: const EdgeInsets.only(top: 20.0, left: 20,right: 20,bottom: 20),
-              child: Container(
-                width: double.maxFinite,
-                // height: 700,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
-                  color: Colors.white,
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 15.0, left: 20,right: 20,bottom: 20),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-
-                      // Level of Education
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-
-                          Expanded(
-                            child: Text(
-                              levelOfEdu,
-                              softWrap: true,
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 20,
-                              ),
-                            ),
-                          ),
-
-                          InkWell(
-                            onTap: (){
-                              Navigator.push(context, MaterialPageRoute(builder: (context)=>Edit_academic_qualification() ));
-                            },
-                            child: Icon(Icons.edit_note_sharp),
-                          )
-
-                        ],
-                      ),
-                      SizedBox(height: 15,),
-
-                      //Degree Title
-                      Text(
-                        "Degree Title:",
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 15,
-                          fontWeight: FontWeight.w400,
-                        ),
-                      ),
-                      SizedBox(height: 5,),
-                      Text(
-                        degreeTitle,
-                        softWrap: true,
-                        maxLines: 15,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 15,
-                          fontWeight: FontWeight.w800,
-                        ),
-                      ),
-
-                      SizedBox(height: 15,),
-
-                      //  Board
-                      Text(
-                        "Board:",
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 15,
-                          fontWeight: FontWeight.w400,
-                        ),
-                      ),
-                      SizedBox(height: 5,),
-                      Text(
-                        board,
-                        softWrap: true,
-                        maxLines: 15,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 15,
-                          fontWeight: FontWeight.w800,
-                        ),
-                      ),
-
-
-                      SizedBox(height: 15,),
-
-                      //  Group
-                      Text(
-                        "Group:",
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 15,
-                          fontWeight: FontWeight.w400,
-                        ),
-                      ),
-                      SizedBox(height: 5,),
-                      Text(
-                        group,
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 15,
-                          fontWeight: FontWeight.w800,
-                        ),
-                      ),
-
-                      SizedBox(height: 15,),
-
-                      //  Insititute Name
-                      Text(
-                        "Insititute Name:",
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 15,
-                          fontWeight: FontWeight.w400,
-                        ),
-                      ),
-                      SizedBox(height: 5,),
-                      Text(
-                        institutionName,
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 15,
-                          fontWeight: FontWeight.w800,
-                        ),
-                      ),
-
-                      SizedBox(height: 15,),
-
-                      //  Result
-                      Text(
-                        "Result:",
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 15,
-                          fontWeight: FontWeight.w400,
-                        ),
-                      ),
-                      SizedBox(height: 5,),
-                      Text(
-                        result,
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 15,
-                          fontWeight: FontWeight.w800,
-                        ),
-                      ),
-
-                      SizedBox(height: 15,),
-
-                      //  GPA
-                      Text(
-                        "GPA:",
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 15,
-                          fontWeight: FontWeight.w400,
-                        ),
-                      ),
-                      SizedBox(height: 5,),
-                      Text(
-                        gpa,
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 15,
-                          fontWeight: FontWeight.w800,
-                        ),
-                      ),
-
-                      SizedBox(height: 15,),
-
-                      //  Passing Year
-                      Text(
-                        "Passing Year:",
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 15,
-                          fontWeight: FontWeight.w400,
-                        ),
-                      ),
-                      SizedBox(height: 5,),
-                      Text(
-                        passingYear,
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 15,
-                          fontWeight: FontWeight.w800,
-                        ),
-                      ),
-
-                      SizedBox(height: 15,),
-
-                      //  Duration
-                      Text(
-                        "Duration:",
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 15,
-                          fontWeight: FontWeight.w400,
-                        ),
-                      ),
-                      SizedBox(height: 5,),
-                      Text(
-                        duration,
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 15,
-                          fontWeight: FontWeight.w800,
-                        ),
-                      ),
-
-                      SizedBox(height: 15,),
-
-
-                    ],
-
-                  ),
-                ),
-              ),
+          children: fetchedDataList.map((data) => Data_Academic_Qualification(
+            levelOfEdu: data['levelOfEdu']!,
+            degreeTitle: data['degreeTitle']!,
+            board: data['board']!,
+            group: data['group']!,
+            institutionName: data['institutionName']!,
+            result: data['result']!,
+            gpa: data['gpa']!,
+            passingYear: data['passingYear']!,
+            duration: data['duration']!,
+            editpage: Edit_academic_qualification(
+              acQualificationid: data['acQualificationid'],
+              levelOfEdu: data['levelOfEdu'],
+              degreeTitle: data['degreeTitle'],
+              board: data['board'],
+              group: data['group'],
+              institutionName: data['institutionName'],
+              result: data['result'],
+              gpa: data['gpa'],
+              passingYear: data['passingYear'],
+              duration: data['duration'],
             ),
-
-          ],
+          )).toList(),
         ),
       ),
     );
