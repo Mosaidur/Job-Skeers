@@ -1,7 +1,16 @@
-import 'package:flutter/material.dart';
+import 'dart:async';
+import 'dart:convert';
 
+import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:http/http.dart' as http;
+import '../../../CustomSnackbar.dart';
+import '../../../Models/Profile/LanguageSkillModel.dart';
+import '../../../loading_page.dart';
+import '../widgets/No_data_found.dart';
 import 'Add_language_prof.dart';
-import 'Edit_language_prof.dart';
+import 'Add_Edit_language_prof.dart';
+import 'Widgets/data_language_prof.dart';
 
 class LanguageProficiency extends StatefulWidget {
   const LanguageProficiency({super.key});
@@ -11,13 +20,110 @@ class LanguageProficiency extends StatefulWidget {
 }
 
 class _LanguageProficiencyState extends State<LanguageProficiency> {
+
+  late SharedPreferences sprefs;
+  String? UserID;
+  String? userName;
+
+  List<Map<String, String?>> fetchedLanguageDataList = [];
+  late bool success = false;
+  late String? acQualificationid;
+
+  late Timer _timer;
+
+  @override
+  void dispose() {
+    super.dispose();
+    _timer.cancel();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _loadUserData();
+    _startPolling();
+  }
+
+  void _startPolling() {
+    const pollingInterval = Duration(milliseconds: 500);
+    _timer = Timer.periodic(pollingInterval, (timer) {
+      if (UserID != null) {
+        _fetchLanguageSkills(UserID!);
+      }
+    });
+  }
+
+  Future<void> _loadUserData() async {
+    sprefs = await SharedPreferences.getInstance();
+    setState(() {
+      UserID = sprefs.getString("USERID");
+      userName = sprefs.getString("USERNAME");
+      if (UserID != null) {
+        _fetchLanguageSkills(UserID!);
+      }
+    });
+  }
+
+  void _showSnackBar(String message) {
+    Future.delayed(Duration.zero, () {
+      CustomSnackBar.show(
+        context,
+        message: message,
+        backgroundColor: Colors.red.shade400,
+        actionLabel: 'Error!',
+        iconData: Icons.done,
+        onActionPressed: () {
+          Navigator.of(context).pop();
+        },
+      );
+    });
+  }
+
+
+  Future<void> _fetchLanguageSkills(String userID) async {
+    LoadingPage();
+    final String apiUrl = 'http://10.0.2.2/JobSeeker_EmpAPI/Language%20Info/Read_language_info.php';
+
+    final response = await http.get(
+      Uri.parse('$apiUrl?user_id=$userID'),
+      headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+    );
+
+    if (response.statusCode == 200) {
+      final Map<String, dynamic>? responseData = json.decode(response.body);
+
+      if (responseData != null) {
+        success = responseData['success'];
+
+        if (success == true) {
+          List<dynamic> languageSkillsJson = responseData['languageSkills'];
+          List<LanguageSkill> languageSkills =
+          languageSkillsJson.map((skillJson) => LanguageSkill.fromJson(skillJson)).toList();
+
+          setState(() {
+            fetchedLanguageDataList = languageSkills.map((skill) => {
+              'languageId': skill.languageId,
+              'language': skill.language,
+              'readingLevel': skill.readingLevel,
+              'writingLevel': skill.writingLevel,
+              'speakingLevel': skill.speakingLevel,
+            }).toList();
+          });
+        } else {
+          String message = responseData['message'];
+          print('Error: $message');
+          // _showSnackBar(message);
+        }
+      } else {
+        print('Failed to fetch language skills. Error code: ${response.statusCode}');
+        _showSnackBar('Error:- ${response.statusCode}');
+      }
+    }
+  }
+
+
   @override
   Widget build(BuildContext context) {
-
-    final String language= "English";
-    final String readingLevel= "";
-    final String writingLevel= "";
-    final String speakingLevel= "";
 
     return Scaffold(
       appBar: AppBar(
@@ -29,7 +135,7 @@ class _LanguageProficiencyState extends State<LanguageProficiency> {
 
             InkWell(
               onTap: (){
-                Navigator.push(context, MaterialPageRoute(builder: (context)=> Add_language_prof ()));
+                Navigator.push(context, MaterialPageRoute(builder: (context)=> Add_Edit_language_prof (languageId: null,)));
               },
               child: Icon(Icons.add_comment),
             )
@@ -42,128 +148,21 @@ class _LanguageProficiencyState extends State<LanguageProficiency> {
           },
         ),
       ),
-      body: SingleChildScrollView(
+      body: (fetchedLanguageDataList.isEmpty || success != true )? NoDataFound() : SingleChildScrollView(
         child: Column(
-          children: [
-            // Language Proficiency
-            Padding(
-              padding: const EdgeInsets.only(top: 20.0, left: 20,right: 20,bottom: 20),
-              child: Container(
-                width: double.maxFinite,
-                // height: 700,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
-                  color: Colors.white,
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 15.0, left: 20,right: 20,bottom: 20),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-
-                      // language
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-
-                          Text(
-                            language,
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20,
-                            ),
-                          ),
-
-                          InkWell(
-                            onTap: (){
-                              Navigator.push(context, MaterialPageRoute(builder: (context)=> Edit_language_prof ()));
-                            },
-                            child: Icon(Icons.edit_note_sharp),
-                          )
-
-                        ],
-                      ),
-                      SizedBox(height: 15,),
-
-                      //Reading Level
-                      Text(
-                        "Reading Level:",
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 15,
-                          fontWeight: FontWeight.w400,
-                        ),
-                      ),
-                      SizedBox(height: 5,),
-                      Text(
-                        readingLevel,
-                        softWrap: true,
-                        maxLines: 15,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 15,
-                          fontWeight: FontWeight.w800,
-                        ),
-                      ),
-
-                      SizedBox(height: 15,),
-
-                      //  Writing Level
-                      Text(
-                        "Writing Level:",
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 15,
-                          fontWeight: FontWeight.w400,
-                        ),
-                      ),
-                      SizedBox(height: 5,),
-                      Text(
-                        writingLevel,
-                        softWrap: true,
-                        maxLines: 15,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 15,
-                          fontWeight: FontWeight.w800,
-                        ),
-                      ),
-
-
-                      SizedBox(height: 15,),
-
-                      //  Speaking Level
-                      Text(
-                        "Speaking Level:",
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 15,
-                          fontWeight: FontWeight.w400,
-                        ),
-                      ),
-                      SizedBox(height: 5,),
-                      Text(
-                        speakingLevel,
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 15,
-                          fontWeight: FontWeight.w800,
-                        ),
-                      ),
-
-                      SizedBox(height: 15,),
-
-
-                    ],
-
-                  ),
-                ),
-              ),
+          children: fetchedLanguageDataList.map((data) => Data_language_prof(
+            language: data['language']!,
+            readingLevel: data['readingLevel']!,
+            writingLevel: data['writingLevel']!,
+            speakingLevel: data['speakingLevel']!,
+            editpage: Add_Edit_language_prof(
+              languageId: data['languageId']!,
+              language: data['language']!,
+              readingLevel: data['readingLevel']!,
+              writingLevel: data['writingLevel']!,
+              speakingLevel: data['speakingLevel']!,
             ),
-          ],
+          )).toList(),
         ),
       ),
     );

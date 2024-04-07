@@ -68,11 +68,11 @@ class _Add_Edit_Contact_DetailsState extends State<Add_Edit_Contact_Details> {
   late final TextEditingController primaryPhoneNoController  ;
   late final TextEditingController primaryEmailController ;
 
-  void Pre_Update_value( String userPhone, String userEmail) {
-
-      primaryPhoneNoController = TextEditingController(text: userPhone );
-      primaryEmailController = TextEditingController(text: userEmail);
-  }
+  // void Pre_Update_value( String userPhone, String userEmail) {
+  //
+  //     primaryPhoneNoController = TextEditingController(text: userPhone );
+  //     primaryEmailController = TextEditingController(text: userEmail);
+  // }
 
   void Update_value() {
     if (widget.CDetailsId != null) {
@@ -316,7 +316,7 @@ class _Add_Edit_Contact_DetailsState extends State<Add_Edit_Contact_Details> {
       },
       child: Scaffold(
         appBar: AppBar(
-          title: Text("Edit Contact Details"),
+          title: (widget.CDetailsId == null)? Text("Add Contact Details"): Text("Edit Contact Details"),
           leading: IconButton(
             icon: Icon(Icons.arrow_back_ios),
             onPressed: () {

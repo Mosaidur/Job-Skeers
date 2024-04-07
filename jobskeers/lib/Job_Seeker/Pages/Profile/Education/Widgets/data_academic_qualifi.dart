@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../Edit_academic_qualification.dart';
+import '../Add_Edit_academic_qualification.dart';
 
 class Data_Academic_Qualification extends StatelessWidget {
 

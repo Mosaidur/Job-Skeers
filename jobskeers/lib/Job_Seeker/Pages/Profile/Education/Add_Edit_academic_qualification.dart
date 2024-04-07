@@ -10,7 +10,7 @@ import '../../../Models/register_data_To.dart';
 import '../../../customDialogBox.dart';
 import '../../../loading_page.dart';
 
-class Edit_academic_qualification extends StatefulWidget {
+class Add_Edit_academic_qualification extends StatefulWidget {
   final String? acQualificationid;
   final String? levelOfEdu;
   final String? degreeTitle;
@@ -21,7 +21,7 @@ class Edit_academic_qualification extends StatefulWidget {
   final String? gpa;
   final String? passingYear;
   final String? duration;
-  Edit_academic_qualification(
+  Add_Edit_academic_qualification(
       {super.key,
     this.acQualificationid,
     this.levelOfEdu,
@@ -35,10 +35,10 @@ class Edit_academic_qualification extends StatefulWidget {
     this.duration});
 
   @override
-  State<Edit_academic_qualification> createState() => _Edit_academic_qualificationState();
+  State<Add_Edit_academic_qualification> createState() => _Add_Edit_academic_qualificationState();
 }
 
-class _Edit_academic_qualificationState extends State<Edit_academic_qualification> {
+class _Add_Edit_academic_qualificationState extends State<Add_Edit_academic_qualification> {
 
   late  TextEditingController levelOfEduController;
   late  TextEditingController degreeTitleController;
@@ -65,8 +65,6 @@ class _Edit_academic_qualificationState extends State<Edit_academic_qualificatio
     });
   }
 
-
-
   void Pre_Update_value() {
     if (widget.acQualificationid == null) {
        levelOfEduController = TextEditingController();
@@ -89,18 +87,6 @@ class _Edit_academic_qualificationState extends State<Edit_academic_qualificatio
       passingYearController = TextEditingController(text: widget.passingYear);
       durationController = TextEditingController(text: widget.duration);
 
-
-
-      // levelOfEduController = TextEditingController();
-      // degreeTitleController = TextEditingController();
-      // boardController = TextEditingController();
-      // majorOrgroupController = TextEditingController();
-      // institutionNameController = TextEditingController();
-      // resultController = TextEditingController();
-      // gpaController = TextEditingController();
-      // passingYearController = TextEditingController();
-      // durationController = TextEditingController();
-
     }
   }
 
@@ -111,11 +97,6 @@ class _Edit_academic_qualificationState extends State<Edit_academic_qualificatio
         boardController.text== 'JSC/JDC/8 pass'||
         boardController.text== 'Secondary' ||
         boardController.text==   'Higher Secondary') && (resultController.text == 'Grade')
-    // (boardController.text != 'PSC/ 5 pass' &&
-    //     boardController.text != 'JSC/JDC/8 pass' &&
-    //     boardController.text != 'Secondary' &&
-    //     boardController.text != 'Higher Secondary') &&
-    //     (resultController.text != 'Grade')
     ){
       if (levelOfEduController.text.isEmpty ||
           degreeTitleController.text.isEmpty ||
@@ -201,20 +182,6 @@ class _Edit_academic_qualificationState extends State<Edit_academic_qualificatio
           'levelOfEdu': levelOfEduController.text,
           'degreeTitle': degreeTitleController.text,
           'board': (['PSC/ 5 pass', 'JSC/JDC/8 pass', 'Secondary', 'Higher Secondary'].contains(levelOfEduController.text)) ? boardController.text : " ",
-          // 'board': (() {
-          //   if (['PSC/ 5 pass', 'JSC/JDC/8 pass', 'Secondary', 'Higher Secondary'].contains(levelOfEduController.text)) {
-          //     return boardController.text;
-          //   } else {
-          //     return "";
-          //   }
-          // })(),
-          // 'gpa': (() {
-          //   if (resultController.text == 'Grade') {
-          //     return gpaController.text;
-          //   } else {
-          //     return "";
-          //   }
-          // })(),
           'groupandMajor': majorOrgroupController.text,
           'institutionName': institutionNameController.text,
           'result': resultController.text,
@@ -473,11 +440,11 @@ class _Edit_academic_qualificationState extends State<Edit_academic_qualificatio
             title: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
+                (widget.acQualificationid == null)?
+                Text("Add Academic Qualification"):
                 Text("Edit Academic Qualification"),
                 InkWell(
                   onTap: (){
-                    // Navigator.push(context, MaterialPageRoute(builder: (context)=> Add_language_prof ()));
-                    // deleteEducationInfo();
                     showDialog(
                         context: context,
                         builder: (BuildContext context) =>
@@ -518,8 +485,8 @@ class _Edit_academic_qualificationState extends State<Edit_academic_qualificatio
                     elevation: 16,
                     style: const TextStyle(color: Colors.black),
                     decoration: InputDecoration(
-                      hintText: "Level of Education*",
-                      hintStyle: TextStyle(
+                      labelText: "Level of Education*",
+                      labelStyle: TextStyle(
                         color: Colors.grey,
                       ),
                       filled: true,
@@ -580,8 +547,8 @@ class _Edit_academic_qualificationState extends State<Edit_academic_qualificatio
                     minLines: 1,
                     enabled: true,
                     decoration: InputDecoration(
-                      hintText: "Degree title*",
-                      hintStyle: TextStyle(
+                      labelText: "Degree title*",
+                      labelStyle: TextStyle(
                         color: Colors.grey,
                       ),
                       filled: true,
@@ -611,8 +578,8 @@ class _Edit_academic_qualificationState extends State<Edit_academic_qualificatio
                     elevation: 16,
                     style: const TextStyle(color: Colors.black),
                     decoration: InputDecoration(
-                      hintText: "Education Board*",
-                      hintStyle: TextStyle(
+                      labelText: "Education Board*",
+                      labelStyle: TextStyle(
                         color: Colors.grey,
                       ),
                       filled: true,
@@ -678,8 +645,8 @@ class _Edit_academic_qualificationState extends State<Edit_academic_qualificatio
                     minLines: 1,
                     enabled: true,
                     decoration: InputDecoration(
-                      hintText: "Major or Group*",
-                      hintStyle: TextStyle(
+                      labelText: "Major or Group*",
+                      labelStyle: TextStyle(
                         color: Colors.grey,
                       ),
                       filled: true,
@@ -719,8 +686,8 @@ class _Edit_academic_qualificationState extends State<Edit_academic_qualificatio
                     minLines: 1,
                     enabled: true,
                     decoration: InputDecoration(
-                      hintText: "Institute Name*",
-                      hintStyle: TextStyle(
+                      labelText: "Institute Name*",
+                      labelStyle: TextStyle(
                         color: Colors.grey,
                       ),
                       filled: true,
@@ -745,8 +712,8 @@ class _Edit_academic_qualificationState extends State<Edit_academic_qualificatio
                     elevation: 16,
                     style: const TextStyle(color: Colors.black),
                     decoration: InputDecoration(
-                      hintText: "Result*",
-                      hintStyle: TextStyle(
+                      labelText: "Result*",
+                      labelStyle: TextStyle(
                         color: Colors.grey,
                       ),
                       filled: true,
@@ -801,8 +768,8 @@ class _Edit_academic_qualificationState extends State<Edit_academic_qualificatio
                     keyboardType: TextInputType.number,
                     enabled: true,
                     decoration: InputDecoration(
-                      hintText: "GPA/ CGPA *",
-                      hintStyle: TextStyle(
+                      labelText: "GPA/ CGPA *",
+                      labelStyle: TextStyle(
                         color: Colors.grey,
                       ),
                       filled: true,
@@ -842,8 +809,8 @@ class _Edit_academic_qualificationState extends State<Edit_academic_qualificatio
                     keyboardType: TextInputType.text,
                     enabled: true,
                     decoration: InputDecoration(
-                      hintText: "Passing year*",
-                      hintStyle: TextStyle(
+                      labelText: "Passing year*",
+                      labelStyle: TextStyle(
                         color: Colors.grey,
                       ),
                       filled: true,
@@ -882,8 +849,8 @@ class _Edit_academic_qualificationState extends State<Edit_academic_qualificatio
                     keyboardType: TextInputType.text,
                     enabled: true,
                     decoration: InputDecoration(
-                      hintText: "Duration",
-                      hintStyle: TextStyle(
+                      labelText: "Duration",
+                      labelStyle: TextStyle(
                         color: Colors.grey,
                       ),
                       filled: true,

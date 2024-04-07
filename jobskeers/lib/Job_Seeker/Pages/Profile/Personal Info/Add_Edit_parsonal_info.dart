@@ -428,8 +428,8 @@ class _Add_Edit_Personatl_DetailsState extends State<Add_Edit_Personatl_Details>
                   controller: fatherNameController,
                   enabled: true,
                   decoration: InputDecoration(
-                    hintText: "Father's Name*",
-                    hintStyle: TextStyle(
+                    labelText: "Father's Name*",
+                    labelStyle: TextStyle(
                       color: Colors.grey,
                     ),
                     filled: true,
@@ -470,8 +470,8 @@ class _Add_Edit_Personatl_DetailsState extends State<Add_Edit_Personatl_Details>
                   controller: motherNameController,
                   enabled: true,
                   decoration: InputDecoration(
-                    hintText: "Mother's Name*",
-                    hintStyle: TextStyle(
+                    labelText: "Mother's Name*",
+                    labelStyle: TextStyle(
                       color: Colors.grey,
                     ),
                     filled: true,
@@ -511,12 +511,12 @@ class _Add_Edit_Personatl_DetailsState extends State<Add_Edit_Personatl_Details>
                   enabled: true,
                   onTap: ()=> _selectDate(context),
                   decoration: InputDecoration(
-                    hintText: "Date of Birth*",
+                    labelText: "Date of Birth*",
                     suffixIcon: IconButton(
                       onPressed: () => _selectDate(context),
                       icon: Icon(Icons.calendar_today),
                     ),
-                    hintStyle: TextStyle(
+                    labelStyle: TextStyle(
                       color: Colors.grey,
                     ),
                     filled: true,
@@ -541,8 +541,8 @@ class _Add_Edit_Personatl_DetailsState extends State<Add_Edit_Personatl_Details>
                   elevation: 16,
                   style: const TextStyle(color: Colors.black),
                   decoration: InputDecoration(
-                    hintText: "Religion*",
-                    hintStyle: TextStyle(
+                    labelText: "Religion*",
+                    labelStyle: TextStyle(
                       color: Colors.grey,
                     ),
                     filled: true,
@@ -586,8 +586,8 @@ class _Add_Edit_Personatl_DetailsState extends State<Add_Edit_Personatl_Details>
                   elevation: 16,
                   style: const TextStyle(color: Colors.black),
                   decoration: InputDecoration(
-                    hintText: "Gender*",
-                    hintStyle: TextStyle(
+                    labelText: "Gender*",
+                    labelStyle: TextStyle(
                       color: Colors.grey,
                     ),
                     filled: true,
@@ -628,8 +628,8 @@ class _Add_Edit_Personatl_DetailsState extends State<Add_Edit_Personatl_Details>
                   elevation: 16,
                   style: const TextStyle(color: Colors.black),
                   decoration: InputDecoration(
-                    hintText: "Marital Status*",
-                    hintStyle: TextStyle(
+                    labelText: "Marital Status*",
+                    labelStyle: TextStyle(
                       color: Colors.grey,
                     ),
                     filled: true,
@@ -683,8 +683,8 @@ class _Add_Edit_Personatl_DetailsState extends State<Add_Edit_Personatl_Details>
                   controller: nationalityController,
                   enabled: true,
                   decoration: InputDecoration(
-                    hintText: "Nationality*",
-                    hintStyle: TextStyle(
+                    labelText: "Nationality*",
+                    labelStyle: TextStyle(
                       color: Colors.grey,
                     ),
                     filled: true,
@@ -725,8 +725,8 @@ class _Add_Edit_Personatl_DetailsState extends State<Add_Edit_Personatl_Details>
                   controller: nidController,
                   enabled: true,
                   decoration: InputDecoration(
-                    hintText: "National ID No",
-                    hintStyle: TextStyle(
+                    labelText: "National ID No",
+                    labelStyle: TextStyle(
                       color: Colors.grey,
                     ),
                     filled: true,
@@ -767,8 +767,8 @@ class _Add_Edit_Personatl_DetailsState extends State<Add_Edit_Personatl_Details>
                   controller: passportNoController,
                   enabled: true,
                   decoration: InputDecoration(
-                    hintText: "Passport No",
-                    hintStyle: TextStyle(
+                    labelText: "Passport No",
+                    labelStyle: TextStyle(
                       color: Colors.grey,
                     ),
                     filled: true,
@@ -792,12 +792,12 @@ class _Add_Edit_Personatl_DetailsState extends State<Add_Edit_Personatl_Details>
                   readOnly: true,
                   enabled: true,
                   decoration: InputDecoration(
-                    hintText: "Passport Issue Date",
+                    labelText: "Passport Issue Date",
                     suffixIcon: IconButton(
                       onPressed: () => _selectpassportIssueDate(context),
                       icon: Icon(Icons.calendar_today),
                     ),
-                    hintStyle: TextStyle(
+                    labelStyle: TextStyle(
                       color: Colors.grey,
                     ),
                     filled: true,
@@ -822,8 +822,8 @@ class _Add_Edit_Personatl_DetailsState extends State<Add_Edit_Personatl_Details>
                   elevation: 16,
                   style: const TextStyle(color: Colors.black),
                   decoration: InputDecoration(
-                    hintText: "Blood Group",
-                    hintStyle: TextStyle(
+                    labelText: "Blood Group",
+                    labelStyle: TextStyle(
                       color: Colors.grey,
                     ),
                     filled: true,

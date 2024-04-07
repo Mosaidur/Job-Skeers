@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:jobskeers/Job_Seeker/Pages/Profile/Education/Edit_academic_qualification.dart';
+import 'package:jobskeers/Job_Seeker/Pages/Profile/Education/Add_Edit_academic_qualification.dart';
 import 'package:jobskeers/Job_Seeker/Pages/Profile/Education/Widgets/data_academic_qualifi.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
@@ -11,7 +11,6 @@ import '../../../CustomSnackbar.dart';
 import '../../../Models/Profile/Read_edu_data.dart';
 import '../../../loading_page.dart';
 import '../widgets/No_data_found.dart';
-import 'Add_academic_qualification.dart';
 
 class AcademicQualification extends StatefulWidget {
   const AcademicQualification({Key? key});
@@ -142,7 +141,7 @@ class _AcademicQualificationState extends State<AcademicQualification> {
             Text("Academic Qualification"),
             InkWell(
               onTap: (){
-                Navigator.push(context, MaterialPageRoute(builder: (context)=> Edit_academic_qualification(acQualificationid: null)));
+                Navigator.push(context, MaterialPageRoute(builder: (context)=> Add_Edit_academic_qualification(acQualificationid: null)));
               },
               child: Icon(Icons.add_comment),
             )
@@ -167,7 +166,7 @@ class _AcademicQualificationState extends State<AcademicQualification> {
             gpa: data['gpa']!,
             passingYear: data['passingYear']!,
             duration: data['duration']!,
-            editpage: Edit_academic_qualification(
+            editpage: Add_Edit_academic_qualification(
               acQualificationid: data['acQualificationid'],
               levelOfEdu: data['levelOfEdu'],
               degreeTitle: data['degreeTitle'],
