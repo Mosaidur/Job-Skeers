@@ -1,7 +1,16 @@
-import 'package:flutter/material.dart';
+import 'dart:async';
+import 'dart:convert';
 
+import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:http/http.dart' as http;
+import '../../../CustomSnackbar.dart';
+import '../../../Models/Profile/CertificationsDataDTOModel.dart';
+import '../../../loading_page.dart';
+import '../widgets/No_data_found.dart';
 import 'Add_professional_certification.dart';
-import 'Edit_professional_certification.dart';
+import 'Add_Edit_professional_certification.dart';
+import 'Widgets/data_professional_certification.dart';
 
 class Professional_Certification extends StatefulWidget {
   const Professional_Certification({super.key});
@@ -11,14 +20,203 @@ class Professional_Certification extends StatefulWidget {
 }
 
 class _Professional_CertificationState extends State<Professional_Certification> {
+
+  late SharedPreferences sprefs;
+  String? UserID;
+  String? userName;
+
+  List<Map<String, String?>> fetchedCertificationsDataList = [];
+  late bool success = false;
+  late String? Certification_Id;
+
+  late Timer _timer;
+
+  @override
+  void dispose() {
+    super.dispose();
+    _timer.cancel();
+    // if (_timer != null) {
+    //   _timer.cancel();
+    // }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _loadUserData();
+    _startPolling();
+  }
+
+  void _startPolling() {
+    const pollingInterval = Duration(milliseconds: 500);
+    _timer = Timer.periodic(pollingInterval, (timer) {
+      if (UserID != null) {
+        _fetchCertificationsData(UserID!);
+      }
+    });
+  }
+
+  Future<void> _loadUserData() async {
+    sprefs = await SharedPreferences.getInstance();
+    setState(() {
+      UserID = sprefs.getString("USERID");
+      userName = sprefs.getString("USERNAME");
+      if (UserID != null) {
+        _fetchCertificationsData(UserID!);
+      }
+    });
+  }
+
+  void _showSnackBar(String message) {
+    Future.delayed(Duration.zero, () {
+      CustomSnackBar.show(
+        context,
+        message: message,
+        backgroundColor: Colors.red.shade400,
+        actionLabel: 'Error!',
+        iconData: Icons.done,
+        onActionPressed: () {
+          Navigator.of(context).pop();
+        },
+      );
+    });
+  }
+
+  // Future<void> _fetchCertificationsData (String userID) async {
+  //   LoadingPage();
+  //   final String apiUrl = 'http://10.0.2.2/JobSeeker_EmpAPI/Language%20Info/Read_language_info.php';
+  //
+  //   final response = await http.get(
+  //     Uri.parse('$apiUrl?user_id=$userID'),
+  //     headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+  //   );
+  //
+  //   if (response.statusCode == 200) {
+  //     final Map<String, dynamic>? responseData = json.decode(response.body);
+  //
+  //     if (responseData != null) {
+  //       success = responseData['success'];
+  //
+  //       if (success == true) {
+  //         List<dynamic> languageSkillsJson = responseData['languageSkills'];
+  //         List<LanguageSkill> languageSkills =
+  //         languageSkillsJson.map((skillJson) => LanguageSkill.fromJson(skillJson)).toList();
+  //
+  //         setState(() {
+  //           fetchedLanguageDataList = languageSkills.map((skill) => {
+  //             'languageId': skill.languageId,
+  //             'language': skill.language,
+  //             'readingLevel': skill.readingLevel,
+  //             'writingLevel': skill.writingLevel,
+  //             'speakingLevel': skill.speakingLevel,
+  //           }).toList();
+  //         });
+  //       } else {
+  //         String message = responseData['message'];
+  //         print('Error: $message');
+  //         // _showSnackBar(message);
+  //       }
+  //     } else {
+  //       print('Failed to fetch language skills. Error code: ${response.statusCode}');
+  //       _showSnackBar('Error:- ${response.statusCode}');
+  //     }
+  //   }
+  // }
+
+  // Future<void> _fetchCertificationsData(String userID) async {
+  //   LoadingPage();
+  //   final String apiUrl = 'http://10.0.2.2/JobSeeker_EmpAPI/Certifications%20Info/Read_certifications_info.php';
+  //
+  //   final response = await http.get(
+  //     Uri.parse('$apiUrl?user_id=$userID'),
+  //     headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+  //   );
+  //
+  //   if (response.statusCode == 200) {
+  //     final Map<String, dynamic> responseData = json.decode(response.body);
+  //
+  //
+  //     if (responseData != null) {
+  //       success = responseData['success'];
+  //
+  //       if (success ==true ) {
+  //         CertificationsData certificationsData = CertificationsData.fromJson(responseData);
+  //         setState(() {
+  //           fetchedCertificationsDataList = certificationsData.certifications!.map((cert) => {
+  //             'Certification_Id': cert.certificationId,
+  //             'certificationTitle': cert.certificationTitle,
+  //             'instituteName': cert.instituteName,
+  //             'location': cert.location,
+  //             'startDate': cert.startDate,
+  //             'endDate': cert.endDate,
+  //           }).toList();
+  //         });
+  //       } else {
+  //         String message = responseData['message'];
+  //         print('Error: $message');
+  //         _showSnackBar(message);
+  //       }
+  //     } else {
+  //       print('Failed to fetch language skills. Error code: ${response.statusCode}');
+  //       _showSnackBar('Error:- ${response.statusCode}');
+  //     }
+  //
+  //   } else {
+  //     print('Failed to fetch certifications data. Error code: ${response.statusCode}');
+  //     _showSnackBar('Error:- ${response.statusCode}');
+  //   }
+  // }
+
+
+  Future<void> _fetchCertificationsData(String userID) async {
+    LoadingPage();
+    final String apiUrl = 'http://10.0.2.2/JobSeeker_EmpAPI/Certifications%20Info/Read_certifications_info.php';
+
+    final response = await http.get(
+      Uri.parse('$apiUrl?user_id=$userID'),
+      headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+    );
+
+    print(UserID);
+
+    if (response.statusCode == 200) {
+      final Map<String, dynamic>? responseData = json.decode(response.body);
+
+      if (responseData != null) {
+        success = responseData['success']; // Check for 'success' key
+
+        if (success == true) {
+          List<dynamic> certificationsJson = responseData['certifications'];
+          List<Certification> certifications = certificationsJson.map((certJson) => Certification.fromJson(certJson)).toList();
+
+          setState(() {
+            fetchedCertificationsDataList = certifications.map((cert) => {
+              'Certification_Id': cert.certificationId,
+              'certificationTitle': cert.certificationTitle,
+              'instituteName': cert.instituteName,
+              'location': cert.location,
+              'startDate': cert.startDate,
+              'endDate': cert.endDate,
+            }).toList();
+          });
+        } else {
+          String message = responseData['message'];
+          print('Error: $message');
+          // _showSnackBar(message);
+        }
+      } else {
+        print('Failed to fetch certifications data. Error code: ${response.statusCode}');
+        // _showSnackBar('Error:- ${response.statusCode}');
+      }
+    } else {
+      print('Failed to fetch certifications data. Error code: ${response.statusCode}');
+      // _showSnackBar('Error:- ${response.statusCode}');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
 
-    final String certificationTitle= " ";
-    final String instituteName= "";
-    final String location= "";
-    final String startDate= "";
-    final String endDate= "";
 
     return Scaffold(
       backgroundColor: Colors.blue.shade50,
@@ -31,7 +229,7 @@ class _Professional_CertificationState extends State<Professional_Certification>
 
             InkWell(
               onTap: (){
-                Navigator.push(context, MaterialPageRoute(builder: (context)=>Add_professional_certification()));
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>Add_Edit_professional_certification(Certification_Id: null)));
               },
               child: Icon(Icons.add_comment),
             )
@@ -44,175 +242,29 @@ class _Professional_CertificationState extends State<Professional_Certification>
           },
         ),
       ),
-      body: SingleChildScrollView(
+      body: ( fetchedCertificationsDataList.isEmpty || success != true )? NoDataFound() : SingleChildScrollView(
         child: Column(
-          children: [
-            // Professional Certification
-            Padding(
-              padding: const EdgeInsets.only(top: 20.0, left: 20,right: 20,bottom: 20),
-              child: Container(
-                width: double.maxFinite,
-                // height: 700,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
-                  color: Colors.white,
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 15.0, left: 20,right: 20,bottom: 20),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-
-                      // language
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-
-                          Text(
-                            "Certification Title:",
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20,
-                            ),
-                          ),
-
-                          InkWell(
-                            onTap: (){
-                              Navigator.push(context, MaterialPageRoute(builder: (context)=> Edit_professional_certification()));
-                            },
-                            child: Icon(Icons.edit_note_sharp),
-                          )
-
-                        ],
-                      ),
-                      SizedBox(height: 15,),
-
-                      //certification Title
-                      // Text(
-                      //   "Certification Title:",
-                      //   style: TextStyle(
-                      //     color: Colors.black,
-                      //     fontSize: 15,
-                      //     fontWeight: FontWeight.w400,
-                      //   ),
-                      // ),
-                      // SizedBox(height: 5,),
-                      Text(
-                        certificationTitle,
-                        softWrap: true,
-                        maxLines: 15,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 20,
-                          fontWeight: FontWeight.w800,
-                        ),
-                      ),
-
-                      SizedBox(height: 15,),
-
-                      //  Institute Name
-                      Text(
-                        "Institute Name:",
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 15,
-                          fontWeight: FontWeight.w400,
-                        ),
-                      ),
-                      SizedBox(height: 5,),
-                      Text(
-                        instituteName,
-                        softWrap: true,
-                        maxLines: 15,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 15,
-                          fontWeight: FontWeight.w800,
-                        ),
-                      ),
-
-
-                      SizedBox(height: 15,),
-
-                      //  Location
-                      Text(
-                        "Location:",
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 15,
-                          fontWeight: FontWeight.w400,
-                        ),
-                      ),
-                      SizedBox(height: 5,),
-                      Text(
-                        location,
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 15,
-                          fontWeight: FontWeight.w800,
-                        ),
-                      ),
-
-                      SizedBox(height: 15,),
-
-                      //  Start Date
-                      RichText(
-                        text: TextSpan(
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 15,
-                          fontWeight: FontWeight.w400,
-                        ),
-                          children: [
-                            TextSpan(text: "Start Date: "),
-                            TextSpan(
-                              text: " $startDate",
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                              )
-                            )
-                          ]
-                      ),
-                      ),
-
-                      SizedBox(height: 15,),
-
-                      //  End Date
-                      RichText(
-                        text: TextSpan(
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 15,
-                            fontWeight: FontWeight.w400,
-                          ),
-                          children: [
-                            TextSpan(text: "End Date: "),
-                            TextSpan(
-                              text: " $endDate",
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-
-
-                      SizedBox(height: 15,),
-
-
-                    ],
-
-                  ),
-                ),
+          children: fetchedCertificationsDataList.map((cert) {
+            return Data_Professional_Certification(
+              certificationTitle: cert['certificationTitle'] !,
+              instituteName: cert['instituteName'] !,
+              location: cert['location'] !,
+              startDate: cert['startDate'] !,
+              endDate: cert['endDate'] !,
+              editpage: Add_Edit_professional_certification(
+                Certification_Id: cert['Certification_Id'] !,
+                certificationTitle: cert['certificationTitle'] !,
+                instituteName: cert['instituteName'] !,
+                location: cert['location']!,
+                startDate: cert['startDate'] !,
+                endDate: cert['endDate'] !,
               ),
-            ),
-          ],
+            );
+          }).toList(),
         ),
       ),
     );
   }
 }
+
+

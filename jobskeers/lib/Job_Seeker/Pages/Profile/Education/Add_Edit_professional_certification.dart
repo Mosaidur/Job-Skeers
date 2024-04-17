@@ -1,44 +1,73 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:jobskeers/Job_Seeker/customDialogBox.dart';
+import 'package:jobskeers/Job_Seeker/Pages/Profile/Education/professional_certification.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
+import 'package:http/http.dart' as http;
 import '../../../CustomSnackbar.dart';
 import '../../../Models/register_data_To.dart';
+import '../../../customDialogBox.dart';
 import '../../../loading_page.dart';
-import 'language_prof.dart';
-import 'dart:convert';
-import 'package:http/http.dart' as http;
 
-class Add_Edit_language_prof extends StatefulWidget {
-  final String? languageId;
-  final String? language;
-  final String? readingLevel;
-  final String? writingLevel;
-  final String? speakingLevel;
-  const Add_Edit_language_prof({
-    super.key,
-    this.languageId,
-    this.language,
-    this.readingLevel,
-    this.writingLevel,
-    this.speakingLevel});
+class Add_Edit_professional_certification extends StatefulWidget {
+  final String? Certification_Id;
+  final String? certificationTitle;
+  final String? instituteName;
+  final String? location;
+  final String? startDate;
+  final String? endDate;
+
+  const Add_Edit_professional_certification({super.key,
+    this.Certification_Id, this.certificationTitle,
+    this.instituteName, this.location, this.startDate, this.endDate});
 
   @override
-  State<Add_Edit_language_prof> createState() => _Add_Edit_language_profState();
+  State<Add_Edit_professional_certification> createState() => _Add_Edit_professional_certificationState();
 }
 
-class _Add_Edit_language_profState extends State<Add_Edit_language_prof> {
+class _Add_Edit_professional_certificationState extends State<Add_Edit_professional_certification> {
 
-  String? _selectedreadingLevel;
-  String? _selectedwritingLevel;
-  String? _selectedspeakingLevel;
+  DateTime selectedDate = DateTime.now();
 
-  late TextEditingController languageController;
-  late TextEditingController readingLevelController;
-  late TextEditingController writingLevelController;
-  late TextEditingController speakingLevelController;
+  Future<void> _selectStartDate(BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: selectedDate,
+      firstDate: DateTime(1952),
+      lastDate: DateTime(2101),
+    );
+
+    if (picked != null && picked != selectedDate) {
+      setState(() {
+        selectedDate = picked;
+        startDateController.text = "${picked.toLocal()}".split(' ')[0];
+      });
+    }
+  }
+
+  Future<void> _selectEndDate(BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: selectedDate,
+      firstDate: DateTime(1952),
+      lastDate: DateTime(2101),
+    );
+
+    if (picked != null && picked != selectedDate) {
+      setState(() {
+        selectedDate = picked;
+        endDateController.text = "${picked.toLocal()}".split(' ')[0];
+      });
+    }
+  }
+
+  late TextEditingController certificationTitleController;
+  late TextEditingController instituteNameController ;
+  late TextEditingController locationController ;
+  late TextEditingController startDateController ;
+  late TextEditingController endDateController ;
 
   late SharedPreferences sprefs;
   String? UserID;
@@ -59,25 +88,27 @@ class _Add_Edit_language_profState extends State<Add_Edit_language_prof> {
   }
 
   void Pre_Update_value() {
-    if (widget.languageId == null) {
-      languageController = TextEditingController();
-      readingLevelController = TextEditingController();
-      writingLevelController = TextEditingController();
-      speakingLevelController = TextEditingController();
+    if (widget.Certification_Id == null) {
+      certificationTitleController = TextEditingController();
+      instituteNameController = TextEditingController();
+      locationController = TextEditingController();
+      startDateController = TextEditingController();
+      endDateController = TextEditingController();
     } else {
-      languageController = TextEditingController(text: widget.language);
-      readingLevelController = TextEditingController(text: widget.readingLevel);
-      writingLevelController = TextEditingController(text: widget.writingLevel);
-      speakingLevelController = TextEditingController(text: widget.speakingLevel);
+      certificationTitleController = TextEditingController(text: widget.certificationTitle);
+      instituteNameController = TextEditingController(text: widget.instituteName);
+      locationController = TextEditingController(text: widget.location);
+      startDateController = TextEditingController(text: widget.startDate);
+      endDateController = TextEditingController(text: widget.endDate);
     }
   }
 
   bool _validateForm() {
     if (
-        languageController.text.isEmpty ||
-        readingLevelController.text.isEmpty ||
-        writingLevelController.text.isEmpty ||
-        speakingLevelController.text.isEmpty
+    certificationTitleController.text.isEmpty ||
+        instituteNameController.text.isEmpty ||
+        locationController.text.isEmpty ||
+        startDateController.text.isEmpty || endDateController.text.isEmpty
     ) {
       Future.delayed(Duration.zero, () {
         CustomSnackBar.show(
@@ -99,32 +130,32 @@ class _Add_Edit_language_profState extends State<Add_Edit_language_prof> {
   }
 
 
-  void _insertLanguageInfo() {
+  void _insertCertificationInfo() {
     if (_validateForm()){
-      insertLanguageSkillsInfo();
+      insertCertificationInfo();
     }
   }
 
-  void _updateLanguageInfo() {
+  void _updateCertificationInfo() {
     if (_validateForm()){
-      updateLanguageSkillsInfo();
+      updateCertificationInfo();
     }
   }
 
-
-  Future<void> insertLanguageSkillsInfo() async {
+  Future<void> insertCertificationInfo() async {
     LoadingPage();
-    const apiUrl = 'http://10.0.2.2/JobSeeker_EmpAPI/Language%20Info/Insert_language_info.php';
+    const apiUrl = 'http://10.0.2.2/JobSeeker_EmpAPI/Certifications%20Info/Insert_certifications_info.php';
     try {
       final response = await http.post(
         Uri.parse(apiUrl),
         headers: {'Content-Type': 'application/x-www-form-urlencoded'},
         body: {
           'user_id': UserID,
-          'language': languageController.text,
-          'readingLevel': readingLevelController.text,
-          'writingLevel': writingLevelController.text,
-          'speakingLevel': speakingLevelController.text,
+          'certificationTitle': certificationTitleController.text,
+          'instituteName': instituteNameController.text,
+          'location': locationController.text,
+          'startDate': startDateController.text,
+          'endDate': endDateController.text,
         },
       );
 
@@ -194,10 +225,10 @@ class _Add_Edit_language_profState extends State<Add_Edit_language_prof> {
     }
   }
 
-  Future<void> updateLanguageSkillsInfo () async {
+  Future<void> updateCertificationInfo () async {
     LoadingPage();
 
-    const String apiUrl = 'http://10.0.2.2/JobSeeker_EmpAPI/Language%20Info/Update_language_info.php';
+    const String apiUrl = 'http://10.0.2.2/JobSeeker_EmpAPI/Certifications%20Info/Update_certifications_info.php';
 
     try {
       final response = await http.post(
@@ -205,11 +236,12 @@ class _Add_Edit_language_profState extends State<Add_Edit_language_prof> {
         headers: {'Content-Type': 'application/x-www-form-urlencoded'},
         body: {
           'user_id': UserID,
-          'language_id': widget.languageId,
-          'language': languageController.text,
-          'reading_level': readingLevelController.text,
-          'writing_level': writingLevelController.text,
-          'speaking_level': speakingLevelController.text,
+          'certification_id': widget.Certification_Id,
+          'certificationTitle': certificationTitleController.text,
+          'instituteName': instituteNameController.text,
+          'location': locationController.text,
+          'startDate': startDateController.text,
+          'endDate': endDateController.text,
         },
       );
 
@@ -271,10 +303,10 @@ class _Add_Edit_language_profState extends State<Add_Edit_language_prof> {
     }
   }
 
-  Future<void> deleteLanguageSkill() async {
+  Future<void> deleteCertificationInfo() async {
     LoadingPage();
 
-    const String apiUrl = 'http://10.0.2.2/JobSeeker_EmpAPI/Language%20Info/Delete_language_info.php';
+    const String apiUrl = 'http://10.0.2.2/JobSeeker_EmpAPI/Certifications%20Info/Delete_certifications_info.php';
 
     try {
       final response = await http.post(
@@ -282,7 +314,7 @@ class _Add_Edit_language_profState extends State<Add_Edit_language_prof> {
         headers: {'Content-Type': 'application/x-www-form-urlencoded'},
         body: {
           'user_id': UserID,
-          'Language_Id': widget.languageId,
+          'Certification_Id': widget.Certification_Id,
         },
       );
 
@@ -345,7 +377,6 @@ class _Add_Edit_language_profState extends State<Add_Edit_language_prof> {
   }
 
 
-
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -357,24 +388,24 @@ class _Add_Edit_language_profState extends State<Add_Edit_language_prof> {
           title: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              (widget.languageId == null)?
+              (widget.Certification_Id == null)?
               Text("Add Language Proficiency"):
               Text("Edit Language Proficiency"),
 
-              (widget.languageId == null)? Container():
-              InkWell(
+              (widget.Certification_Id == null)? Container(): InkWell(
                 onTap: (){
                   // Navigator.push(context, MaterialPageRoute(builder: (context)=> Add_language_prof ()));
                   showDialog(
                       context: context,
                       builder: (BuildContext context) =>
-                        CustomDialogBox(
-                          message: 'Are you sure you want to delete?',
-                          bgcolors: Colors.white,
-                          title: 'Delete',
-                          pageLink: LanguageProficiency(),
-                          workedfunction: deleteLanguageSkill,
-                        )
+                          CustomDialogBox(
+                            message: 'Are you sure you want to delete?',
+                            bgcolors: Colors.white,
+                            title: 'Delete',
+                            pageLink: Professional_Certification(),
+                            workedfunction: deleteCertificationInfo,
+                          )
+
                   );
                 },
                 child: Icon(Icons.delete),
@@ -395,7 +426,8 @@ class _Add_Edit_language_profState extends State<Add_Edit_language_prof> {
               children: [
 
                 SizedBox(height: 20,),
-                //Language title
+
+                // Certification Title
                 TextFormField(
                   inputFormatters: [
                     LengthLimitingTextInputFormatter(200),
@@ -403,21 +435,21 @@ class _Add_Edit_language_profState extends State<Add_Edit_language_prof> {
                   autovalidateMode: AutovalidateMode.onUserInteraction,
                   validator: (text){
                     if (text == null || text.isEmpty){
-                      return "Language title can't be empty";
+                      return "Certification Title can't be empty";
                     }
                     if (text.length<3){
-                      return "Please enter a valid Language title";
+                      return "Please enter a valid Certification Title";
                     }
                   },
                   onChanged: (text) => setState(() {
-                    languageController.text = text;
+                    certificationTitleController.text = text;
                   }
                   ),
-                  controller: languageController,
+                  controller: certificationTitleController,
                   enabled: true,
                   decoration: InputDecoration(
-                    labelText: "Language*",
-                    labelStyle: TextStyle(
+                    hintText: "Certification Title*",
+                    hintStyle: TextStyle(
                       color: Colors.grey,
                     ),
                     filled: true,
@@ -434,16 +466,29 @@ class _Add_Edit_language_profState extends State<Add_Edit_language_prof> {
                 ),
                 SizedBox(height: 20,),
 
-                // reading level
-                DropdownButtonFormField<String>(
-                  value: _selectedreadingLevel != null ? readingLevelController.text : null,
-                  icon: const Icon(Icons.keyboard_arrow_down),
-                  iconSize: 24,
-                  elevation: 16,
-                  style: const TextStyle(color: Colors.black),
+                // Institute Name
+                TextFormField(
+                  inputFormatters: [
+                    LengthLimitingTextInputFormatter(200),
+                  ],
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                  validator: (text){
+                    if (text == null || text.isEmpty){
+                      return "Institute Name can't be empty";
+                    }
+                    if (text.length<3){
+                      return "Please enter a valid Institute Name";
+                    }
+                  },
+                  onChanged: (text) => setState(() {
+                    instituteNameController.text = text;
+                  }
+                  ),
+                  controller: instituteNameController,
+                  enabled: true,
                   decoration: InputDecoration(
-                    labelText: "Reading Level*",
-                    labelStyle: TextStyle(
+                    hintText: "Institute Name*",
+                    hintStyle: TextStyle(
                       color: Colors.grey,
                     ),
                     filled: true,
@@ -457,35 +502,32 @@ class _Add_Edit_language_profState extends State<Add_Edit_language_prof> {
                       ),
                     ),
                   ),
-                  items: <String>[
-                    'Low',
-                    'Medium',
-                    'High',
-                  ].map<DropdownMenuItem<String>>((String value) {
-                    return DropdownMenuItem<String>(
-                      value: value,
-                      child: Text(value),
-                    );
-                  }).toList(),
-                  onChanged: (String? newValue) {
-                    setState(() {
-                      _selectedreadingLevel = newValue!;
-                      readingLevelController.text = newValue;
-                    });
-                  },
                 ),
                 SizedBox(height: 20,),
 
-                // writing Level
-                DropdownButtonFormField<String>(
-                  value: _selectedwritingLevel != null ? writingLevelController.text : null,
-                  icon: const Icon(Icons.keyboard_arrow_down),
-                  iconSize: 24,
-                  elevation: 16,
-                  style: const TextStyle(color: Colors.black),
+                // Location
+                TextFormField(
+                  inputFormatters: [
+                    LengthLimitingTextInputFormatter(200),
+                  ],
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                  validator: (text){
+                    if (text == null || text.isEmpty){
+                      return "Location Name can't be empty";
+                    }
+                    if (text.length<3){
+                      return "Please enter a valid location";
+                    }
+                  },
+                  onChanged: (text) => setState(() {
+                    locationController.text = text;
+                  }
+                  ),
+                  controller: locationController,
+                  enabled: true,
                   decoration: InputDecoration(
-                    labelText: "Writing Level*",
-                    labelStyle: TextStyle(
+                    hintText: "Location*",
+                    hintStyle: TextStyle(
                       color: Colors.grey,
                     ),
                     filled: true,
@@ -499,35 +541,38 @@ class _Add_Edit_language_profState extends State<Add_Edit_language_prof> {
                       ),
                     ),
                   ),
-                  items: <String>[
-                    'Low',
-                    'Medium',
-                    'High',
-                  ].map<DropdownMenuItem<String>>((String value) {
-                    return DropdownMenuItem<String>(
-                      value: value,
-                      child: Text(value),
-                    );
-                  }).toList(),
-                  onChanged: (String? newValue) {
-                    setState(() {
-                      _selectedwritingLevel = newValue!;
-                      writingLevelController.text = newValue;
-                    });
-                  },
                 ),
                 SizedBox(height: 20,),
 
-                // speaking level
-                DropdownButtonFormField<String>(
-                  value: _selectedspeakingLevel != null ? speakingLevelController.text : null,
-                  icon: const Icon(Icons.keyboard_arrow_down),
-                  iconSize: 24,
-                  elevation: 16,
-                  style: const TextStyle(color: Colors.black),
+                // Start Date
+                TextFormField(
+                  inputFormatters: [
+                    LengthLimitingTextInputFormatter(100),
+                  ],
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                  validator: (text){
+                    if (text == null || text.isEmpty){
+                      return "Start Date can't be empty";
+                    }
+                    if (text.length==9){
+                      return "Please enter a valid Start date";
+                    }
+                  },
+                  onChanged: (text) => setState(() {
+                    startDateController.text = text;
+                  }
+                  ),
+                  controller: startDateController,
+                  readOnly: true,
+                  enabled: true,
+                  onTap: ()=> _selectStartDate(context),
                   decoration: InputDecoration(
-                    labelText: "Speaking Level*",
-                    labelStyle: TextStyle(
+                    hintText: "Start Date*",
+                    suffixIcon: IconButton(
+                      onPressed: () => _selectStartDate(context),
+                      icon: Icon(Icons.calendar_today),
+                    ),
+                    hintStyle: TextStyle(
                       color: Colors.grey,
                     ),
                     filled: true,
@@ -541,42 +586,70 @@ class _Add_Edit_language_profState extends State<Add_Edit_language_prof> {
                       ),
                     ),
                   ),
-                  items: <String>[
-                    'Low',
-                    'Medium',
-                    'High',
-                  ].map<DropdownMenuItem<String>>((String value) {
-                    return DropdownMenuItem<String>(
-                      value: value,
-                      child: Text(value),
-                    );
-                  }).toList(),
-                  onChanged: (String? newValue) {
-                    setState(() {
-                      _selectedspeakingLevel = newValue!;
-                      speakingLevelController.text = newValue;
-                    });
-                  },
                 ),
                 SizedBox(height: 20,),
+
+                // End Date
+                TextFormField(
+                  inputFormatters: [
+                    LengthLimitingTextInputFormatter(100),
+                  ],
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                  validator: (text){
+                    if (text == null || text.isEmpty){
+                      return "End Date can't be empty";
+                    }
+                    if (text.length==9){
+                      return "Please enter a valid End date";
+                    }
+                  },
+                  onChanged: (text) => setState(() {
+                    endDateController.text = text;
+                  }
+                  ),
+                  controller: endDateController,
+                  readOnly: true,
+                  enabled: true,
+                  onTap: ()=> _selectEndDate(context),
+                  decoration: InputDecoration(
+                    hintText: "End Date*",
+                    suffixIcon: IconButton(
+                      onPressed: () => _selectEndDate(context),
+                      icon: Icon(Icons.calendar_today),
+                    ),
+                    hintStyle: TextStyle(
+                      color: Colors.grey,
+                    ),
+                    filled: true,
+                    fillColor: Colors.grey.shade200,
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(
+                        color: Color(0xff03438C),
+                        width: 3,
+                        style: BorderStyle.solid,
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(height: 20,),
+
 
                 ElevatedButton(
                   onPressed: (){
-
-                    if (widget.languageId == null){
+                    if (widget.Certification_Id == null){
                       if(_validateForm() == true) {
                         Navigator.pop(context);
-                        _insertLanguageInfo();
+                        _insertCertificationInfo();
                       }
                     }else {
                       if(_validateForm() == true) {
                         Navigator.pop(context);
-                        _updateLanguageInfo();
+                        _updateCertificationInfo();
                       }
                     }
-
                   },
-                  child:(widget.languageId == null)? Text("Submit") : Text("Update"),
+                  child: (widget.Certification_Id == null)? Text("Submit") : Text("Update"),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Color(0xff03438C), // Change this color to your desired color
                   ),
