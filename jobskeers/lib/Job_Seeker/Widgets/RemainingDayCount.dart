@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 
 class RemainingDate extends StatelessWidget {
+  final DateTime date;
+  const RemainingDate({Key? key, required this.date}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     // Get the current date and format it
     DateTime currentDate = DateTime.now();
     String formattedDate = '${currentDate.day}/${currentDate.month}/${currentDate.year}';
-    DateTime targetDate = DateTime(2024, 1, 16);
-    int remainingDays = targetDate.difference(currentDate).inDays;
+    DateTime targetDate = date;
+    int remainingDays = date.difference(currentDate).inDays;
     return Text(
       "${remainingDays.toString()} days left",
       style: TextStyle(

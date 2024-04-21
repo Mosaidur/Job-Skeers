@@ -1,24 +1,64 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../Pages/Browse Jobs/JobDetails.dart';
-import 'RemainingDayCount.dart';
+import '../JobDetails.dart';
+import '../../../Widgets/RemainingDayCount.dart';
 
 
 
 class JobListForJobsPage extends StatefulWidget {
-  const JobListForJobsPage({super.key});
+  final String jobPostID;
+  final String Job_Title;
+  final String Company_Name;
+  final String Company_Logo  ;
+  final String salary ;
+  final DateTime Deadline ;
+  final String Location;
+  final String Vaccancy;
+  final String Employment_Type ;
+  final String Workplace_Type ;
+  final String Experienced_Type ;
+  final Widget JobPostDetailspage;
+  JobListForJobsPage({
+    super.key,
+    required this.jobPostID,
+    required this.Job_Title,
+    required this.Company_Name,
+    required this.Company_Logo ,
+    required this.salary,
+    required this.Deadline,
+    required this.Location,
+    required this.Vaccancy,
+    required this.Employment_Type,
+    required this.Workplace_Type,
+    required this.Experienced_Type,
+    required this.JobPostDetailspage,
+  });
 
   @override
   State<JobListForJobsPage> createState() => _JobListForJobsPageState();
 }
 
 class _JobListForJobsPageState extends State<JobListForJobsPage> {
+
+  // final String jobPostID ='';
+  // final String Job_Title ='Job_Title';
+  // final String Company_Name ='Company_Name';
+  // final String Company_Logo ="assets/icons_2/Company logo.png";
+  // final String salary ='20k - 30k';
+  // final DateTime Deadline =DateTime(2024, 4, 20);
+  // final String Location ="Dhaka";
+  // final String Vaccancy ='2';
+  // final String Emploment_Type ='Part-time';
+  // final String Workplace_Type ='Office';
+  // final String Experienced_Type ='Any';
+
+
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: (){
-        Navigator.push(context, MaterialPageRoute(builder: (context) => JobDetails()));
+        Navigator.push(context, MaterialPageRoute(builder: (context) => widget.JobPostDetailspage ));
       },
       child: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -48,7 +88,7 @@ class _JobListForJobsPageState extends State<JobListForJobsPage> {
                         Container(
                           width: MediaQuery.of(context).size.width/1.5,
                           child: Text(
-                            "Job TitleJob TitleJob Title Job TitleJob TitleJob Title",
+                            widget.Job_Title,
                             softWrap: true, // Enable soft wrapping
                             maxLines: 1,    // Limit the number of lines
                             overflow: TextOverflow.ellipsis,
@@ -63,7 +103,7 @@ class _JobListForJobsPageState extends State<JobListForJobsPage> {
                         Container(
                           width: MediaQuery.of(context).size.width/1.5,
                           child: Text(
-                            "vCompany NameCompany NameCompany NameCompany NameCompany Name",
+                            widget.Company_Name,
                             softWrap: true, // Enable soft wrapping
                             maxLines: 1,    // Limit the number of lines
                             overflow: TextOverflow.ellipsis,
@@ -83,7 +123,7 @@ class _JobListForJobsPageState extends State<JobListForJobsPage> {
                     child: Container(
                       height: 50,
                       width: 50,
-                      child: Image.asset("assets/icons_2/Company logo.png"),
+                      child: Image.asset((widget.Company_Logo == null) ?"assets/icons_2/Company logo.png" : widget.Company_Logo ),
                     ),
                   )
                 ],
@@ -101,7 +141,7 @@ class _JobListForJobsPageState extends State<JobListForJobsPage> {
                   children: [
 
                     Text(
-                      "৳ 20k - 30k BDT",
+                      "৳ ${widget.salary} BDT",
                       style: TextStyle(
                         color: Colors.black,
                         fontWeight: FontWeight.bold,
@@ -109,7 +149,7 @@ class _JobListForJobsPageState extends State<JobListForJobsPage> {
                       ),
                     ),
 
-                    RemainingDate(),
+                    RemainingDate(date: widget.Deadline),
 
                   ],
                 ),
@@ -155,7 +195,7 @@ class _JobListForJobsPageState extends State<JobListForJobsPage> {
                                 height: 5,
                               ),
                               Text(
-                                "Dhaka,Bangladesh",
+                                widget.Location,
                                 style: TextStyle(
                                   color: Colors.black,
                                   // color: Color(0xff03438C),
@@ -194,7 +234,7 @@ class _JobListForJobsPageState extends State<JobListForJobsPage> {
                               ),
 
                               Text(
-                                "Vacancy: 3",
+                                "Vacancy: ${widget.Vaccancy}",
                                 style: TextStyle(
                                   color: Colors.black,
                                   // color: Color(0xff03438C),
@@ -233,7 +273,7 @@ class _JobListForJobsPageState extends State<JobListForJobsPage> {
                               ),
 
                               Text(
-                                "Part Time",
+                                widget.Employment_Type,
                                 style: TextStyle(
                                   color: Colors.black,
                                   // color: Color(0xff03438C),
@@ -273,7 +313,7 @@ class _JobListForJobsPageState extends State<JobListForJobsPage> {
                               ),
 
                               Text(
-                                "Workplace: Office",
+                                "Workplace: ${widget.Workplace_Type}",
                                 style: TextStyle(
                                   color: Colors.black,
                                   // color: Color(0xff03438C),
@@ -313,7 +353,7 @@ class _JobListForJobsPageState extends State<JobListForJobsPage> {
                               ),
 
                               Text(
-                                "Experienced: Any",
+                                "Experienced: ${widget.Experienced_Type}",
                                 style: TextStyle(
                                   color: Colors.black,
                                   // color: Color(0xff03438C),

@@ -1,10 +1,52 @@
 
 import 'package:flutter/material.dart';
-
+import 'package:intl/intl.dart';
 import 'Widgets/JobDescription.dart';
 
 class JobDetails extends StatefulWidget {
-  const JobDetails({super.key});
+  final String jobPostID;
+  final String Job_Title;
+  final String Company_Name;
+  final String Company_Logo ;
+  final String salary ;
+  final DateTime Deadline ;
+  final String Location;
+  final String Vacancy;
+  final String Employment_Type ;
+  final String Workplace_Type ;
+  final String Experienced_Type ;
+
+  final String job_type;
+  final String job_description ;
+  final String job_responsibilities ;
+  final String job_requirement;
+  final String additional_requirement ;
+  final String gender ;
+  final String benefits ;
+  final String publish_status;
+  final String read_before_apply;
+
+  const JobDetails({super.key,
+    required this.jobPostID,
+    required this.Job_Title,
+    required this.Company_Name,
+    required this.Company_Logo,
+    required this.salary,
+    required this.Deadline,
+    required this.Location,
+    required this.Vacancy,
+    required this.Employment_Type,
+    required this.Workplace_Type,
+    required this.Experienced_Type,
+    required this.job_type,
+    required this.job_description,
+    required this.job_responsibilities,
+    required this.job_requirement,
+    required this.additional_requirement,
+    required this.gender,
+    required this.benefits,
+    required this.publish_status,
+    required this.read_before_apply});
 
   @override
   State<JobDetails> createState() => _JobDetailsState();
@@ -91,7 +133,7 @@ class _JobDetailsState extends State<JobDetails> {
                     Padding(
                       padding: const EdgeInsets.only(left: 20.0, top: 15.0),
                       child: Text(
-                          "Company Name",
+                        widget.Company_Name,
                       softWrap: true,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
@@ -107,7 +149,7 @@ class _JobDetailsState extends State<JobDetails> {
                     Padding(
                       padding: const EdgeInsets.only(left: 20.0, top: 15.0),
                       child: Text(
-                        "Job title",
+                        widget.Job_Title,
                         softWrap: true,
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
@@ -143,7 +185,7 @@ class _JobDetailsState extends State<JobDetails> {
                               Container(
                                 width: MediaQuery.of(context).size.width/2,
                                 child: Text(
-                                  "8000-15000 BDT",
+                                  widget.salary,
                                   softWrap: true,
                                   maxLines: 2,
                                   overflow: TextOverflow.ellipsis,
@@ -179,7 +221,7 @@ class _JobDetailsState extends State<JobDetails> {
                               Container(
                                 width: MediaQuery.of(context).size.width/2.5,
                                 child: Text(
-                                  "Mirpur, Dhaka, Bangladesh",
+                                  widget.Location,
                                   softWrap: true,
                                   maxLines: 2,
                                   overflow: TextOverflow.ellipsis,
@@ -223,7 +265,7 @@ class _JobDetailsState extends State<JobDetails> {
                               Container(
                                 width: MediaQuery.of(context).size.width/2,
                                 child: Text(
-                                  "Female",
+                                  widget.gender,
                                   softWrap: true,
                                   maxLines: 2,
                                   overflow: TextOverflow.ellipsis,
@@ -246,7 +288,7 @@ class _JobDetailsState extends State<JobDetails> {
                               Container(
                                 width: MediaQuery.of(context).size.width/2.5,
                                 child: Text(
-                                  "Employment Type",
+                                  "Employment Type" ,
                                   style: TextStyle(
                                       color: Colors.black45,
                                       fontSize: 16,
@@ -259,7 +301,7 @@ class _JobDetailsState extends State<JobDetails> {
                               Container(
                                 width: MediaQuery.of(context).size.width/2.5,
                                 child: Text(
-                                  "Part Time",
+                                  widget.Employment_Type,
                                   softWrap: true,
                                   maxLines: 2,
                                   overflow: TextOverflow.ellipsis,
@@ -290,7 +332,7 @@ class _JobDetailsState extends State<JobDetails> {
                               Container(
                                 width: MediaQuery.of(context).size.width/2,
                                 child: Text(
-                                  "Experience",
+                                  "Experience" ,
                                   style: TextStyle(
                                       color: Colors.black45,
                                       fontSize: 16,
@@ -303,7 +345,7 @@ class _JobDetailsState extends State<JobDetails> {
                               Container(
                                 width: MediaQuery.of(context).size.width/2,
                                 child: Text(
-                                  "2-5 Years",
+                                  widget.Experienced_Type ,
                                   softWrap: true,
                                   maxLines: 2,
                                   overflow: TextOverflow.ellipsis,
@@ -326,7 +368,7 @@ class _JobDetailsState extends State<JobDetails> {
                               Container(
                                 width: MediaQuery.of(context).size.width/2.5,
                                 child: Text(
-                                  "Workplace Type",
+                                  "Workplace Type" ,
                                   style: TextStyle(
                                       color: Colors.black45,
                                       fontSize: 16,
@@ -339,7 +381,7 @@ class _JobDetailsState extends State<JobDetails> {
                               Container(
                                 width: MediaQuery.of(context).size.width/2.5,
                                 child: Text(
-                                  "Office",
+                                  widget.Workplace_Type,
                                   softWrap: true,
                                   maxLines: 2,
                                   overflow: TextOverflow.ellipsis,
@@ -362,7 +404,7 @@ class _JobDetailsState extends State<JobDetails> {
                     Row(
                       children: [
 
-                        //Posted at
+                        //Vacancy
                         Padding(
                           padding: const EdgeInsets.only(left: 20.0,top: 10.0),
                           child: Column(
@@ -382,8 +424,7 @@ class _JobDetailsState extends State<JobDetails> {
 
                               Container(
                                 width: MediaQuery.of(context).size.width/2,
-                                child: Text(
-                                  "3",
+                                child: Text(widget.Vacancy,
                                   softWrap: true,
                                   maxLines: 2,
                                   overflow: TextOverflow.ellipsis,
@@ -419,7 +460,7 @@ class _JobDetailsState extends State<JobDetails> {
                               Container(
                                 width: MediaQuery.of(context).size.width/2.5,
                                 child: Text(
-                                  "16/01/2024",
+                                  DateFormat.yMMMd().format(widget.Deadline),
                                   softWrap: true,
                                   maxLines: 2,
                                   overflow: TextOverflow.ellipsis,
@@ -443,14 +484,14 @@ class _JobDetailsState extends State<JobDetails> {
             ),
 
             JobDescription(
-              Education_level: '',
-              Job_Description: '',
-              Job_Responsibilities: '',
-              Job_reuirements: '',
-              Additional_reuirements: '',
-              Salary_Benifits: '',
-              Additional_info: '',
-              Read_Before_apply: '',)
+              Education_level: "",
+              Job_Description: widget.job_description ,
+              Job_Responsibilities: widget.job_responsibilities ,
+              Job_reuirements: widget.job_requirement,
+              Additional_reuirements: widget.additional_requirement ,
+              Salary_Benifits: widget.benefits ,
+              Additional_info: "Job Type \n ${widget.job_type}",
+              Read_Before_apply: widget.read_before_apply,)
 
 
           ],

@@ -16,7 +16,29 @@ class _HomePageJobListState extends State<HomePageJobList> {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: (){
-        Navigator.push(context, MaterialPageRoute(builder: (context) => JobDetails() ));
+        Navigator.push(context, MaterialPageRoute(builder: (context) => JobDetails(
+
+          jobPostID: "jobPost['job_id']!",
+          Job_Title: "jobPost['job_title']!",
+          Company_Name: "jobPost['company_name']!",
+          Company_Logo: '',
+          salary: "jobPost['salary']!",
+          Deadline: DateTime(2024, 5, 5),
+          Location: '',
+          Vacancy: "jobPost['vacancies']!",
+          Employment_Type: "jobPost['employment_type']!",
+          Workplace_Type: "jobPost['workplace_type']!",
+          Experienced_Type: "jobPost['experience']!",
+          job_type: '',
+          job_description: '',
+          job_responsibilities: '',
+          job_requirement: '',
+          additional_requirement: '',
+          gender: '',
+          benefits: '',
+          publish_status: '',
+          read_before_apply: '',
+        ) ));
       },
       child: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -103,7 +125,7 @@ class _HomePageJobListState extends State<HomePageJobList> {
                       ),
                     ),
 
-                    RemainingDate(),
+                    RemainingDate(date: DateTime(2024, 4, 30)),
 
                   ],
                 ),
